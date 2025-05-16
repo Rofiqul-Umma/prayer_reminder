@@ -7,7 +7,7 @@ class GetPrayerInitialState extends GetPrayerState {}
 class GetPrayerLoadingState extends GetPrayerState {}
 
 class GetPrayerSuccessState extends GetPrayerState {
-  final PrayerModel data;
+  final List<PrayerModel> data;
   GetPrayerSuccessState(this.data);
 }
 
