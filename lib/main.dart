@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:prayer_reminder/core/DI.dart';
 import 'package:prayer_reminder/core/dio_helper.dart';
+import 'package:prayer_reminder/features/notification/notification_service.dart';
 import 'package:prayer_reminder/themes/dark_mode.dart';
 
 import 'features/home/view/home_page.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // intitialize get it
   setup();
   // initialize dio
   DioHelper.init();
+  // initialize notification
+  await NotificationService().init();
   // initialize the app
   runApp(const MyApp());
 }
