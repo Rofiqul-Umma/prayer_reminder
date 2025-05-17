@@ -77,7 +77,7 @@ class GetPrayerViewModel extends Cubit<GetPrayerState> {
 
         return now.hashCode == prayerTime.hour &&
             now.minute == prayerTime.minute;
-      }, orElse: () => PrayerModel(name: "No Prayer", time: ""));
+      });
       NotificationService().showNotification(
         id: 1,
         title: currentPrayer.name,
