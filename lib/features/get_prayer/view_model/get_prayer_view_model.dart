@@ -75,13 +75,12 @@ class GetPrayerViewModel extends Cubit<GetPrayerState> {
           minute: int.parse(prayer.time.split(":")[1]),
         );
 
-        return now.hashCode == prayerTime.hour &&
-            now.minute == prayerTime.minute;
+        return now.hour == prayerTime.hour && now.minute == prayerTime.minute;
       });
       NotificationService().showNotification(
         id: 1,
-        title: currentPrayer.name,
-        body: currentPrayer.time,
+        title: "Reminder",
+        body: "Perfom your prayer now, it's ${currentPrayer.name} time",
       );
     } catch (e) {}
   }

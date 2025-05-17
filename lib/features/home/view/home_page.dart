@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage> {
     // get the current location
     getCurrentLocationVM.fetchCurrentLocation();
     // get the prayer times
-    getPrayerVM.startPrayerTimeChecker();
+    Future.microtask(() => getPrayerVM.startPrayerTimeChecker());
     super.initState();
   }
 

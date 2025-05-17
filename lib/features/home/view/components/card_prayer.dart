@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:prayer_reminder/features/get_prayer/view_model/get_prayer_state.dart';
-import 'package:prayer_reminder/features/notification/notification_service.dart';
 
 class CardPrayer extends StatelessWidget {
   final int index;
@@ -19,14 +18,6 @@ class CardPrayer extends StatelessWidget {
           border: Border.all(color: Colors.white, width: 1),
         ),
         child: ListTile(
-          onTap: () {
-            print("Tapped on ${state.data[index].name}");
-            NotificationService().showNotification(
-              id: 1,
-              title: "TEST NOTIF",
-              body: "TEST BODY",
-            );
-          },
           title: Text(
             state.data[index].name,
             style: TextStyle(
