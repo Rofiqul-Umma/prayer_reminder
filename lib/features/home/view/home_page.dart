@@ -28,6 +28,8 @@ class _HomePageState extends State<HomePage> {
     getCurrentLocationVM = getIt.get<GetCurrentLocationViewModel>();
     // get the current location
     getCurrentLocationVM.fetchCurrentLocation();
+    // get the prayer times
+    getPrayerVM.startPrayerTimeChecker();
     super.initState();
   }
 

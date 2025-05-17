@@ -1,12 +1,18 @@
+import 'dart:async';
+
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:prayer_reminder/features/get_prayer/api/get_prayer_api.dart';
 import 'package:prayer_reminder/features/get_prayer/model/get_prayer_model.dart';
 import 'package:prayer_reminder/features/get_prayer/model/prayer_model.dart';
 import 'package:prayer_reminder/features/get_prayer/view_model/get_prayer_state.dart';
+import 'package:prayer_reminder/features/notification/notification_service.dart';
 
 class GetPrayerViewModel extends Cubit<GetPrayerState> {
   final GetPrayerApi getPrayerApi;
   GetPrayerViewModel(this.getPrayerApi) : super(GetPrayerInitialState());
+
+  List<PrayerModel> prayers = [];
 
   // function for get prayer nearest current time
   Future<void> getPrayers(String address) async {
@@ -35,10 +41,48 @@ class GetPrayerViewModel extends Cubit<GetPrayerState> {
         listPrayer.add(
           PrayerModel(name: "Isya", time: prayer.data!.timings!.isha),
         );
+        prayers = listPrayer;
         emit(
           GetPrayerSuccessState(listPrayer), // Handle success
         );
       },
     );
+  }
+
+  // Periodically check and show the current prayer time
+  void startPrayerTimeChecker({
+    Duration interval = const Duration(minutes: 1),
+  }) {
+    _prayerTimeChecker?.cancel();
+    _prayerTimeChecker = Stream.periodic(
+      interval,
+    ).listen((_) => showCurrentPrayersTime());
+  }
+
+  void stopPrayerTimeChecker() {
+    _prayerTimeChecker?.cancel();
+    _prayerTimeChecker = null;
+  }
+
+  StreamSubscription? _prayerTimeChecker;
+
+  void showCurrentPrayersTime() {
+    try {
+      final now = TimeOfDay.now();
+      final currentPrayer = prayers.firstWhere((prayer) {
+        final prayerTime = TimeOfDay(
+          hour: int.parse(prayer.time.split(":")[0]),
+          minute: int.parse(prayer.time.split(":")[1]),
+        );
+
+        return now.hashCode == prayerTime.hour &&
+            now.minute == prayerTime.minute;
+      }, orElse: () => PrayerModel(name: "No Prayer", time: ""));
+      NotificationService().showNotification(
+        id: 1,
+        title: currentPrayer.name,
+        body: currentPrayer.time,
+      );
+    } catch (e) {}
   }
 }

@@ -8,12 +8,12 @@ import 'features/home/view/home_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // initialize notification
+  await NotificationService().init();
   // intitialize get it
   setup();
   // initialize dio
   DioHelper.init();
-  // initialize notification
-  await NotificationService().init();
   // initialize the app
   runApp(const MyApp());
 }
