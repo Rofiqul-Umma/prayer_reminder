@@ -6,7 +6,7 @@ import 'package:prayer_reminder/features/get_prayer/api/get_prayer_api.dart';
 import 'package:prayer_reminder/features/get_prayer/model/get_prayer_model.dart';
 import 'package:prayer_reminder/features/get_prayer/model/prayer_model.dart';
 import 'package:prayer_reminder/features/get_prayer/view_model/get_prayer_state.dart';
-import 'package:prayer_reminder/features/notification/notification_service.dart';
+import 'package:prayer_reminder/features/notification/service/notification_service.dart';
 
 class GetPrayerViewModel extends Cubit<GetPrayerState> {
   final GetPrayerApi getPrayerApi;

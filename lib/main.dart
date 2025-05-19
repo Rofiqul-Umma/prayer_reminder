@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:prayer_reminder/core/DI.dart';
 import 'package:prayer_reminder/core/dio_helper.dart';
-import 'package:prayer_reminder/features/notification/notification_service.dart';
+import 'package:prayer_reminder/features/notification/service/notification_service.dart';
 import 'package:prayer_reminder/themes/dark_mode.dart';
 
 import 'features/home/view/home_page.dart';
