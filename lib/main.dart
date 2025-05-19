@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Prayer Reminder',
-      themeMode: ThemeMode.dark,
+      themeMode: ThemeMode.system,
       darkTheme: DarkModeTheme.theme,
       debugShowCheckedModeBanner: false,
       home: HomePage(),

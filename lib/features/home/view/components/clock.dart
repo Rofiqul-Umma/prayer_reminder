@@ -17,10 +17,9 @@ class Clock extends StatelessWidget {
             "${now.hour.toString().padLeft(2, '0')}:${now.minute.toString().padLeft(2, '0')}:${now.second.toString().padLeft(2, '0')}";
         return Text(
           timeString,
-          style: TextStyle(
+          style: Theme.of(context).textTheme.headlineSmall?.copyWith(
             fontSize: size.width * 0.15,
             fontWeight: FontWeight.w600,
-            color: Colors.white,
           ),
         );
       },

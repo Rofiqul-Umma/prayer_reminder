@@ -31,10 +31,10 @@ class ListPrayers extends StatelessWidget {
           } else if (state is GetPrayerErrorState) {
             return Text(
               state.error,
-              style: TextStyle(
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
                 fontSize: size.width * 0.05,
                 fontWeight: FontWeight.w500,
-                color: Colors.red,
+                color: Theme.of(context).colorScheme.error,
               ),
             );
           } else {

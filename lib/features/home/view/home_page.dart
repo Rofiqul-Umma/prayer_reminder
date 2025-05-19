@@ -37,7 +37,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
     return Scaffold(
-      backgroundColor: const Color(0xFF1A1A1A),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
         child: Center(
           child: Column(
@@ -65,14 +65,15 @@ class _HomePageState extends State<HomePage> {
                         Icon(
                           HugeIcons.strokeRoundedLocation01,
                           size: size.width * 0.04,
-                          color: Colors.white,
+                          color: Theme.of(context).iconTheme.color,
                         ),
                         Text(
                           state.data.subLocality,
-                          style: TextStyle(
+                          style: Theme.of(
+                            context,
+                          ).textTheme.bodySmall?.copyWith(
                             fontSize: size.width * 0.035,
                             fontWeight: FontWeight.w500,
-                            color: Colors.white,
                           ),
                         ),
                       ],
@@ -80,19 +81,19 @@ class _HomePageState extends State<HomePage> {
                   } else if (state is GetCurrentLocationErrorState) {
                     return Text(
                       state.error,
-                      style: TextStyle(
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
                         fontSize: size.width * 0.05,
                         fontWeight: FontWeight.w500,
-                        color: Colors.red,
+                        color: Theme.of(context).colorScheme.error,
                       ),
                     );
                   } else {
                     return Text(
                       "Something went wrong",
-                      style: TextStyle(
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
                         fontSize: size.width * 0.05,
                         fontWeight: FontWeight.w500,
-                        color: Colors.red,
+                        color: Theme.of(context).colorScheme.error,
                       ),
                     );
                   }

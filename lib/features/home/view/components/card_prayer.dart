@@ -13,25 +13,26 @@ class CardPrayer extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: size.width * 0.05),
       child: Container(
         decoration: BoxDecoration(
-          color: const Color(0xFF1A1A1A),
+          color: Theme.of(context).cardColor,
           borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: Colors.white, width: 1),
+          border: Border.all(
+            color: Theme.of(context).colorScheme.onSurface,
+            width: 1,
+          ),
         ),
         child: ListTile(
           title: Text(
             state.data[index].name,
-            style: TextStyle(
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
               fontSize: size.width * 0.04,
               fontWeight: FontWeight.w500,
-              color: Colors.white,
             ),
           ),
           trailing: Text(
             state.data[index].time,
-            style: TextStyle(
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
               fontSize: size.width * 0.03,
               fontWeight: FontWeight.w500,
-              color: Colors.white,
             ),
           ),
         ),
