@@ -65,7 +65,7 @@ class GetPrayerViewModel extends Cubit<GetPrayerState> {
     _prayerTimeChecker?.cancel();
     _prayerTimeChecker = Stream.periodic(
       interval,
-    ).listen((_) => showCurrentPrayersTime());
+    ).listen((_) => _showCurrentPrayersTime());
   }
 
   void stopPrayerTimeChecker() {
@@ -75,7 +75,7 @@ class GetPrayerViewModel extends Cubit<GetPrayerState> {
 
   StreamSubscription? _prayerTimeChecker;
 
-  void showCurrentPrayersTime() {
+  void _showCurrentPrayersTime() {
     try {
       final now = TimeOfDay.now();
       final currentPrayer = prayers.firstWhere((prayer) {
@@ -91,6 +91,12 @@ class GetPrayerViewModel extends Cubit<GetPrayerState> {
         title: "Reminder",
         body: "Perfom your prayer now, it's ${currentPrayer.name} time",
       );
-    } catch (e) {}
+    } catch (e) {
+      NotificationService().showNotification(
+        id: 1,
+        title: "Reminder Error",
+        body: "$e",
+      );
+    }
   }
 }
