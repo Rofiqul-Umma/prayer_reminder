@@ -21,7 +21,7 @@ class NotificationService {
     try {
       // Set up platform-specific settings
       final AndroidInitializationSettings androidInitSettings =
-          AndroidInitializationSettings("@mipmap/ic_launcher");
+          AndroidInitializationSettings('ic_notification');
 
       final DarwinInitializationSettings iosInitSettings =
           DarwinInitializationSettings(
@@ -114,6 +114,7 @@ class NotificationService {
     try {
       const AndroidNotificationDetails androidDetails =
           AndroidNotificationDetails(
+            color: const Color(0xFF1A1A1A),
             channelId,
             channelName,
             channelDescription: channelDescription,
@@ -122,8 +123,6 @@ class NotificationService {
             showWhen: false,
             enableVibration: true,
             playSound: true,
-            icon: "@mipmap/ic_launcher",
-            largeIcon: DrawableResourceAndroidBitmap("@mipmap/ic_launcher"),
           );
 
       const DarwinNotificationDetails iosDetails = DarwinNotificationDetails(
