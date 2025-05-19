@@ -21,7 +21,7 @@ class NotificationService {
     try {
       // Set up platform-specific settings
       final AndroidInitializationSettings androidInitSettings =
-          AndroidInitializationSettings('ic_notification');
+          AndroidInitializationSettings('app_icon');
 
       final DarwinInitializationSettings iosInitSettings =
           DarwinInitializationSettings(
@@ -86,6 +86,11 @@ class NotificationService {
       channelName,
       description: channelDescription,
       importance: Importance.max,
+      sound: RawResourceAndroidNotificationSound('notif_sound'),
+      playSound: true,
+      enableVibration: true,
+      enableLights: true,
+      bypassDnd: true,
     );
 
     await flutterLocalNotificationsPlugin
@@ -123,6 +128,8 @@ class NotificationService {
             showWhen: false,
             enableVibration: true,
             playSound: true,
+            channelBypassDnd: true,
+            sound: RawResourceAndroidNotificationSound('notif_sound'),
           );
 
       const DarwinNotificationDetails iosDetails = DarwinNotificationDetails(
