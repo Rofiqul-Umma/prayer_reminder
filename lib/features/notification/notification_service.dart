@@ -15,13 +15,15 @@ class NotificationService {
   static const String channelId = 'prayer_channel_id';
   static const String channelName = 'Prayer Notifications';
   static const String channelDescription = 'Channel for prayer reminders';
+  static const RawResourceAndroidNotificationSound channelSound =
+      RawResourceAndroidNotificationSound('notification_sound');
 
   // Initialize notification service
   Future<void> init() async {
     try {
       // Set up platform-specific settings
       final AndroidInitializationSettings androidInitSettings =
-          AndroidInitializationSettings('app_icon');
+          AndroidInitializationSettings("notification_icon");
 
       final DarwinInitializationSettings iosInitSettings =
           DarwinInitializationSettings(
@@ -86,11 +88,10 @@ class NotificationService {
       channelName,
       description: channelDescription,
       importance: Importance.max,
-      sound: RawResourceAndroidNotificationSound('notif_sound'),
-      playSound: true,
       enableVibration: true,
       enableLights: true,
-      bypassDnd: true,
+      sound: channelSound,
+      playSound: true,
     );
 
     await flutterLocalNotificationsPlugin
@@ -128,8 +129,7 @@ class NotificationService {
             showWhen: false,
             enableVibration: true,
             playSound: true,
-            channelBypassDnd: true,
-            sound: RawResourceAndroidNotificationSound('notif_sound'),
+            sound: channelSound,
           );
 
       const DarwinNotificationDetails iosDetails = DarwinNotificationDetails(
