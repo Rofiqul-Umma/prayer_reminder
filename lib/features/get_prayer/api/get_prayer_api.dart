@@ -10,7 +10,7 @@ class GetPrayerApi {
     try {
       final response = await DioHelper.getData(
         url: "${Endpoint.GET_PRAYER_TIMES}/$date",
-        queryParameters: {'address': address},
+        queryParameters: {'address': address, 'method': '20'},
       );
       if (response.statusCode == 200) {
         return Right(response.data);

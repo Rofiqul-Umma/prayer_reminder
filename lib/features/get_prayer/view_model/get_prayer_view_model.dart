@@ -25,25 +25,34 @@ class GetPrayerViewModel extends Cubit<GetPrayerState> {
       (error) => emit(GetPrayerErrorState(error)), // Handle error
       (data) {
         final prayer = GetPrayerModel.fromJson(data);
-        List<PrayerModel> listPrayer = [];
-        listPrayer.add(
+
+        if (prayer.data == null) {
+          emit(GetPrayerErrorState("No data found"));
+          return;
+        }
+
+        if (prayer.data!.timings == null) {
+          emit(GetPrayerErrorState("No prayer times found"));
+          return;
+        }
+
+        prayers.add(
           PrayerModel(name: "Subuh", time: prayer.data!.timings!.fajr),
         );
-        listPrayer.add(
+        prayers.add(
           PrayerModel(name: "Dzuhur", time: prayer.data!.timings!.dhuhr),
         );
-        listPrayer.add(
+        prayers.add(
           PrayerModel(name: "Ashar", time: prayer.data!.timings!.asr),
         );
-        listPrayer.add(
+        prayers.add(
           PrayerModel(name: "Maghrib", time: prayer.data!.timings!.maghrib),
         );
-        listPrayer.add(
+        prayers.add(
           PrayerModel(name: "Isya", time: prayer.data!.timings!.isha),
         );
-        prayers = listPrayer;
         emit(
-          GetPrayerSuccessState(listPrayer), // Handle success
+          GetPrayerSuccessState(prayers), // Handle success
         );
       },
     );

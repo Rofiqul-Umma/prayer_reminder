@@ -114,7 +114,6 @@ class NotificationService {
     try {
       const AndroidNotificationDetails androidDetails =
           AndroidNotificationDetails(
-            color: Colors.white,
             channelId,
             channelName,
             channelDescription: channelDescription,
@@ -124,6 +123,7 @@ class NotificationService {
             enableVibration: true,
             playSound: true,
             icon: "@mipmap/ic_launcher",
+            largeIcon: DrawableResourceAndroidBitmap("@mipmap/ic_launcher"),
           );
 
       const DarwinNotificationDetails iosDetails = DarwinNotificationDetails(
@@ -144,8 +144,6 @@ class NotificationService {
         notificationDetails,
         payload: payload,
       );
-
-      debugPrint("Notification sent: $title");
     } catch (e) {
       debugPrint("Error showing notification: $e");
     }
