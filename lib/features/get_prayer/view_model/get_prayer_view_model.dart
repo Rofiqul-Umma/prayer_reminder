@@ -92,11 +92,8 @@ class GetPrayerViewModel extends Cubit<GetPrayerState> {
         body: "Perfom your prayer now, it's ${currentPrayer.name} time",
       );
     } catch (e) {
-      NotificationService().showNotification(
-        id: 1,
-        title: "Reminder Error",
-        body: "$e",
-      );
+      // Handle the case where no prayer time matches the current time
+      debugPrint("No matching prayer time found: $e");
     }
   }
 }
