@@ -5,6 +5,7 @@ class LightModeTheme {
     return ThemeData(
       brightness: Brightness.light,
       primaryColor: Colors.teal,
+      useMaterial3: true,
       scaffoldBackgroundColor: Colors.white,
       appBarTheme: AppBarTheme(
         backgroundColor: Colors.teal,
