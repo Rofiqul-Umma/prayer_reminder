@@ -5,6 +5,7 @@ import 'package:lottie/lottie.dart';
 import 'package:prayer_reminder/core/DI.dart';
 import 'package:prayer_reminder/features/get_current_loc/view_model/get_current_loc_view_model.dart';
 import 'package:prayer_reminder/features/get_current_loc/view_model/get_current_location_state.dart';
+import 'package:prayer_reminder/features/get_prayer/view_model/get_prayer_state.dart';
 import 'package:prayer_reminder/features/get_prayer/view_model/get_prayer_view_model.dart';
 import 'package:prayer_reminder/features/home/view/components/clock.dart';
 import 'package:prayer_reminder/features/home/view/components/list_prayers.dart';
@@ -28,8 +29,6 @@ class _HomePageState extends State<HomePage> {
     getCurrentLocationVM = getIt.get<GetCurrentLocationViewModel>();
     // get the current location
     getCurrentLocationVM.fetchCurrentLocation();
-    // get the prayer times
-    Future.microtask(() => getPrayerVM.startPrayerTimeChecker());
     super.initState();
   }
 
@@ -45,40 +44,50 @@ class _HomePageState extends State<HomePage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(height: size.height * 0.03),
-              BlocConsumer(
-                bloc: getCurrentLocationVM,
+              BlocListener(
+                bloc: getPrayerVM,
                 listener: (context, state) {
-                  if (state is GetCurrentLocationSuccessState) {
-                    getPrayerVM.getPrayers(
-                      "${state.data.subLocality}, ${state.data.locality}, ${state.data.country}",
+                  if (state is GetPrayerSuccessState) {
+                    Future.microtask(
+                      () => getPrayerVM.startPrayerTimeChecker(),
                     );
                   }
                 },
-                builder: (context, state) {
-                  if (state is GetCurrentLocationLoadingState) {
-                    return const Center(child: CupertinoActivityIndicator());
-                  } else if (state is GetCurrentLocationSuccessState) {
-                    return Location(state: state);
-                  } else if (state is GetCurrentLocationErrorState) {
-                    return Text(
-                      state.error,
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        fontSize: size.width * 0.05,
-                        fontWeight: FontWeight.w500,
-                        color: Theme.of(context).colorScheme.error,
-                      ),
-                    );
-                  } else {
-                    return Text(
-                      "Something went wrong",
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        fontSize: size.width * 0.05,
-                        fontWeight: FontWeight.w500,
-                        color: Theme.of(context).colorScheme.error,
-                      ),
-                    );
-                  }
-                },
+                child: BlocConsumer(
+                  bloc: getCurrentLocationVM,
+                  listener: (context, state) {
+                    if (state is GetCurrentLocationSuccessState) {
+                      getPrayerVM.getPrayers(
+                        "${state.data.subLocality}, ${state.data.locality}, ${state.data.country}",
+                      );
+                    }
+                  },
+                  builder: (context, state) {
+                    if (state is GetCurrentLocationLoadingState) {
+                      return const Center(child: CupertinoActivityIndicator());
+                    } else if (state is GetCurrentLocationSuccessState) {
+                      return Location(state: state);
+                    } else if (state is GetCurrentLocationErrorState) {
+                      return Text(
+                        state.error,
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          fontSize: size.width * 0.05,
+                          fontWeight: FontWeight.w500,
+                          color: Theme.of(context).colorScheme.error,
+                        ),
+                      );
+                    } else {
+                      return Text(
+                        "Something went wrong",
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          fontSize: size.width * 0.05,
+                          fontWeight: FontWeight.w500,
+                          color: Theme.of(context).colorScheme.error,
+                        ),
+                      );
+                    }
+                  },
+                ),
               ),
               SizedBox(height: size.height * 0.01),
               Clock(),
