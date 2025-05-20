@@ -6,10 +6,10 @@ class DarkModeTheme {
       fontFamily: "Roboto",
       useMaterial3: true,
       brightness: Brightness.dark,
-      primaryColor: Colors.grey[900],
-      scaffoldBackgroundColor: Colors.black,
+      primaryColor: Colors.grey[800],
+      scaffoldBackgroundColor: Color(0xFF23272F),
       appBarTheme: AppBarTheme(
-        backgroundColor: Colors.grey[850],
+        backgroundColor: Colors.grey[800],
         foregroundColor: Colors.white,
         elevation: 0,
         centerTitle: true,
@@ -29,18 +29,18 @@ class DarkModeTheme {
         bodyMedium: TextStyle(fontSize: 14, color: Colors.grey[500]),
       ),
       buttonTheme: ButtonThemeData(
-        buttonColor: Colors.grey[800],
+        buttonColor: Colors.grey[700],
         textTheme: ButtonTextTheme.primary,
       ),
       cardTheme: CardTheme(
-        color: Colors.grey[850],
+        color: Colors.grey[800],
         elevation: 2,
         margin: EdgeInsets.all(8),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: Colors.grey[800],
+        fillColor: Colors.grey[700],
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide.none,
@@ -49,7 +49,7 @@ class DarkModeTheme {
       ),
       iconTheme: IconThemeData(color: Colors.grey[400]),
       floatingActionButtonTheme: FloatingActionButtonThemeData(
-        backgroundColor: Colors.grey[800],
+        backgroundColor: Colors.grey[700],
         foregroundColor: Colors.white,
       ),
     );

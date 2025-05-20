@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hugeicons/hugeicons.dart';
 import 'package:lottie/lottie.dart';
 import 'package:prayer_reminder/core/DI.dart';
 import 'package:prayer_reminder/features/get_current_loc/view_model/get_current_loc_view_model.dart';
@@ -9,6 +8,7 @@ import 'package:prayer_reminder/features/get_current_loc/view_model/get_current_
 import 'package:prayer_reminder/features/get_prayer/view_model/get_prayer_view_model.dart';
 import 'package:prayer_reminder/features/home/view/components/clock.dart';
 import 'package:prayer_reminder/features/home/view/components/list_prayers.dart';
+import 'package:prayer_reminder/features/home/view/components/location.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -58,26 +58,7 @@ class _HomePageState extends State<HomePage> {
                   if (state is GetCurrentLocationLoadingState) {
                     return const Center(child: CupertinoActivityIndicator());
                   } else if (state is GetCurrentLocationSuccessState) {
-                    return Row(
-                      spacing: 5,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          HugeIcons.strokeRoundedLocation01,
-                          size: size.width * 0.04,
-                          color: Theme.of(context).iconTheme.color,
-                        ),
-                        Text(
-                          state.data.subLocality,
-                          style: Theme.of(
-                            context,
-                          ).textTheme.bodySmall?.copyWith(
-                            fontSize: size.width * 0.035,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ],
-                    );
+                    return Location(state: state);
                   } else if (state is GetCurrentLocationErrorState) {
                     return Text(
                       state.error,
