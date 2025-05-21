@@ -14,7 +14,7 @@ class Clock extends StatelessWidget {
       builder: (context, snapshot) {
         final now = snapshot.data ?? DateTime.now();
         final timeString =
-            "${now.hour.toString().padLeft(2, '0')}:${now.minute.toString().padLeft(2, '0')}:${now.second.toString().padLeft(2, '0')}";
+            "${now.hour.toString().padLeft(2, '0')}:${now.minute.toString().padLeft(2, '0')}";
         return Text(
           timeString,
           style: Theme.of(context).textTheme.headlineSmall?.copyWith(
