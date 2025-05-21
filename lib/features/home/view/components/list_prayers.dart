@@ -1,9 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:prayer_reminder/features/get_prayer/view_model/get_prayer_state.dart';
 import 'package:prayer_reminder/features/get_prayer/view_model/get_prayer_view_model.dart';
 import 'package:prayer_reminder/features/home/view/components/card_prayer.dart';
+import 'package:prayer_reminder/features/home/view/components/loading.dart';
 
 class ListPrayers extends StatelessWidget {
   final GetPrayerViewModel getPrayerVM;
@@ -17,7 +17,7 @@ class ListPrayers extends StatelessWidget {
         bloc: getPrayerVM,
         builder: (context, state) {
           if (state is GetPrayerLoadingState) {
-            return const Center(child: CupertinoActivityIndicator());
+            return Loading();
           } else if (state is GetPrayerSuccessState) {
             return ListView.separated(
               shrinkWrap: true,
@@ -38,7 +38,7 @@ class ListPrayers extends StatelessWidget {
               ),
             );
           } else {
-            return Center(child: CupertinoActivityIndicator());
+            return Loading();
           }
         },
       ),

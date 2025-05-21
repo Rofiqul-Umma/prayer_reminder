@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
@@ -9,6 +8,7 @@ import 'package:prayer_reminder/features/get_prayer/view_model/get_prayer_state.
 import 'package:prayer_reminder/features/get_prayer/view_model/get_prayer_view_model.dart';
 import 'package:prayer_reminder/features/home/view/components/clock.dart';
 import 'package:prayer_reminder/features/home/view/components/list_prayers.dart';
+import 'package:prayer_reminder/features/home/view/components/loading.dart';
 import 'package:prayer_reminder/features/home/view/components/location.dart';
 
 class HomePage extends StatefulWidget {
@@ -64,7 +64,7 @@ class _HomePageState extends State<HomePage> {
                   },
                   builder: (context, state) {
                     if (state is GetCurrentLocationLoadingState) {
-                      return const Center(child: CupertinoActivityIndicator());
+                      return Loading();
                     } else if (state is GetCurrentLocationSuccessState) {
                       return Location(state: state);
                     } else if (state is GetCurrentLocationErrorState) {
