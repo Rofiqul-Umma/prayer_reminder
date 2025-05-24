@@ -8,9 +8,68 @@ import 'package:prayer_reminder/features/get_current_loc/view_model/get_current_
 class GetCurrentLocationViewModel extends Cubit<GetCurrentLocationState> {
   GetCurrentLocationViewModel() : super(GetCurrentLocationInitialState());
 
-  Future<void> fetchCurrentLocation() async {
-    emit(GetCurrentLocationLoadingState());
+  Placemark? place;
+  Position? fetchedPosition;
 
+  Future<void> fetchCurrentLocation() async {
+    // check if the location permission
+    await _checkLocationPermission();
+
+    try {
+      if (place != null && fetchedPosition != null) {
+        emit(
+          GetCurrentLocationSuccessState(
+            LocationModel(
+              coordinates:
+                  "${fetchedPosition?.latitude}, ${fetchedPosition?.longitude}",
+              subLocality: place?.subLocality ?? "Unknown",
+              locality: place?.locality ?? "Unknown",
+              country: place?.country ?? "Unknown",
+              message: "Location fetched successfully",
+            ),
+          ),
+        );
+        return;
+      }
+      emit(GetCurrentLocationLoadingState());
+      // Get current position
+      Position position = await Geolocator.getCurrentPosition(
+        locationSettings: LocationSettings(
+          accuracy: LocationAccuracy.bestForNavigation,
+          distanceFilter: 10,
+        ),
+      );
+
+      fetchedPosition = position;
+
+      // Get address details from coordinates
+      List<Placemark> placemarks = await placemarkFromCoordinates(
+        position.latitude,
+        position.longitude,
+      );
+
+      place = placemarks[0];
+
+      print(
+        "Current Location: ${place?.subLocality}, ${place?.locality}, ${place?.country}",
+      );
+      emit(
+        GetCurrentLocationSuccessState(
+          LocationModel(
+            coordinates: "${position.latitude}, ${position.longitude}",
+            subLocality: place?.subLocality ?? "Unknown",
+            locality: place?.locality ?? "Unknown",
+            country: place?.country ?? "Unknown",
+            message: "Location fetched successfully",
+          ),
+        ),
+      );
+    } catch (e) {
+      emit(GetCurrentLocationErrorState("$e"));
+    }
+  }
+
+  Future<void> _checkLocationPermission() async {
     // Check if location services are enabled
     bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
@@ -43,42 +102,6 @@ class GetCurrentLocationViewModel extends Cubit<GetCurrentLocationState> {
         ),
       );
       return;
-    }
-
-    try {
-      // Get current position
-      Position position = await Geolocator.getCurrentPosition(
-        locationSettings: LocationSettings(
-          accuracy: LocationAccuracy.bestForNavigation,
-          distanceFilter: 10,
-        ),
-      );
-
-      // Get address details from coordinates
-      List<Placemark> placemarks = await placemarkFromCoordinates(
-        position.latitude,
-        position.longitude,
-      );
-
-      Placemark place = placemarks[0];
-
-      print(
-        "Current Location: ${place.subLocality}, ${place.locality}, ${place.country}",
-      );
-
-      emit(
-        GetCurrentLocationSuccessState(
-          LocationModel(
-            coordinates: "${position.latitude}, ${position.longitude}",
-            subLocality: place.subLocality ?? "Unknown",
-            locality: place.locality ?? "Unknown",
-            country: place.country ?? "Unknown",
-            message: "Location fetched successfully",
-          ),
-        ),
-      );
-    } catch (e) {
-      emit(GetCurrentLocationErrorState("$e"));
     }
   }
 }

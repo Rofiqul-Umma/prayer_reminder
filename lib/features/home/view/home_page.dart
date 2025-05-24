@@ -38,6 +38,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
+        bottom: false,
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -71,19 +72,21 @@ class _HomePageState extends State<HomePage> {
                       return Text(
                         state.error,
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          fontSize: size.width * 0.05,
+                          fontSize: size.width * 0.035,
                           fontWeight: FontWeight.w500,
                           color: Theme.of(context).colorScheme.error,
                         ),
+                        textAlign: TextAlign.center,
                       );
                     } else {
                       return Text(
                         "Something went wrong",
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          fontSize: size.width * 0.05,
+                          fontSize: size.width * 0.035,
                           fontWeight: FontWeight.w500,
                           color: Theme.of(context).colorScheme.error,
                         ),
+                        textAlign: TextAlign.center,
                       );
                     }
                   },

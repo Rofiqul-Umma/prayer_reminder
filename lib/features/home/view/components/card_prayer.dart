@@ -13,12 +13,8 @@ class CardPrayer extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: size.width * 0.05),
       child: Container(
         decoration: BoxDecoration(
-          color: Theme.of(context).cardColor,
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(
-            color: Theme.of(context).colorScheme.onSurface,
-            width: 1,
-          ),
+          color: Theme.of(context).colorScheme.surface,
+          borderRadius: BorderRadius.circular(size.width * 0.02),
         ),
         child: ListTile(
           title: Text(
