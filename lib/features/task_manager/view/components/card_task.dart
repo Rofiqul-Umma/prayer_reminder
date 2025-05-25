@@ -152,7 +152,7 @@ class CardTask extends StatelessWidget {
           ),
           trailing: IconButton(
             icon: Icon(
-              HugeIcons.strokeRoundedFile01,
+              HugeIcons.strokeRoundedMore01,
               color: theme.colorScheme.secondary,
               size: size.width * 0.08,
             ),
