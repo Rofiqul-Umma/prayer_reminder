@@ -1,0 +1,38 @@
+import 'package:flutter/material.dart';
+
+PreferredSize taskManagerAppBar(final Size size, final ThemeData theme) {
+  return PreferredSize(
+    preferredSize: Size.fromHeight(size.height * 0.03),
+    child: Container(
+      alignment: Alignment.centerLeft,
+      color: theme.appBarTheme.shadowColor,
+      padding: EdgeInsets.only(
+        left: size.width * 0.045,
+        bottom: size.height * 0.01,
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        spacing: size.width * 0.01,
+        children: [
+          Text(
+            'Manage your tasks efficiently',
+            style: theme.textTheme.bodyMedium?.copyWith(
+              color: theme.appBarTheme.titleTextStyle?.color,
+              fontSize: size.width * 0.035,
+            ),
+            textAlign: TextAlign.start,
+          ),
+          Text(
+            '${DateTime.now().day}-${DateTime.now().month}-${DateTime.now().year}',
+            style: theme.textTheme.bodySmall?.copyWith(
+              color: theme.appBarTheme.titleTextStyle?.color,
+              fontSize: size.width * 0.03,
+            ),
+            textAlign: TextAlign.start,
+          ),
+        ],
+      ),
+    ),
+  );
+}

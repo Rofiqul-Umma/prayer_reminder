@@ -4,6 +4,7 @@ import 'package:prayer_reminder/core/DI.dart';
 import 'package:prayer_reminder/core/custom_task_dialog.dart';
 import 'package:prayer_reminder/features/task_manager/view/components/grid_task_status.dart';
 import 'package:prayer_reminder/features/task_manager/view/components/list_tasks.dart';
+import 'package:prayer_reminder/features/task_manager/view/components/task_manager_app_bar.dart';
 import 'package:prayer_reminder/features/task_manager/view_model/task_manager_view_model.dart';
 
 class TaskManagerPage extends StatefulWidget {
@@ -47,40 +48,7 @@ class _TaskManagerPageState extends State<TaskManagerPage> {
             fontWeight: theme.appBarTheme.titleTextStyle?.fontWeight,
           ),
         ),
-        bottom: PreferredSize(
-          preferredSize: Size.fromHeight(size.height * 0.03),
-          child: Container(
-            alignment: Alignment.centerLeft,
-            color: theme.appBarTheme.shadowColor,
-            padding: EdgeInsets.only(
-              left: size.width * 0.045,
-              bottom: size.height * 0.01,
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              spacing: size.width * 0.01,
-              children: [
-                Text(
-                  'Manage your tasks efficiently',
-                  style: theme.textTheme.bodyMedium?.copyWith(
-                    color: theme.appBarTheme.titleTextStyle?.color,
-                    fontSize: size.width * 0.035,
-                  ),
-                  textAlign: TextAlign.start,
-                ),
-                Text(
-                  '${DateTime.now().day}-${DateTime.now().month}-${DateTime.now().year}',
-                  style: theme.textTheme.bodySmall?.copyWith(
-                    color: theme.appBarTheme.titleTextStyle?.color,
-                    fontSize: size.width * 0.03,
-                  ),
-                  textAlign: TextAlign.start,
-                ),
-              ],
-            ),
-          ),
-        ),
+        bottom: taskManagerAppBar(size, theme),
         actions: [
           IconButton(
             onPressed: () {
