@@ -5,7 +5,7 @@ import 'package:prayer_reminder/features/task_manager/view/task_manager_page.dar
 
 List<BottomNavigationBarItem> items = [
   BottomNavigationBarItem(
-    icon: Icon(HugeIcons.strokeRoundedClock01),
+    icon: Icon(HugeIcons.strokeRoundedCalendar02),
     label: 'Prayer Time',
   ),
   BottomNavigationBarItem(

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
 
-class CardStatus extends StatelessWidget {
+class CustomCardStatus extends StatelessWidget {
   final IconData? icon;
   final String? title;
   final String? subtitle;
-  const CardStatus({
+  const CustomCardStatus({
     super.key,
     this.icon = HugeIcons.strokeRoundedNote01,
     this.title = 'Your Projects',

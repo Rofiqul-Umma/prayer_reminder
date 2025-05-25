@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class Loading extends StatelessWidget {
   const Loading({super.key});
@@ -6,12 +7,9 @@ class Loading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: CircularProgressIndicator.adaptive(
-        backgroundColor: Colors.transparent,
-        valueColor: AlwaysStoppedAnimation<Color>(
-          Theme.of(context).colorScheme.surface,
-        ),
-        strokeWidth: 4.0,
+      child: LoadingAnimationWidget.staggeredDotsWave(
+        color: Theme.of(context).secondaryHeaderColor,
+        size: MediaQuery.sizeOf(context).width * 0.085,
       ),
     );
   }

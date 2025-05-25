@@ -31,7 +31,9 @@ class GetCurrentLocationViewModel extends Cubit<GetCurrentLocationState> {
         );
         return;
       }
+
       emit(GetCurrentLocationLoadingState());
+
       // Get current position
       Position position = await Geolocator.getCurrentPosition(
         locationSettings: LocationSettings(

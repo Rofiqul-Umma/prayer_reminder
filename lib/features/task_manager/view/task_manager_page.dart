@@ -40,11 +40,45 @@ class _TaskManagerPageState extends State<TaskManagerPage> {
       appBar: AppBar(
         backgroundColor: theme.appBarTheme.backgroundColor,
         title: Text(
-          'Monthly Tasks',
+          'Task Manager',
           style: theme.textTheme.headlineMedium?.copyWith(
             color: theme.appBarTheme.titleTextStyle?.color,
             fontSize: size.width * 0.06,
             fontWeight: theme.appBarTheme.titleTextStyle?.fontWeight,
+          ),
+        ),
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(size.height * 0.03),
+          child: Container(
+            alignment: Alignment.centerLeft,
+            color: theme.appBarTheme.shadowColor,
+            padding: EdgeInsets.only(
+              left: size.width * 0.045,
+              bottom: size.height * 0.01,
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              spacing: size.width * 0.01,
+              children: [
+                Text(
+                  'Manage your tasks efficiently',
+                  style: theme.textTheme.bodyMedium?.copyWith(
+                    color: theme.appBarTheme.titleTextStyle?.color,
+                    fontSize: size.width * 0.035,
+                  ),
+                  textAlign: TextAlign.start,
+                ),
+                Text(
+                  '${DateTime.now().day}-${DateTime.now().month}-${DateTime.now().year}',
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    color: theme.appBarTheme.titleTextStyle?.color,
+                    fontSize: size.width * 0.03,
+                  ),
+                  textAlign: TextAlign.start,
+                ),
+              ],
+            ),
           ),
         ),
         actions: [
@@ -80,7 +114,7 @@ class _TaskManagerPageState extends State<TaskManagerPage> {
               children: [
                 SizedBox(height: size.height * 0.02),
                 GridTaskStatus(viewModel: viewModel),
-                SizedBox(height: size.height * 0.04),
+                SizedBox(height: size.height * 0.045),
                 Text(
                   'All Tasks',
                   style: theme.textTheme.headlineMedium?.copyWith(

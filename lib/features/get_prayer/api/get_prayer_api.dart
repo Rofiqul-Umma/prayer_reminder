@@ -14,6 +14,7 @@ class GetPrayerApi {
           'address': address,
           'method': '20',
           'calendarMethod': 'HJCoSA',
+          'timezonestring': 'Asia/Jakarta',
         },
       );
       if (response.statusCode == 200) {

@@ -31,6 +31,7 @@ class CardTask extends StatelessWidget {
         motion: const ScrollMotion(),
         children: [
           SlidableAction(
+            borderRadius: BorderRadius.circular(size.width * 0.02),
             onPressed: (context) {
               titleC.text = data.taskTitle;
               descC.text = data.taskDesc;
@@ -61,6 +62,7 @@ class CardTask extends StatelessWidget {
           ),
 
           SlidableAction(
+            borderRadius: BorderRadius.circular(size.width * 0.02),
             onPressed: (context) {
               PopUpHelper.showConfirmationDialog(
                 context: context,
@@ -85,6 +87,7 @@ class CardTask extends StatelessWidget {
         motion: const ScrollMotion(),
         children: [
           SlidableAction(
+            borderRadius: BorderRadius.circular(size.width * 0.02),
             onPressed: (context) {
               PopUpHelper.showConfirmationDialog(
                 context: context,
@@ -103,6 +106,7 @@ class CardTask extends StatelessWidget {
             label: 'Finish',
           ),
           SlidableAction(
+            borderRadius: BorderRadius.circular(size.width * 0.02),
             onPressed: (context) {
               PopUpHelper.showConfirmationDialog(
                 context: context,

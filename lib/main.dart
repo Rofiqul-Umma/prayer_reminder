@@ -10,8 +10,6 @@ import 'package:prayer_reminder/themes/dark_mode.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  //iiitalize easy loading
-  EasyLoadingConfig.init;
   // initialize notification
   await NotificationService().init();
   // intitialize get it
@@ -20,6 +18,8 @@ void main() async {
   DioHelper.init();
   // initialize hive
   await TaskManagerService().init();
+  //iiitalize easy loading
+  EasyLoadingConfig.init;
   // initialize the app
   runApp(const MyApp());
 }

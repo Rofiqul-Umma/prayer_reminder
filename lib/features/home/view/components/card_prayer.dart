@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:prayer_reminder/features/get_prayer/view_model/get_prayer_state.dart';
 
 class CardPrayer extends StatelessWidget {
@@ -17,6 +18,11 @@ class CardPrayer extends StatelessWidget {
           borderRadius: BorderRadius.circular(size.width * 0.02),
         ),
         child: ListTile(
+          leading: Icon(
+            HugeIcons.strokeRoundedAlarmClock,
+            size: size.width * 0.05,
+            color: Theme.of(context).iconTheme.color,
+          ),
           title: Text(
             state.data[index].name,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(

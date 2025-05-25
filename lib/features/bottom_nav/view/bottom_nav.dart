@@ -23,6 +23,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
   Widget build(BuildContext context) {
     // get the theme from the context
     final theme = Theme.of(context);
+    final size = MediaQuery.sizeOf(context);
     return Scaffold(
       backgroundColor: theme.scaffoldBackgroundColor,
       resizeToAvoidBottomInset: false,
@@ -39,6 +40,11 @@ class _BottomNavBarState extends State<BottomNavBar> {
           return BottomNavigationBar(
             elevation: 0,
             currentIndex: state,
+            type: BottomNavigationBarType.fixed,
+            showSelectedLabels: true,
+            showUnselectedLabels: true,
+            selectedFontSize: size.width * 0.03,
+            unselectedFontSize: size.width * 0.03,
             backgroundColor: theme.bottomNavigationBarTheme.backgroundColor,
             items: items,
             selectedItemColor: theme.bottomNavigationBarTheme.selectedItemColor,
