@@ -3,12 +3,14 @@ import 'dart:isolate';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:prayer_reminder/features/task_manager/model/task_model.dart';
-import 'package:prayer_reminder/features/task_manager/service/task_manager_service.dart';
+import 'package:prayer_reminder/core/hive_config.dart';
 import 'package:prayer_reminder/features/task_manager/view_model/task_manager_state.dart';
 
 class TaskManagerViewModel extends Cubit<TaskManagerState> {
-  final TaskManagerService _taskService;
-  TaskManagerViewModel(this._taskService) : super(TaskManagerInitialState());
+  final HiveConfig _taskService;
+  TaskManagerViewModel(this._taskService) : super(TaskManagerInitialState()) {
+    init();
+  }
 
   @override
   void onChange(Change<TaskManagerState> change) {

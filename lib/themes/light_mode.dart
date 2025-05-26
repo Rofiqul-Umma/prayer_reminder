@@ -4,11 +4,11 @@ class LightModeTheme {
   static ThemeData get theme {
     return ThemeData(
       brightness: Brightness.light,
-      primaryColor: Colors.teal,
+      primaryColor: Colors.grey[900], // dark grey
       useMaterial3: true,
       scaffoldBackgroundColor: Colors.white,
       appBarTheme: AppBarTheme(
-        backgroundColor: Colors.teal,
+        backgroundColor: Colors.grey[900], // dark grey
         foregroundColor: Colors.white,
         elevation: 0,
         centerTitle: true,
@@ -22,33 +22,43 @@ class LightModeTheme {
         headlineSmall: TextStyle(
           fontSize: 24,
           fontWeight: FontWeight.bold,
-          color: Colors.black87,
+          color: Colors.grey[900], // dark grey
         ),
-        bodySmall: TextStyle(fontSize: 16, color: Colors.black87),
-        bodyMedium: TextStyle(fontSize: 14, color: Colors.black54),
+        bodySmall: TextStyle(
+          fontSize: 16,
+          color: Colors.grey[800],
+        ), // medium grey
+        bodyMedium: TextStyle(
+          fontSize: 14,
+          color: Colors.grey[600],
+        ), // lighter grey
       ),
       buttonTheme: ButtonThemeData(
-        buttonColor: Colors.teal,
+        buttonColor: Colors.grey[900], // dark grey
         textTheme: ButtonTextTheme.primary,
       ),
+      switchTheme: SwitchThemeData(
+        thumbColor: WidgetStateProperty.all(Colors.white),
+        trackColor: WidgetStateProperty.all(Colors.grey[400]), // light grey
+      ),
       cardTheme: CardTheme(
-        color: Colors.white,
+        color: Colors.grey[50], // very light grey
         elevation: 2,
         margin: EdgeInsets.all(8),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: Colors.grey[100],
+        fillColor: Colors.grey[100], // light grey
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide.none,
         ),
         contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       ),
-      iconTheme: IconThemeData(color: Colors.teal),
+      iconTheme: IconThemeData(color: Colors.grey[900]), // dark grey
       floatingActionButtonTheme: FloatingActionButtonThemeData(
-        backgroundColor: Colors.teal,
+        backgroundColor: Colors.grey[900], // dark grey
         foregroundColor: Colors.white,
       ),
     );

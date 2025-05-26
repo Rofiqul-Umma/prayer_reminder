@@ -22,7 +22,6 @@ class _TaskManagerPageState extends State<TaskManagerPage> {
   @override
   void initState() {
     viewModel = getIt.get<TaskManagerViewModel>();
-    viewModel.init();
     super.initState();
   }
 

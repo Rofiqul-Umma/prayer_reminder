@@ -4,7 +4,8 @@ import 'package:prayer_reminder/features/bottom_nav/view_model/bottom_nav_view_m
 import 'package:prayer_reminder/features/get_current_loc/view_model/get_current_loc_view_model.dart';
 import 'package:prayer_reminder/features/get_prayer/api/get_prayer_api.dart';
 import 'package:prayer_reminder/features/get_prayer/view_model/get_prayer_view_model.dart';
-import 'package:prayer_reminder/features/task_manager/service/task_manager_service.dart';
+import 'package:prayer_reminder/core/hive_config.dart';
+import 'package:prayer_reminder/features/settings/view_model/settings_view_model.dart';
 import 'package:prayer_reminder/features/task_manager/view_model/task_manager_view_model.dart';
 
 final getIt = GetIt.instance;
@@ -32,10 +33,15 @@ Future<void> setup() async {
   getIt.registerFactory<BottomNavViewModel>(() => BottomNavViewModel());
 
   // register task manager service
-  getIt.registerLazySingleton<TaskManagerService>(() => TaskManagerService());
+  getIt.registerLazySingleton<HiveConfig>(() => HiveConfig());
 
   // register task manager view model
   getIt.registerFactory<TaskManagerViewModel>(
-    () => TaskManagerViewModel(getIt.get<TaskManagerService>()),
+    () => TaskManagerViewModel(getIt.get<HiveConfig>()),
+  );
+
+  // register settings view model
+  getIt.registerFactory<SettingsViewModel>(
+    () => SettingsViewModel(getIt.get<HiveConfig>()),
   );
 }
