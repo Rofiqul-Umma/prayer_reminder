@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:prayer_reminder/core/DI.dart';
 import 'package:prayer_reminder/features/get_prayer/view_model/get_prayer_state.dart';
 import 'package:prayer_reminder/features/get_prayer/view_model/get_prayer_view_model.dart';
-import 'package:prayer_reminder/features/home/view/components/card_prayer.dart';
-import 'package:prayer_reminder/features/home/view/components/loading.dart';
+import 'package:prayer_reminder/features/prayer_time/view/components/card_prayer.dart';
+import 'package:prayer_reminder/features/prayer_time/view/components/loading.dart';
 
 class ListPrayers extends StatelessWidget {
-  final GetPrayerViewModel getPrayerVM;
-  const ListPrayers({super.key, required this.getPrayerVM});
+  const ListPrayers({super.key});
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
     return Expanded(
       child: BlocBuilder(
-        bloc: getPrayerVM,
+        bloc: getIt<GetPrayerViewModel>(),
         builder: (context, state) {
           if (state is GetPrayerLoadingState) {
             return Loading();

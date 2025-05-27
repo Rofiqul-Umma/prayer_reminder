@@ -1,58 +1,101 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:lottie/lottie.dart';
+import 'package:prayer_reminder/constant/rubick_string.dart';
 import 'package:prayer_reminder/core/DI.dart';
 import 'package:prayer_reminder/features/settings/view_model/settings_view_model.dart';
 
-class SettingsPage extends StatefulWidget {
+class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
-
-  @override
-  State<SettingsPage> createState() => _SettingsPageState();
-}
-
-class _SettingsPageState extends State<SettingsPage> {
-  late final SettingsViewModel _settingsViewModel;
-
-  @override
-  void initState() {
-    _settingsViewModel = getIt.get<SettingsViewModel>();
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
+    final theme = Theme.of(context);
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      appBar: AppBar(title: const Text('Settings'), centerTitle: false),
-      body: BlocBuilder<SettingsViewModel, bool>(
-        bloc: _settingsViewModel,
-        builder: (context, state) {
-          return Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  state == ThemeMode.dark
-                      ? HugeIcons.strokeRoundedSun02
-                      : HugeIcons.strokeRoundedMoon02,
-                  size: size.aspectRatio * 100,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-                SizedBox(height: size.height * 0.02),
-                CupertinoSwitch(
-                  value: state,
-                  applyTheme: true,
-                  onChanged: (value) async {
-                    await _settingsViewModel.toggleTheme(value);
-                  },
-                ),
-              ],
+      appBar: AppBar(
+        title: Text(
+          'Theme Mode',
+          style: theme.textTheme.headlineMedium?.copyWith(
+            color: theme.appBarTheme.titleTextStyle?.color,
+            fontSize: size.width * 0.06,
+            fontWeight: theme.appBarTheme.titleTextStyle?.fontWeight,
+          ),
+        ),
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(size.height * 0.02),
+          child: Container(
+            alignment: Alignment.centerLeft,
+            padding: EdgeInsets.only(
+              left: size.width * 0.045,
+              bottom: size.height * 0.01,
             ),
-          );
+            color: theme.appBarTheme.backgroundColor,
+            child: Text(
+              'Change the theme mode of the app',
+              style: theme.textTheme.bodySmall?.copyWith(
+                fontSize: size.width * 0.035,
+                color: theme.appBarTheme.titleTextStyle?.color,
+              ),
+            ),
+          ),
+        ),
+        centerTitle: false,
+      ),
+      body: BlocListener<SettingsViewModel, bool>(
+        bloc: getIt<SettingsViewModel>(),
+        listener: (context, state) {
+          if (state) {
+            EasyLoading.showToast(
+              RubickString.successChangeThemeDark,
+              duration: const Duration(seconds: 2),
+              toastPosition: EasyLoadingToastPosition.bottom,
+            );
+          } else {
+            EasyLoading.showToast(
+              duration: const Duration(seconds: 2),
+              RubickString.successChangeThemeLight,
+              toastPosition: EasyLoadingToastPosition.bottom,
+            );
+          }
         },
+        child: BlocBuilder<SettingsViewModel, bool>(
+          bloc: getIt<SettingsViewModel>(),
+          builder: (context, state) {
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  LottieBuilder.asset(
+                    state
+                        ? 'assets/images/moon_anim.json'
+                        : 'assets/images/sun_anim.json',
+                    width: size.width * 0.5,
+                    fit: BoxFit.fill,
+                  ),
+
+                  SizedBox(height: size.height * 0.02),
+                  CupertinoSwitch(
+                    value: getIt<SettingsViewModel>().state,
+                    thumbIcon: WidgetStateProperty.all(
+                      state
+                          ? const Icon(HugeIcons.strokeRoundedMoon02)
+                          : const Icon(HugeIcons.strokeRoundedSun02),
+                    ),
+                    applyTheme: true,
+                    onChanged:
+                        (value) async =>
+                            await getIt<SettingsViewModel>().toggleTheme(value),
+                  ),
+                ],
+              ),
+            );
+          },
+        ),
       ),
     );
   }

@@ -6,7 +6,9 @@ import 'package:prayer_reminder/features/get_current_loc/view_model/get_current_
 
 // Part 2: Define the Location Cubit
 class GetCurrentLocationViewModel extends Cubit<GetCurrentLocationState> {
-  GetCurrentLocationViewModel() : super(GetCurrentLocationInitialState());
+  GetCurrentLocationViewModel() : super(GetCurrentLocationInitialState()) {
+    fetchCurrentLocation();
+  }
 
   Placemark? place;
   Position? fetchedPosition;

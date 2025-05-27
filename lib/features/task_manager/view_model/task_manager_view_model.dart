@@ -12,6 +12,8 @@ class TaskManagerViewModel extends Cubit<TaskManagerState> {
     init();
   }
 
+  final String _boxName = 'rubick_task_manager';
+
   @override
   void onChange(Change<TaskManagerState> change) {
     super.onChange(change);
@@ -45,12 +47,13 @@ class TaskManagerViewModel extends Cubit<TaskManagerState> {
   }
 
   Future<void> init() async {
-    Future.wait([_taskService.init(), getTasks()]);
+    await _taskService.init(_boxName);
+    await getTasks();
   }
 
   Future<List<TaskModel>> _getAllTasks() async {
     try {
-      final tasks = await _taskService.getTasks();
+      final tasks = await _taskService.getTasks(_boxName);
       final cTask = await Isolate.run(
         () =>
             tasks.map((task) {
@@ -107,7 +110,7 @@ class TaskManagerViewModel extends Cubit<TaskManagerState> {
         return;
       }
       final task = TaskModel(taskTitle: taskTitle, taskDesc: taskDesc);
-      await _taskService.saveTask(task);
+      await _taskService.saveTask(task, _boxName);
       emit(TaskManagaerTaskAddedState(task));
     } catch (e) {
       emit(TaskManagerErrorAddTaskState('$e'));
@@ -117,7 +120,7 @@ class TaskManagerViewModel extends Cubit<TaskManagerState> {
   Future<void> deleteTask(String id) async {
     try {
       emit(TaskManagerLoadingState());
-      await _taskService.deleteTask(id);
+      await _taskService.deleteTask(id, _boxName);
       emit(TaskManagerSuccessDeleteState());
     } catch (e) {
       emit(TaskManagerErrorState('$e'));
@@ -137,7 +140,7 @@ class TaskManagerViewModel extends Cubit<TaskManagerState> {
         );
         return;
       }
-      await _taskService.updateTask(id, task);
+      await _taskService.updateTask(id, task, _boxName);
       emit(TaskManagerTaskUpdated());
     } catch (e) {
       emit(TaskManagerErrorState('$e'));
@@ -150,7 +153,7 @@ class TaskManagerViewModel extends Cubit<TaskManagerState> {
     try {
       emit(TaskManagerLoadingState());
       final updatedTask = task.copyWith(isCompleted: true);
-      await _taskService.updateTask(id, updatedTask);
+      await _taskService.updateTask(id, updatedTask, _boxName);
       emit(TaskManagerTaskCompleted());
     } catch (e) {
       emit(TaskManagerErrorState('$e'));
@@ -161,7 +164,7 @@ class TaskManagerViewModel extends Cubit<TaskManagerState> {
     try {
       emit(TaskManagerLoadingState());
       final updatedTask = task.copyWith(isCancelled: true);
-      await _taskService.updateTask(id, updatedTask);
+      await _taskService.updateTask(id, updatedTask, _boxName);
       emit(TaskManagerTaskCancelled());
     } catch (e) {
       emit(TaskManagerErrorState('$e'));

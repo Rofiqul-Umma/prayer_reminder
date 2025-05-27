@@ -8,8 +8,7 @@ class SettingsViewModel extends Cubit<bool> {
     _init();
   }
 
-  bool _currentTheme = false;
-  bool get currentTheme => _currentTheme;
+  final String _boxName = 'rubick_settings';
 
   @override
   void onChange(Change<bool> change) {
@@ -24,15 +23,13 @@ class SettingsViewModel extends Cubit<bool> {
   }
 
   Future<void> _init() async {
-    await _hiveConfig.init();
+    await _hiveConfig.init(_boxName);
     await loadTheme();
   }
 
   Future<void> toggleTheme(bool isDarkMode) async {
     try {
-      emit(isDarkMode);
-      debugPrint('Toggling theme to: $isDarkMode');
-      await _hiveConfig.saveBool('1', isDarkMode);
+      await _hiveConfig.saveBool('1', isDarkMode, _boxName);
     } catch (e) {
       debugPrint('Error toggling theme: $e');
     } finally {
@@ -42,15 +39,8 @@ class SettingsViewModel extends Cubit<bool> {
 
   Future<void> loadTheme() async {
     try {
-      final isDarkMode = await _hiveConfig.getBool('1');
-      debugPrint('Loaded theme preference: $isDarkMode');
-      if (isDarkMode == null) {
-        debugPrint('No theme preference found, defaulting to light mode.');
-        return;
-      }
-      _currentTheme = isDarkMode;
-      debugPrint('Current theme set to: $_currentTheme');
-      emit(isDarkMode);
+      final isDarkMode = await _hiveConfig.getBool('1', _boxName);
+      emit(isDarkMode ?? false);
     } catch (e) {
       debugPrint('Error loading theme: $e');
     }

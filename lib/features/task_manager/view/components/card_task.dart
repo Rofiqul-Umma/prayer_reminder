@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:prayer_reminder/core/DI.dart';
 import 'package:prayer_reminder/core/custom_task_dialog.dart';
 import 'package:prayer_reminder/core/pop_up_helper.dart';
 import 'package:prayer_reminder/features/task_manager/model/task_model.dart';
 import 'package:prayer_reminder/features/task_manager/view_model/task_manager_view_model.dart';
 
 class CardTask extends StatelessWidget {
-  final TaskManagerViewModel viewModel;
   final int index;
   final TaskModel data;
   final TextEditingController titleC;
@@ -15,7 +15,6 @@ class CardTask extends StatelessWidget {
   const CardTask({
     super.key,
     required this.data,
-    required this.viewModel,
     required this.index,
     required this.titleC,
     required this.descC,
@@ -49,7 +48,10 @@ class CardTask extends StatelessWidget {
                         taskTitle: title,
                         taskDesc: description,
                       );
-                      await viewModel.updateTask(data.id, updatedTask);
+                      await getIt<TaskManagerViewModel>().updateTask(
+                        data.id,
+                        updatedTask,
+                      );
                       Navigator.of(context).pop();
                     },
                   );
@@ -69,7 +71,7 @@ class CardTask extends StatelessWidget {
                 title: 'Delete Confirmation',
                 message: 'Are you sure you want to delete this task?',
                 onConfirm: () async {
-                  await viewModel.deleteTask(data.id);
+                  await getIt<TaskManagerViewModel>().deleteTask(data.id);
                 },
                 onCancel: () {
                   Navigator.of(context).pop();
@@ -94,7 +96,10 @@ class CardTask extends StatelessWidget {
                 title: 'Finish Confirmation',
                 message: 'Are you sure you want to finish this task?',
                 onConfirm: () async {
-                  await viewModel.completeTask(data.id, data);
+                  await getIt<TaskManagerViewModel>().completeTask(
+                    data.id,
+                    data,
+                  );
                 },
                 onCancel: () async {
                   Navigator.of(context).pop();
@@ -113,7 +118,7 @@ class CardTask extends StatelessWidget {
                 title: 'Cancel Confirmation',
                 message: 'Are you sure you want to cancel this task?',
                 onConfirm: () async {
-                  await viewModel.cancelTask(data.id, data);
+                  await getIt<TaskManagerViewModel>().cancelTask(data.id, data);
                 },
                 onCancel: () {
                   Navigator.of(context).pop();

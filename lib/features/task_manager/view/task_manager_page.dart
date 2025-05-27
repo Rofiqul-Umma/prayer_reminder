@@ -15,15 +15,8 @@ class TaskManagerPage extends StatefulWidget {
 }
 
 class _TaskManagerPageState extends State<TaskManagerPage> {
-  late final TaskManagerViewModel viewModel;
   final TextEditingController fieldTaskC = TextEditingController();
   final TextEditingController fieldDescriptionC = TextEditingController();
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  @override
-  void initState() {
-    viewModel = getIt.get<TaskManagerViewModel>();
-    super.initState();
-  }
 
   @override
   void dispose() {
@@ -59,9 +52,12 @@ class _TaskManagerPageState extends State<TaskManagerPage> {
                     description: 'Add new task to your list',
                     titleController: fieldTaskC,
                     descriptionController: fieldDescriptionC,
-                    onConfirm: (title, description) async {
-                      await viewModel.addTask(title, description);
-                    },
+                    onConfirm:
+                        (title, description) async =>
+                            await getIt<TaskManagerViewModel>().addTask(
+                              title,
+                              description,
+                            ),
                   );
                 },
               );
@@ -80,7 +76,7 @@ class _TaskManagerPageState extends State<TaskManagerPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: size.height * 0.02),
-                GridTaskStatus(viewModel: viewModel),
+                GridTaskStatus(),
                 SizedBox(height: size.height * 0.045),
                 Text(
                   'All Tasks',
@@ -91,11 +87,7 @@ class _TaskManagerPageState extends State<TaskManagerPage> {
                   ),
                 ),
                 SizedBox(height: size.height * 0.02),
-                ListTasks(
-                  taskManagerViewModel: viewModel,
-                  titleC: fieldTaskC,
-                  descC: fieldDescriptionC,
-                ),
+                ListTasks(titleC: fieldTaskC, descC: fieldDescriptionC),
                 SizedBox(height: size.height * 0.02),
               ],
             ),

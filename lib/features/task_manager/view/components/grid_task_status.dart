@@ -3,11 +3,9 @@ import 'package:prayer_reminder/features/task_manager/view/components/card_cance
 import 'package:prayer_reminder/features/task_manager/view/components/card_completed.dart';
 import 'package:prayer_reminder/features/task_manager/view/components/card_total.dart';
 import 'package:prayer_reminder/features/task_manager/view/components/card_todo.dart';
-import 'package:prayer_reminder/features/task_manager/view_model/task_manager_view_model.dart';
 
 class GridTaskStatus extends StatelessWidget {
-  final TaskManagerViewModel viewModel;
-  const GridTaskStatus({super.key, required this.viewModel});
+  const GridTaskStatus({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,12 +20,7 @@ class GridTaskStatus extends StatelessWidget {
           crossAxisSpacing: 10,
           mainAxisSpacing: 10,
         ),
-        children: [
-          CardTodo(viewModel: viewModel),
-          CardCompleted(viewModel: viewModel),
-          CardTotal(viewModel: viewModel),
-          CardCanceled(viewModel: viewModel),
-        ],
+        children: [CardTodo(), CardCompleted(), CardTotal(), CardCanceled()],
       ),
     );
   }

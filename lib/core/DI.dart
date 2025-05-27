@@ -20,28 +20,27 @@ Future<void> setup() async {
   getIt.registerLazySingleton<GetPrayerApi>(() => GetPrayerApi());
 
   // Register GetPrayerViewModel
-  getIt.registerFactory<GetPrayerViewModel>(
-    () => GetPrayerViewModel(getIt.get<GetPrayerApi>()),
+  getIt.registerSingleton<GetPrayerViewModel>(
+    GetPrayerViewModel(getIt.get<GetPrayerApi>()),
   );
 
   // Register GetCurrentLocationViewModel
-  getIt.registerFactory<GetCurrentLocationViewModel>(
-    () => GetCurrentLocationViewModel(),
+  getIt.registerSingleton<GetCurrentLocationViewModel>(
+    GetCurrentLocationViewModel(),
   );
 
   // Register bottom nav bar view model
-  getIt.registerFactory<BottomNavViewModel>(() => BottomNavViewModel());
+  getIt.registerSingleton<BottomNavViewModel>(BottomNavViewModel());
 
   // register task manager service
   getIt.registerLazySingleton<HiveConfig>(() => HiveConfig());
 
   // register task manager view model
-  getIt.registerFactory<TaskManagerViewModel>(
-    () => TaskManagerViewModel(getIt.get<HiveConfig>()),
+  getIt.registerSingleton<TaskManagerViewModel>(
+    TaskManagerViewModel(getIt.get<HiveConfig>()),
   );
-
   // register settings view model
-  getIt.registerFactory<SettingsViewModel>(
-    () => SettingsViewModel(getIt.get<HiveConfig>()),
+  getIt.registerSingleton<SettingsViewModel>(
+    SettingsViewModel(getIt.get<HiveConfig>()),
   );
 }

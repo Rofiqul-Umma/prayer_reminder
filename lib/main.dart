@@ -20,12 +20,13 @@ void main() async {
   // initialize dio
   DioHelper.init();
   //iiitalize easy loading
-  EasyLoadingConfig.init;
-  // initialize hive
-  await HiveConfig().init();
+  await EasyLoadingConfig.init;
   // initialize the app
   runApp(
-    BlocProvider.value(value: getIt.get<SettingsViewModel>(), child: MyApp()),
+    BlocProvider(
+      create: (context) => SettingsViewModel(getIt.get<HiveConfig>()),
+      child: MyApp(),
+    ),
   );
 }
 
@@ -34,17 +35,21 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Prayer Reminder',
-      themeMode:
-          getIt.get<SettingsViewModel>().currentTheme
-              ? ThemeMode.dark
-              : ThemeMode.light,
-      darkTheme: DarkModeTheme.theme,
-      theme: LightModeTheme.theme,
-      debugShowCheckedModeBanner: false,
-      home: BottomNavBar(),
-      builder: EasyLoading.init(),
+    return BlocBuilder<SettingsViewModel, bool>(
+      builder: (context, state) {
+        return MaterialApp(
+          title: 'Prayer Reminder',
+          themeMode:
+              BlocProvider.of<SettingsViewModel>(context).state
+                  ? ThemeMode.dark
+                  : ThemeMode.light,
+          darkTheme: DarkModeTheme.theme,
+          theme: LightModeTheme.theme,
+          debugShowCheckedModeBanner: false,
+          home: BottomNavBar(),
+          builder: EasyLoading.init(),
+        );
+      },
     );
   }
 }

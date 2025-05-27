@@ -6,31 +6,13 @@ import 'package:prayer_reminder/features/get_current_loc/view_model/get_current_
 import 'package:prayer_reminder/features/get_current_loc/view_model/get_current_location_state.dart';
 import 'package:prayer_reminder/features/get_prayer/view_model/get_prayer_state.dart';
 import 'package:prayer_reminder/features/get_prayer/view_model/get_prayer_view_model.dart';
-import 'package:prayer_reminder/features/home/view/components/clock.dart';
-import 'package:prayer_reminder/features/home/view/components/list_prayers.dart';
-import 'package:prayer_reminder/features/home/view/components/loading.dart';
-import 'package:prayer_reminder/features/home/view/components/location.dart';
+import 'package:prayer_reminder/features/prayer_time/view/components/clock.dart';
+import 'package:prayer_reminder/features/prayer_time/view/components/list_prayers.dart';
+import 'package:prayer_reminder/features/prayer_time/view/components/loading.dart';
+import 'package:prayer_reminder/features/prayer_time/view/components/location.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
-
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  late final GetPrayerViewModel getPrayerVM;
-  late final GetCurrentLocationViewModel getCurrentLocationVM;
-  @override
-  void initState() {
-    // Initialize the prayer view model here
-    getPrayerVM = getIt.get<GetPrayerViewModel>();
-    // Initialize the current location view model here
-    getCurrentLocationVM = getIt.get<GetCurrentLocationViewModel>();
-    // get the current location
-    getCurrentLocationVM.fetchCurrentLocation();
-    super.initState();
-  }
+class PrayerTimePage extends StatelessWidget {
+  const PrayerTimePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -45,20 +27,24 @@ class _HomePageState extends State<HomePage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(height: size.height * 0.03),
-              BlocListener(
-                bloc: getPrayerVM,
+              BlocListener<GetPrayerViewModel, GetPrayerState>(
+                bloc: getIt<GetPrayerViewModel>(),
                 listener: (context, state) {
                   if (state is GetPrayerSuccessState) {
                     Future.microtask(
-                      () => getPrayerVM.startPrayerTimeChecker(),
+                      () =>
+                          getIt<GetPrayerViewModel>().startPrayerTimeChecker(),
                     );
                   }
                 },
-                child: BlocConsumer(
-                  bloc: getCurrentLocationVM,
+                child: BlocConsumer<
+                  GetCurrentLocationViewModel,
+                  GetCurrentLocationState
+                >(
+                  bloc: getIt<GetCurrentLocationViewModel>(),
                   listener: (context, state) {
                     if (state is GetCurrentLocationSuccessState) {
-                      getPrayerVM.getPrayers(
+                      getIt<GetPrayerViewModel>().getPrayers(
                         "${state.data.subLocality}, ${state.data.locality}, ${state.data.country}",
                       );
                     }
@@ -95,7 +81,7 @@ class _HomePageState extends State<HomePage> {
               SizedBox(height: size.height * 0.01),
               Clock(),
               Expanded(child: LottieBuilder.asset("assets/images/cube.json")),
-              ListPrayers(getPrayerVM: getPrayerVM),
+              ListPrayers(),
               SizedBox(height: size.height * 0.07),
             ],
           ),
