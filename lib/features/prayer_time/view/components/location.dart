@@ -9,19 +9,20 @@ class Location extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
+    final isMobile = size.width < 600;
     return Row(
       spacing: 5,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Icon(
           HugeIcons.strokeRoundedLocation01,
-          size: size.width * 0.04,
+          size: isMobile ? size.width * 0.04 : size.width * 0.015,
           color: Theme.of(context).iconTheme.color,
         ),
         Text(
           state.data.subLocality,
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
-            fontSize: size.width * 0.035,
+            fontSize: isMobile ? size.width * 0.035 : size.width * 0.015,
             fontWeight: FontWeight.w500,
           ),
         ),

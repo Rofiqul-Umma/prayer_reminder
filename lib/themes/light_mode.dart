@@ -61,6 +61,15 @@ class LightModeTheme {
         backgroundColor: Colors.grey[900], // dark grey
         foregroundColor: Colors.white,
       ),
+      colorScheme: ColorScheme.light(
+        primary: Colors.grey[900]!,
+        secondary: Colors.grey[800]!,
+        surface: Colors.white,
+        // surface: Colors.grey[50]!, // Optionally remove or adjust this line if you want a different surface color
+        onPrimary: Colors.white,
+        onSecondary: Colors.white,
+        onSurface: Colors.grey[900]!,
+      ),
     );
   }
 }

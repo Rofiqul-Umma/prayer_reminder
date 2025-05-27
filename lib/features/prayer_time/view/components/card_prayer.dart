@@ -10,30 +10,35 @@ class CardPrayer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
+    final isMobile = size.width < 600;
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: size.width * 0.05),
+      padding: EdgeInsets.symmetric(
+        horizontal: isMobile ? size.width * 0.05 : size.width * 0.08,
+      ),
       child: Container(
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.surface,
-          borderRadius: BorderRadius.circular(size.width * 0.02),
+          borderRadius: BorderRadius.circular(
+            isMobile ? size.width * 0.02 : size.width * 0.01,
+          ),
         ),
         child: ListTile(
           leading: Icon(
             HugeIcons.strokeRoundedAlarmClock,
-            size: size.width * 0.05,
+            size: isMobile ? size.width * 0.05 : size.width * 0.02,
             color: Theme.of(context).iconTheme.color,
           ),
           title: Text(
             state.data[index].name,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
-              fontSize: size.width * 0.04,
+              fontSize: isMobile ? size.width * 0.04 : size.width * 0.015,
               fontWeight: FontWeight.w500,
             ),
           ),
           trailing: Text(
             state.data[index].time,
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              fontSize: size.width * 0.03,
+              fontSize: isMobile ? size.width * 0.03 : size.width * 0.012,
               fontWeight: FontWeight.w500,
             ),
           ),

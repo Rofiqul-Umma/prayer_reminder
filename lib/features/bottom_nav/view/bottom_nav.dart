@@ -34,9 +34,9 @@ class BottomNavBar extends StatelessWidget {
             unselectedFontSize: size.width * 0.03,
             backgroundColor: theme.bottomNavigationBarTheme.backgroundColor,
             items: items,
-            selectedItemColor: theme.bottomNavigationBarTheme.selectedItemColor,
+            selectedItemColor: theme.colorScheme.onSurface,
             unselectedItemColor:
-                theme.bottomNavigationBarTheme.unselectedItemColor,
+                theme.bottomNavigationBarTheme.selectedItemColor,
             onTap: (index) => getIt<BottomNavViewModel>().onItemTapped(index),
           );
         },

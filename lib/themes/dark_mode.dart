@@ -52,6 +52,13 @@ class DarkModeTheme {
         backgroundColor: Colors.grey[700],
         foregroundColor: Colors.white,
       ),
+      colorScheme: ColorScheme.dark(
+        primary: Colors.grey[800]!,
+        secondary: Colors.grey[600]!,
+        onPrimary: Colors.white,
+        onSecondary: Colors.white,
+        onSurface: Colors.white,
+      ),
     );
   }
 }

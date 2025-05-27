@@ -15,11 +15,14 @@ class CustomCardStatus extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
+    final isMobile = size.width < 600;
     return Container(
       padding: EdgeInsets.all(size.width * 0.02),
       decoration: BoxDecoration(
         color: Theme.of(context).cardColor,
-        borderRadius: BorderRadius.circular(size.width * 0.02),
+        borderRadius: BorderRadius.circular(
+          isMobile ? size.width * 0.02 : size.width * 0.01,
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -28,7 +31,7 @@ class CustomCardStatus extends StatelessWidget {
           Expanded(
             child: Icon(
               icon,
-              size: size.width * 0.08,
+              size: isMobile ? size.width * 0.08 : size.width * 0.01,
               color: Theme.of(context).iconTheme.color,
             ),
           ),
@@ -39,7 +42,7 @@ class CustomCardStatus extends StatelessWidget {
                 Text(
                   title ?? 'Your Projects',
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    fontSize: size.width * 0.05,
+                    fontSize: isMobile ? size.width * 0.05 : size.width * 0.015,
                     fontWeight: FontWeight.w600,
                     overflow: TextOverflow.ellipsis,
                   ),
@@ -48,7 +51,7 @@ class CustomCardStatus extends StatelessWidget {
                 Text(
                   subtitle ?? 'Todo',
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    fontSize: size.width * 0.03,
+                    fontSize: isMobile ? size.width * 0.03 : size.width * 0.012,
                     fontWeight: FontWeight.w300,
                   ),
                 ),

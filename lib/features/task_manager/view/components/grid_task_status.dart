@@ -10,12 +10,13 @@ class GridTaskStatus extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.sizeOf(context);
+    final isMobile = size.width < 600;
     return SizedBox(
-      height: size.height * 0.3,
+      height: isMobile ? size.height * 0.3 : size.height * 0.2,
       child: GridView(
         physics: const NeverScrollableScrollPhysics(),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
+          crossAxisCount: isMobile ? 2 : 4,
           childAspectRatio: 1.5,
           crossAxisSpacing: 10,
           mainAxisSpacing: 10,
