@@ -4,7 +4,6 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:prayer_reminder/core/DI.dart';
 import 'package:prayer_reminder/core/dio_helper.dart';
 import 'package:prayer_reminder/core/easy_loading_config.dart';
-import 'package:prayer_reminder/core/hive_config.dart';
 import 'package:prayer_reminder/features/bottom_nav/view/bottom_nav.dart';
 import 'package:prayer_reminder/features/notification/service/notification_service.dart';
 import 'package:prayer_reminder/features/settings/view_model/settings_view_model.dart';
@@ -22,12 +21,7 @@ void main() async {
   //iiitalize easy loading
   await EasyLoadingConfig.init;
   // initialize the app
-  runApp(
-    BlocProvider(
-      create: (context) => SettingsViewModel(getIt.get<HiveConfig>()),
-      child: MyApp(),
-    ),
-  );
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -36,11 +30,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SettingsViewModel, bool>(
+      bloc: getIt<SettingsViewModel>(),
       builder: (context, state) {
         return MaterialApp(
           title: 'Prayer Reminder',
           themeMode:
-              BlocProvider.of<SettingsViewModel>(context).state
+              getIt<SettingsViewModel>().state
                   ? ThemeMode.dark
                   : ThemeMode.light,
           darkTheme: DarkModeTheme.theme,
