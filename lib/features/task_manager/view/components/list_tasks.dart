@@ -22,25 +22,40 @@ class ListTasks extends StatelessWidget {
         if (state is TaskManagaerTaskAddedState) {
           EasyLoading.dismiss();
           getIt<TaskManagerViewModel>().getTasks();
-          EasyLoading.showToast("Task added successfully");
+          EasyLoading.showToast(
+            "Task added successfully",
+            toastPosition: EasyLoadingToastPosition.bottom,
+          );
         } else if (state is TaskManagerSuccessDeleteState) {
           EasyLoading.dismiss();
           Navigator.of(context).pop();
           getIt<TaskManagerViewModel>().getTasks();
-          EasyLoading.showToast("Task deleted successfully");
+          EasyLoading.showToast(
+            "Task deleted successfully",
+            toastPosition: EasyLoadingToastPosition.bottom,
+          );
         } else if (state is TaskManagerErrorAddTaskState) {
           EasyLoading.dismiss();
-          EasyLoading.showToast(state.error);
+          EasyLoading.showToast(
+            state.error,
+            toastPosition: EasyLoadingToastPosition.bottom,
+          );
         } else if (state is TaskManagerTaskCompleted) {
           EasyLoading.dismiss();
           Navigator.of(context).pop();
           getIt<TaskManagerViewModel>().getTasks();
-          EasyLoading.showToast("Task completed successfully");
+          EasyLoading.showToast(
+            "Task completed successfully",
+            toastPosition: EasyLoadingToastPosition.bottom,
+          );
         } else if (state is TaskManagerTaskCancelled) {
           EasyLoading.dismiss();
           Navigator.of(context).pop();
           getIt<TaskManagerViewModel>().getTasks();
-          EasyLoading.showToast("Task cancelled successfully");
+          EasyLoading.showToast(
+            "Task cancelled successfully",
+            toastPosition: EasyLoadingToastPosition.bottom,
+          );
         } else if (state is TaskManagerLoadingState) {
           EasyLoading.show(status: "Loading tasks...");
         } else {

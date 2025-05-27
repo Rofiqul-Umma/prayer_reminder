@@ -27,7 +27,7 @@ class SettingsPage extends StatelessWidget {
           ),
         ),
         bottom: PreferredSize(
-          preferredSize: Size.fromHeight(size.height * 0.02),
+          preferredSize: Size.fromHeight(size.height * 0.01),
           child: Container(
             alignment: Alignment.centerLeft,
             padding: EdgeInsets.only(
