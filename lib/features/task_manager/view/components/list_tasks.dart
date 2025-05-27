@@ -95,17 +95,21 @@ class ListTasks extends StatelessWidget {
         } else {
           return Center(
             child: ListTile(
+              contentPadding: EdgeInsets.symmetric(
+                horizontal: size.width * 0.2,
+              ),
               title: Icon(
                 HugeIcons.strokeRoundedFileEmpty01,
-                size: size.width * 0.2,
+                size: size.width * 0.25,
                 color: Theme.of(context).colorScheme.surface,
               ),
               subtitle: Text(
-                "No tasks available",
+                """No tasks available yet, Please add a task to get started.""",
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  fontSize: size.width * 0.035,
+                  fontSize: size.width * 0.04,
                   fontWeight: FontWeight.w500,
                   color: Theme.of(context).colorScheme.surface,
+                  fontStyle: FontStyle.italic,
                 ),
                 textAlign: TextAlign.center,
               ),
