@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:hugeicons/hugeicons.dart';
 import 'package:prayer_reminder/core/DI.dart';
 import 'package:prayer_reminder/features/prayer_time/view/components/loading.dart';
 import 'package:prayer_reminder/features/task_manager/view/components/card_task.dart';
@@ -94,21 +93,14 @@ class ListTasks extends StatelessWidget {
           );
         } else {
           return Center(
-            child: ListTile(
-              contentPadding: EdgeInsets.symmetric(
-                horizontal: size.width * 0.2,
-              ),
-              title: Icon(
-                HugeIcons.strokeRoundedFileEmpty01,
-                size: size.width * 0.25,
-                color: Theme.of(context).colorScheme.surface,
-              ),
-              subtitle: Text(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: size.width * 0.2),
+              child: Text(
                 """No tasks available yet, Please add a task to get started.""",
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  fontSize: size.width * 0.04,
+                  fontSize: size.width * 0.03,
                   fontWeight: FontWeight.w500,
-                  color: Theme.of(context).colorScheme.surface,
+                  color: Theme.of(context).colorScheme.onSurface.withAlpha(50),
                   fontStyle: FontStyle.italic,
                 ),
                 textAlign: TextAlign.center,

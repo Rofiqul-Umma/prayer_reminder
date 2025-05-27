@@ -6,7 +6,7 @@ class LightModeTheme {
       brightness: Brightness.light,
       primaryColor: Colors.grey[900], // dark grey
       useMaterial3: true,
-      scaffoldBackgroundColor: Colors.white,
+      scaffoldBackgroundColor: Colors.grey[200], // very light grey
       appBarTheme: AppBarTheme(
         backgroundColor: Colors.grey[900], // dark grey
         foregroundColor: Colors.white,
@@ -42,14 +42,14 @@ class LightModeTheme {
         trackColor: WidgetStateProperty.all(Colors.grey[400]), // light grey
       ),
       cardTheme: CardTheme(
-        color: Colors.grey[50], // very light grey
+        color: Colors.grey[100], // light grey for cards
         elevation: 2,
         margin: EdgeInsets.all(8),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: Colors.grey[100], // light grey
+        fillColor: Colors.grey[200], // slightly darker light grey for inputs
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide.none,
@@ -64,8 +64,7 @@ class LightModeTheme {
       colorScheme: ColorScheme.light(
         primary: Colors.grey[900]!,
         secondary: Colors.grey[800]!,
-        surface: Colors.white,
-        // surface: Colors.grey[50]!, // Optionally remove or adjust this line if you want a different surface color
+        surface: Colors.grey[50]!, // match scaffold background for surface
         onPrimary: Colors.white,
         onSecondary: Colors.white,
         onSurface: Colors.grey[900]!,

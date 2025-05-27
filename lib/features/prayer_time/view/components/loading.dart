@@ -10,7 +10,7 @@ class Loading extends StatelessWidget {
     final isMobile = size.width < 600;
     return Center(
       child: LoadingAnimationWidget.staggeredDotsWave(
-        color: Theme.of(context).secondaryHeaderColor,
+        color: Theme.of(context).colorScheme.primary,
         size: isMobile ? size.width * 0.085 : size.width * 0.035,
       ),
     );

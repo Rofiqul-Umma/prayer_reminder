@@ -81,7 +81,7 @@ class _TaskManagerPageState extends State<TaskManagerPage> {
                 Text(
                   'All Tasks',
                   style: theme.textTheme.headlineMedium?.copyWith(
-                    color: theme.appBarTheme.titleTextStyle?.color,
+                    color: theme.colorScheme.onSurface,
                     fontSize: size.width * 0.04,
                     fontWeight: theme.appBarTheme.titleTextStyle?.fontWeight,
                   ),

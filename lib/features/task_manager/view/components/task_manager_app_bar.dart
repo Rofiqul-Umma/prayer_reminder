@@ -1,6 +1,8 @@
+import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 
 PreferredSize taskManagerAppBar(final Size size, final ThemeData theme) {
+  final dateFormat = formatDate(DateTime.now(), [dd, ' ', MM, ' ', yyyy]);
   return PreferredSize(
     preferredSize: Size.fromHeight(size.height * 0.03),
     child: Container(
@@ -24,7 +26,7 @@ PreferredSize taskManagerAppBar(final Size size, final ThemeData theme) {
             textAlign: TextAlign.start,
           ),
           Text(
-            '${DateTime.now().day}-${DateTime.now().month}-${DateTime.now().year}',
+            '$dateFormat',
             style: theme.textTheme.bodySmall?.copyWith(
               color: theme.appBarTheme.titleTextStyle?.color,
               fontSize: size.width * 0.03,

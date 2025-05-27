@@ -110,14 +110,6 @@ class TaskManagerViewModel extends Cubit<TaskManagerState> {
         return;
       }
 
-      if (!_checkAlpabet(taskTitle)) {
-        emit(
-          TaskManagerErrorAddTaskState(
-            'Task title must contain only alphabetic characters',
-          ),
-        );
-        return;
-      }
       final task = TaskModel(taskTitle: taskTitle, taskDesc: taskDesc);
       await _taskService.saveTask(task, _boxName);
       emit(TaskManagaerTaskAddedState(task));
@@ -178,10 +170,5 @@ class TaskManagerViewModel extends Cubit<TaskManagerState> {
     } catch (e) {
       emit(TaskManagerErrorState('$e'));
     }
-  }
-
-  bool _checkAlpabet(String value) {
-    final pattern = RegExp(r'^[a-zA-Z]+$');
-    return pattern.hasMatch(value);
   }
 }

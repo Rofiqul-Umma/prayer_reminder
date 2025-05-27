@@ -37,20 +37,12 @@ class CustomTextField extends StatelessWidget {
       maxLines: maxLines,
       decoration: InputDecoration(
         hintText: hintText,
-
         hintMaxLines: hintMaxLines ?? 1,
         prefixIcon: prefixIcon != null ? Icon(prefixIcon) : null,
-        border: const OutlineInputBorder(),
+        border: InputBorder.none,
+        focusedBorder: InputBorder.none,
+        enabledBorder: InputBorder.none,
         focusColor: theme.colorScheme.surface,
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: theme.colorScheme.outline, width: 2.0),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: theme.colorScheme.onSurface,
-            width: 1.0,
-          ),
-        ),
       ),
       maxLength: maxLength,
       style: theme.textTheme.bodyMedium?.copyWith(
