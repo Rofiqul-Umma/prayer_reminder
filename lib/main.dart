@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:prayer_reminder/core/DI.dart';
+import 'package:prayer_reminder/core/get_it_config.dart';
 import 'package:prayer_reminder/core/dio_helper.dart';
 import 'package:prayer_reminder/core/easy_loading_config.dart';
 import 'package:prayer_reminder/features/bottom_nav/view/bottom_nav.dart';
@@ -16,7 +16,7 @@ void main() async {
   // initialize notification
   await NotificationService().init();
   // intitialize get it
-  await setup();
+  await GetItConfig.init();
   // initialize dio
   DioHelper.init();
   //iiitalize easy loading

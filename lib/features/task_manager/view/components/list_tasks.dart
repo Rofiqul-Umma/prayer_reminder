@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:prayer_reminder/core/DI.dart';
+import 'package:prayer_reminder/core/get_it_config.dart';
 import 'package:prayer_reminder/features/prayer_time/view/components/loading.dart';
 import 'package:prayer_reminder/features/task_manager/view/components/card_task.dart';
 import 'package:prayer_reminder/features/task_manager/view/components/empty_list.dart';

@@ -1,14 +1,12 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:prayer_reminder/core/hive_config.dart';
+import 'package:prayer_reminder/features/settings/service/settings_service.dart';
 
 class SettingsViewModel extends Cubit<bool> {
-  final HiveConfig _hiveConfig;
-  SettingsViewModel(this._hiveConfig) : super(false) {
+  final SettingsService _service;
+  SettingsViewModel(this._service) : super(false) {
     _init();
   }
-
-  final String _boxName = 'rubick_settings';
 
   @override
   void onChange(Change<bool> change) {
@@ -23,13 +21,13 @@ class SettingsViewModel extends Cubit<bool> {
   }
 
   Future<void> _init() async {
-    await _hiveConfig.init(_boxName);
+    await _service.init();
     await loadTheme();
   }
 
   Future<void> toggleTheme(bool isDarkMode) async {
     try {
-      await _hiveConfig.saveBool('1', isDarkMode, _boxName);
+      await _service.saveTheme('1', isDarkMode);
     } catch (e) {
       debugPrint('Error toggling theme: $e');
     } finally {
@@ -39,7 +37,7 @@ class SettingsViewModel extends Cubit<bool> {
 
   Future<void> loadTheme() async {
     try {
-      final isDarkMode = await _hiveConfig.getBool('1', _boxName);
+      final isDarkMode = await _service.getTheme('1');
       emit(isDarkMode ?? false);
     } catch (e) {
       debugPrint('Error loading theme: $e');

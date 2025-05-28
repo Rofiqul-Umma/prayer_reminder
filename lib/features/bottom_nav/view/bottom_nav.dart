@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:prayer_reminder/core/DI.dart';
+import 'package:prayer_reminder/core/get_it_config.dart';
 import 'package:prayer_reminder/features/bottom_nav/model/bottom_nav_model.dart';
 import 'package:prayer_reminder/features/bottom_nav/view_model/bottom_nav_view_model.dart';
 

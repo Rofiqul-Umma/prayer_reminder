@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
-import 'package:prayer_reminder/core/DI.dart';
+import 'package:prayer_reminder/core/get_it_config.dart';
 import 'package:prayer_reminder/features/get_current_loc/view_model/get_current_loc_view_model.dart';
 import 'package:prayer_reminder/features/get_current_loc/view_model/get_current_location_state.dart';
 import 'package:prayer_reminder/features/get_prayer/view_model/get_prayer_state.dart';

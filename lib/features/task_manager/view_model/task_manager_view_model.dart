@@ -17,6 +17,12 @@ class TaskManagerViewModel extends Cubit<TaskManagerState> {
   }
 
   @override
+  void onError(Object error, StackTrace stackTrace) {
+    debugPrint('TaskManagerViewModel error: $error');
+    super.onError(error, stackTrace);
+  }
+
+  @override
   void onChange(Change<TaskManagerState> change) {
     super.onChange(change);
     debugPrint('TaskManagerViewModel state changed: ${change.currentState}');

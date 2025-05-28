@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
-import 'package:prayer_reminder/core/DI.dart';
+import 'package:prayer_reminder/core/get_it_config.dart';
 import 'package:prayer_reminder/core/custom_task_dialog.dart';
 import 'package:prayer_reminder/features/task_manager/view/components/grid_task_status.dart';
 import 'package:prayer_reminder/features/task_manager/view/components/list_tasks.dart';

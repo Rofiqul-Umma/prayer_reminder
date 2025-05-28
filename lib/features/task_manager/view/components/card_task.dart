@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:hugeicons/hugeicons.dart';
-import 'package:prayer_reminder/core/DI.dart';
+import 'package:prayer_reminder/core/get_it_config.dart';
 import 'package:prayer_reminder/core/custom_task_dialog.dart';
 import 'package:prayer_reminder/core/pop_up_helper.dart';
 import 'package:prayer_reminder/features/task_manager/model/task_model.dart';
