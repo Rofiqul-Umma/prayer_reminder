@@ -30,7 +30,8 @@ class Clock extends StatelessWidget {
             Text(
               dateFormat,
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                fontSize: isMobile ? size.width * 0.04 : size.width * 0.01,
+                fontSize: isMobile ? size.width * 0.035 : size.width * 0.01,
+                color: Theme.of(context).colorScheme.onSurface.withAlpha(150),
                 fontWeight: FontWeight.w500,
               ),
             ),

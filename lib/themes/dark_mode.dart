@@ -32,7 +32,7 @@ class DarkModeTheme {
         buttonColor: Colors.grey[700],
         textTheme: ButtonTextTheme.primary,
       ),
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         color: Colors.grey[800],
         elevation: 2,
         margin: EdgeInsets.all(8),

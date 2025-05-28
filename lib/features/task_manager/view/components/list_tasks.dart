@@ -4,6 +4,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:prayer_reminder/core/DI.dart';
 import 'package:prayer_reminder/features/prayer_time/view/components/loading.dart';
 import 'package:prayer_reminder/features/task_manager/view/components/card_task.dart';
+import 'package:prayer_reminder/features/task_manager/view/components/empty_list.dart';
 import 'package:prayer_reminder/features/task_manager/view_model/task_manager_state.dart';
 import 'package:prayer_reminder/features/task_manager/view_model/task_manager_view_model.dart';
 
@@ -72,6 +73,7 @@ class ListTasks extends StatelessWidget {
               },
               itemBuilder: (context, index) {
                 return CardTask(
+                  isDisabled: false,
                   titleC: titleC,
                   descC: descC,
                   index: index,
@@ -92,21 +94,7 @@ class ListTasks extends StatelessWidget {
             ),
           );
         } else {
-          return Center(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: size.width * 0.2),
-              child: Text(
-                """No tasks available yet, Please add a task to get started.""",
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  fontSize: size.width * 0.03,
-                  fontWeight: FontWeight.w500,
-                  color: Theme.of(context).colorScheme.onSurface.withAlpha(50),
-                  fontStyle: FontStyle.italic,
-                ),
-                textAlign: TextAlign.center,
-              ),
-            ),
-          );
+          return EmptyList();
         }
       },
     );

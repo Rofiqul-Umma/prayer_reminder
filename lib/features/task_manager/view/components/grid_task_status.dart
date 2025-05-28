@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:prayer_reminder/features/task_manager/view/all_task_page.dart';
+import 'package:prayer_reminder/features/task_manager/view/cancelled_page.dart';
+import 'package:prayer_reminder/features/task_manager/view/completed_page.dart';
 import 'package:prayer_reminder/features/task_manager/view/components/card_canceled.dart';
 import 'package:prayer_reminder/features/task_manager/view/components/card_completed.dart';
 import 'package:prayer_reminder/features/task_manager/view/components/card_total.dart';
 import 'package:prayer_reminder/features/task_manager/view/components/card_todo.dart';
+import 'package:prayer_reminder/features/task_manager/view/todos_page.dart';
 
 class GridTaskStatus extends StatelessWidget {
-  const GridTaskStatus({super.key});
+  final TextEditingController titleC;
+  final TextEditingController descC;
+  const GridTaskStatus({super.key, required this.titleC, required this.descC});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +27,55 @@ class GridTaskStatus extends StatelessWidget {
           crossAxisSpacing: 10,
           mainAxisSpacing: 10,
         ),
-        children: [CardTodo(), CardCompleted(), CardTotal(), CardCanceled()],
+        children: [
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => TodosPage(titleC: titleC, descC: descC),
+                ),
+              );
+            },
+            child: CardTodo(),
+          ),
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder:
+                      (context) => CompletedPage(titleC: titleC, descC: descC),
+                ),
+              );
+            },
+            child: CardCompleted(),
+          ),
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder:
+                      (context) => AllTaskPage(titleC: titleC, descC: descC),
+                ),
+              );
+            },
+            child: CardTotal(),
+          ),
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder:
+                      (context) => CancelledPage(titleC: titleC, descC: descC),
+                ),
+              );
+            },
+            child: CardCanceled(),
+          ),
+        ],
       ),
     );
   }

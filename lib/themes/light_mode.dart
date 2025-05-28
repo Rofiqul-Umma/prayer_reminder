@@ -41,7 +41,7 @@ class LightModeTheme {
         thumbColor: WidgetStateProperty.all(Colors.white),
         trackColor: WidgetStateProperty.all(Colors.grey[400]), // light grey
       ),
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         color: Colors.grey[100], // light grey for cards
         elevation: 2,
         margin: EdgeInsets.all(8),

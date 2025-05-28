@@ -6,13 +6,12 @@ import 'package:prayer_reminder/features/get_prayer/api/get_prayer_api.dart';
 import 'package:prayer_reminder/features/get_prayer/view_model/get_prayer_view_model.dart';
 import 'package:prayer_reminder/core/hive_config.dart';
 import 'package:prayer_reminder/features/settings/view_model/settings_view_model.dart';
+import 'package:prayer_reminder/features/task_manager/service/task_manager_service.dart';
 import 'package:prayer_reminder/features/task_manager/view_model/task_manager_view_model.dart';
 
 final getIt = GetIt.instance;
 
 Future<void> setup() async {
-  // Register context
-
   // Register DioHelper
   getIt.registerLazySingleton<DioHelper>(() => DioHelper());
 
@@ -23,7 +22,6 @@ Future<void> setup() async {
   getIt.registerSingleton<GetPrayerViewModel>(
     GetPrayerViewModel(getIt.get<GetPrayerApi>()),
   );
-
   // Register GetCurrentLocationViewModel
   getIt.registerSingleton<GetCurrentLocationViewModel>(
     GetCurrentLocationViewModel(),
@@ -35,9 +33,13 @@ Future<void> setup() async {
   // register task manager service
   getIt.registerLazySingleton<HiveConfig>(() => HiveConfig());
 
+  getIt.registerSingleton<TaskManagerService>(
+    TaskManagerService(getIt.get<HiveConfig>()),
+  );
+
   // register task manager view model
   getIt.registerSingleton<TaskManagerViewModel>(
-    TaskManagerViewModel(getIt.get<HiveConfig>()),
+    TaskManagerViewModel(getIt<TaskManagerService>()),
   );
   // register settings view model
   getIt.registerSingleton<SettingsViewModel>(

@@ -76,10 +76,10 @@ class _TaskManagerPageState extends State<TaskManagerPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: size.height * 0.02),
-                GridTaskStatus(),
+                GridTaskStatus(titleC: fieldTaskC, descC: fieldDescriptionC),
                 SizedBox(height: size.height * 0.045),
                 Text(
-                  'All Tasks',
+                  'Todos',
                   style: theme.textTheme.headlineMedium?.copyWith(
                     color: theme.colorScheme.onSurface,
                     fontSize: size.width * 0.04,
