@@ -1,6 +1,8 @@
 import 'package:get_it/get_it.dart';
 import 'package:prayer_reminder/core/dio_helper.dart';
 import 'package:prayer_reminder/features/bottom_nav/view_model/bottom_nav_view_model.dart';
+import 'package:prayer_reminder/features/finance/service/finance_service.dart';
+import 'package:prayer_reminder/features/finance/view_model/finance_view_model.dart';
 import 'package:prayer_reminder/features/get_current_loc/view_model/get_current_loc_view_model.dart';
 import 'package:prayer_reminder/features/get_prayer/api/get_prayer_api.dart';
 import 'package:prayer_reminder/features/get_prayer/view_model/get_prayer_view_model.dart';
@@ -49,6 +51,14 @@ class GetItConfig {
     // register settings view model
     getIt.registerSingleton<SettingsViewModel>(
       SettingsViewModel(getIt<SettingsService>()),
+    );
+
+    getIt.registerLazySingleton<FinanceService>(
+      () => FinanceService(getIt.get<HiveConfig>()),
+    );
+
+    getIt.registerSingleton<FinanceViewModel>(
+      FinanceViewModel(getIt<FinanceService>()),
     );
   }
 }

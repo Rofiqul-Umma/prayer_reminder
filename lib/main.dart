@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
       bloc: getIt<SettingsViewModel>(),
       builder: (context, state) {
         return MaterialApp(
-          title: 'Prayer Reminder',
+          title: 'Rubick',
           themeMode:
               getIt<SettingsViewModel>().state
                   ? ThemeMode.dark

@@ -16,9 +16,7 @@ class ListPrayers extends StatelessWidget {
       child: BlocBuilder(
         bloc: getIt<GetPrayerViewModel>(),
         builder: (context, state) {
-          if (state is GetPrayerLoadingState) {
-            return Loading();
-          } else if (state is GetPrayerSuccessState) {
+          if (state is GetPrayerSuccessState) {
             return ListView.separated(
               shrinkWrap: true,
               separatorBuilder:
@@ -32,7 +30,7 @@ class ListPrayers extends StatelessWidget {
             return Text(
               state.error,
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                fontSize: size.width * 0.05,
+                fontSize: size.width * 0.035,
                 fontWeight: FontWeight.w500,
                 color: Theme.of(context).colorScheme.error,
               ),

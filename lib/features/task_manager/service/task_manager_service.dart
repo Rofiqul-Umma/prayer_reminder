@@ -14,11 +14,11 @@ class TaskManagerService {
   }
 
   Future<void> addTask(TaskModel data) async {
-    await _hiveConfig.saveTask(data, _boxName);
+    await _hiveConfig.saveData(data, _boxName);
   }
 
   Future<List<TaskModel>> getTasks() async {
-    final tasks = await _hiveConfig.getTasks(_boxName);
+    final tasks = await _hiveConfig.getData(_boxName);
     final cTasks = await Isolate.run(
       () =>
           tasks.map((task) {
@@ -34,6 +34,6 @@ class TaskManagerService {
   }
 
   Future<void> updateTask(String id, TaskModel data) async {
-    await _hiveConfig.updateTask(id, data, _boxName);
+    await _hiveConfig.updateData(id, data, _boxName);
   }
 }

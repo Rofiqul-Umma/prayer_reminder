@@ -1,8 +1,6 @@
 import 'dart:convert';
-
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:prayer_reminder/features/task_manager/model/task_model.dart';
 import 'package:path/path.dart' as p;
 
 class HiveConfig {
@@ -13,13 +11,13 @@ class HiveConfig {
     await Hive.openBox(boxName);
   }
 
-  Future<void> saveTask(TaskModel data, String boxName) async {
+  Future<void> saveData(dynamic data, String boxName) async {
     final box = await Hive.box(boxName);
     final task = await json.encode(data.toJson());
     await box.put(data.id, task); // Use task ID as key
   }
 
-  Future<List<Map<String, dynamic>>> getTasks(String boxName) async {
+  Future<List<Map<String, dynamic>>> getData(String boxName) async {
     final box = await Hive.box(boxName);
     final tasks = box.values;
     // Each item is a JSON string, decode each one
@@ -33,9 +31,9 @@ class HiveConfig {
     await box.delete(id); // Delete by ID
   }
 
-  Future<void> updateTask(String id, TaskModel task, String boxName) async {
+  Future<void> updateData(String id, dynamic data, String boxName) async {
     final box = await Hive.box(boxName);
-    final taskJson = await json.encode(task.toJson());
+    final taskJson = await json.encode(data.toJson());
     await box.put(id, taskJson); // Update by ID
   }
 

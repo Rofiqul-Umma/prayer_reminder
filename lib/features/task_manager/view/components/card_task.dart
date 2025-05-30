@@ -49,14 +49,15 @@ class CardTask extends StatelessWidget {
                       descriptionController: descC,
                       confirmText: 'Update Task',
                       onConfirm: (title, description) async {
-                        final updatedTask = data.copyWith(
-                          taskTitle: title,
-                          taskDesc: description,
-                        );
                         await getIt<TaskManagerViewModel>().updateTask(
                           data.id,
-                          updatedTask,
+                          data.copyWith(
+                            taskTitle: title,
+                            taskDesc: description,
+                          ),
                         );
+                        titleC.clear();
+                        descC.clear();
                         Navigator.of(context).pop();
                       },
                     );
