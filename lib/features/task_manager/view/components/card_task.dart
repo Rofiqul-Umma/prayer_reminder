@@ -111,7 +111,7 @@ class CardTask extends StatelessWidget {
                 );
               },
               backgroundColor: theme.colorScheme.surface,
-              icon: HugeIcons.strokeRoundedTaskDaily02,
+              icon: HugeIcons.strokeRoundedTick01,
               label: 'Finish',
             ),
             SlidableAction(

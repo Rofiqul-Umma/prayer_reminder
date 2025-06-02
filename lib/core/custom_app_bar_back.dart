@@ -7,7 +7,7 @@ AppBar customAppBarBack(String appbarTitle, BuildContext context) {
   return AppBar(
     backgroundColor: theme.appBarTheme.backgroundColor,
     leading: IconButton(
-      icon: const Icon(HugeIcons.strokeRoundedArrowLeft04),
+      icon: const Icon(HugeIcons.strokeRoundedCurvyLeftDirection),
       onPressed: () => Navigator.of(context).pop(),
     ),
     title: Text(
