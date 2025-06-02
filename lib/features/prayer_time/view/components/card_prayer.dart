@@ -26,12 +26,13 @@ class CardPrayer extends StatelessWidget {
           leading: Icon(
             HugeIcons.strokeRoundedAlarmClock,
             size: isMobile ? size.width * 0.05 : size.width * 0.02,
-            color: Theme.of(context).iconTheme.color,
+            color: Theme.of(context).colorScheme.onSurface,
           ),
           title: Text(
             state.data[index].name,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
               fontSize: isMobile ? size.width * 0.04 : size.width * 0.015,
+              color: Theme.of(context).colorScheme.onSurface,
               fontWeight: FontWeight.w500,
             ),
           ),
@@ -39,6 +40,7 @@ class CardPrayer extends StatelessWidget {
             state.data[index].time,
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
               fontSize: isMobile ? size.width * 0.03 : size.width * 0.012,
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
               fontWeight: FontWeight.w500,
             ),
           ),

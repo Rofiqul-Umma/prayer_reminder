@@ -32,7 +32,7 @@ class CustomCardStatus extends StatelessWidget {
             child: Icon(
               icon,
               size: isMobile ? size.width * 0.08 : size.width * 0.01,
-              color: Theme.of(context).iconTheme.color,
+              color: Theme.of(context).colorScheme.onSurface,
             ),
           ),
           Flexible(
@@ -44,6 +44,7 @@ class CustomCardStatus extends StatelessWidget {
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
                     fontSize: isMobile ? size.width * 0.05 : size.width * 0.015,
                     fontWeight: FontWeight.w600,
+                    color: Theme.of(context).colorScheme.onSurface,
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
@@ -52,6 +53,7 @@ class CustomCardStatus extends StatelessWidget {
                   subtitle ?? 'Todo',
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
                     fontSize: isMobile ? size.width * 0.03 : size.width * 0.012,
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
                     fontWeight: FontWeight.w300,
                   ),
                 ),

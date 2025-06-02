@@ -46,9 +46,10 @@ class CustomTextField extends StatelessWidget {
         hintText: hintText,
         hintMaxLines: hintMaxLines ?? 1,
         prefixIcon: prefixIcon != null ? Icon(prefixIcon) : null,
-        border: InputBorder.none,
-        focusedBorder: InputBorder.none,
-        enabledBorder: InputBorder.none,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(size.width * 0.02),
+          borderSide: BorderSide.none,
+        ),
         focusColor: theme.colorScheme.surface,
       ),
       maxLength: maxLength,

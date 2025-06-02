@@ -152,6 +152,10 @@ class CardTask extends StatelessWidget {
                 fontWeight: FontWeight.w600,
                 overflow: TextOverflow.ellipsis,
                 decoration: isDisabled ? TextDecoration.lineThrough : null,
+                color:
+                    isDisabled
+                        ? theme.colorScheme.onSurfaceVariant
+                        : theme.colorScheme.onSurface,
               ),
               maxLines: 2,
             ),
@@ -160,6 +164,7 @@ class CardTask extends StatelessWidget {
               style: theme.textTheme.bodySmall?.copyWith(
                 fontSize: size.width * 0.03,
                 fontWeight: FontWeight.w300,
+                color: theme.colorScheme.onSurfaceVariant,
               ),
             ),
             trailing: IconButton(
@@ -169,7 +174,7 @@ class CardTask extends StatelessWidget {
                     : data.isCompleted
                     ? HugeIcons.strokeRoundedCheckmarkCircle02
                     : HugeIcons.strokeRoundedMore01,
-                color: theme.colorScheme.secondary,
+                color: theme.colorScheme.onSurface,
                 size: size.width * 0.08,
               ),
               onPressed: () {
