@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:prayer_reminder/features/finance/view/components/alert_add_expanses.dart';
 
@@ -50,13 +49,7 @@ AppBar appBarFinance(
         icon: const Icon(HugeIcons.strokeRoundedAddCircle),
       ),
       IconButton(
-        onPressed: () {
-          EasyLoading.showToast(
-            'View transaction history',
-            duration: const Duration(seconds: 2),
-            toastPosition: EasyLoadingToastPosition.bottom,
-          );
-        },
+        onPressed: () {},
         icon: const Icon(HugeIcons.strokeRoundedTransactionHistory),
       ),
     ],

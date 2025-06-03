@@ -44,14 +44,7 @@ class PopUpHelper {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog.adaptive(
-          title: Text(
-            title,
-            style: Theme.of(context).textTheme.labelMedium?.copyWith(
-              color: Theme.of(context).colorScheme.onSurface,
-              fontSize: MediaQuery.sizeOf(context).width * 0.035,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
+          title: Text(title),
           content: Text(message),
           actions: <Widget>[
             TextButton(

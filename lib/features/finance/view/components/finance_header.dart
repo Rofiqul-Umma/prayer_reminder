@@ -25,7 +25,6 @@ class FinanceHeader extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.all(size.width * 0.03),
             child: Column(
-              mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 RichText(

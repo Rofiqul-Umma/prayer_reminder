@@ -157,15 +157,17 @@ class CardTask extends StatelessWidget {
                         ? theme.colorScheme.onSurfaceVariant
                         : theme.colorScheme.onSurface,
               ),
-              maxLines: 2,
+              maxLines: 1,
             ),
             subtitle: Text(
-              data.createdAt.toUtc().toString().substring(0, 10),
+              data.taskDesc,
               style: theme.textTheme.bodySmall?.copyWith(
                 fontSize: size.width * 0.03,
                 fontWeight: FontWeight.w300,
                 color: theme.colorScheme.onSurfaceVariant,
               ),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
             ),
             trailing: IconButton(
               icon: Icon(
@@ -173,7 +175,7 @@ class CardTask extends StatelessWidget {
                     ? HugeIcons.strokeRoundedCancelCircle
                     : data.isCompleted
                     ? HugeIcons.strokeRoundedCheckmarkCircle02
-                    : HugeIcons.strokeRoundedMore01,
+                    : HugeIcons.strokeRoundedMoreVertical,
                 color: theme.colorScheme.onSurface,
                 size: size.width * 0.08,
               ),
