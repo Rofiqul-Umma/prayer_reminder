@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:prayer_reminder/core/dio_helper.dart';
+import 'package:prayer_reminder/core/easy_loading_config.dart';
 import 'package:prayer_reminder/features/bottom_nav/view_model/bottom_nav_view_model.dart';
 import 'package:prayer_reminder/features/finance/service/finance_service.dart';
 import 'package:prayer_reminder/features/finance/view_model/finance_view_model.dart';

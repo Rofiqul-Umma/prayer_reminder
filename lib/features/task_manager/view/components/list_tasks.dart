@@ -21,7 +21,6 @@ class ListTasks extends StatelessWidget {
       listener: (context, state) {
         if (state is TaskManagaerTaskAddedState) {
           EasyLoading.dismiss();
-          getIt<TaskManagerViewModel>().getTasks();
           EasyLoading.showToast(
             "Task added successfully",
             toastPosition: EasyLoadingToastPosition.bottom,
@@ -29,21 +28,16 @@ class ListTasks extends StatelessWidget {
         } else if (state is TaskManagerSuccessDeleteState) {
           EasyLoading.dismiss();
           Navigator.of(context).pop();
-          getIt<TaskManagerViewModel>().getTasks();
           EasyLoading.showToast(
             "Task deleted successfully",
             toastPosition: EasyLoadingToastPosition.bottom,
           );
         } else if (state is TaskManagerErrorAddTaskState) {
           EasyLoading.dismiss();
-          EasyLoading.showToast(
-            state.error,
-            toastPosition: EasyLoadingToastPosition.bottom,
-          );
+          EasyLoading.showToast(state.error);
         } else if (state is TaskManagerTaskCompleted) {
           EasyLoading.dismiss();
           Navigator.of(context).pop();
-          getIt<TaskManagerViewModel>().getTasks();
           EasyLoading.showToast(
             "Task completed successfully",
             toastPosition: EasyLoadingToastPosition.bottom,
@@ -51,7 +45,6 @@ class ListTasks extends StatelessWidget {
         } else if (state is TaskManagerTaskCancelled) {
           EasyLoading.dismiss();
           Navigator.of(context).pop();
-          getIt<TaskManagerViewModel>().getTasks();
           EasyLoading.showToast(
             "Task cancelled successfully",
             toastPosition: EasyLoadingToastPosition.bottom,

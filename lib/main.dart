@@ -19,10 +19,10 @@ void main() async {
   await GetItConfig.init();
   // initialize dio
   DioHelper.init();
-  //iiitalize easy loading
-  await EasyLoadingConfig.init;
   // initialize the app
   runApp(const MyApp());
+  //iiitalize easy loading
+  EasyLoadingConfig.init;
 }
 
 class MyApp extends StatelessWidget {

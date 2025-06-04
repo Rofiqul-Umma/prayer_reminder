@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class EasyLoadingConfig {
-  static Future<void> init() async {
+  static void init() {
     EasyLoading.instance
       ..displayDuration = const Duration(milliseconds: 2000)
-      ..indicatorType = EasyLoadingIndicatorType.fadingCircle
+      ..indicatorType = EasyLoadingIndicatorType.circle
       ..loadingStyle = EasyLoadingStyle.dark
       ..indicatorSize = 45.0
       ..radius = 10.0

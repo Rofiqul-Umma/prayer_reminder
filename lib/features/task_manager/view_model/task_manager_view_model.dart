@@ -95,12 +95,7 @@ class TaskManagerViewModel extends Cubit<TaskManagerState> {
     try {
       emit(TaskManagerLoadingAddTaskState());
       if (taskTitle.trim().isEmpty || taskDesc.trim().isEmpty) {
-        emit(
-          TaskManagerErrorAddTaskState(
-            'Task title and description cannot be empty',
-          ),
-        );
-        return;
+        throw Exception('Task title and description cannot be empty');
       }
 
       final task = TaskModel(taskTitle: taskTitle, taskDesc: taskDesc);
@@ -108,6 +103,8 @@ class TaskManagerViewModel extends Cubit<TaskManagerState> {
       emit(TaskManagaerTaskAddedState(task));
     } catch (e) {
       emit(TaskManagerErrorAddTaskState('$e'));
+    } finally {
+      getTasks();
     }
   }
 
@@ -151,6 +148,8 @@ class TaskManagerViewModel extends Cubit<TaskManagerState> {
       emit(TaskManagerTaskCompleted());
     } catch (e) {
       emit(TaskManagerErrorState('$e'));
+    } finally {
+      getTasks();
     }
   }
 
@@ -162,6 +161,8 @@ class TaskManagerViewModel extends Cubit<TaskManagerState> {
       emit(TaskManagerTaskCancelled());
     } catch (e) {
       emit(TaskManagerErrorState('$e'));
+    } finally {
+      getTasks();
     }
   }
 }
