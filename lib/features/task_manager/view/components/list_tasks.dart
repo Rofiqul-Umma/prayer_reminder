@@ -34,7 +34,10 @@ class ListTasks extends StatelessWidget {
           );
         } else if (state is TaskManagerErrorAddTaskState) {
           EasyLoading.dismiss();
-          EasyLoading.showToast(state.error);
+          EasyLoading.showToast(
+            state.error,
+            toastPosition: EasyLoadingToastPosition.bottom,
+          );
         } else if (state is TaskManagerTaskCompleted) {
           EasyLoading.dismiss();
           Navigator.of(context).pop();
