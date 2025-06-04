@@ -11,8 +11,14 @@ import 'package:prayer_reminder/features/task_manager/view_model/task_manager_vi
 class TodosPage extends StatelessWidget {
   final TextEditingController titleC;
   final TextEditingController descC;
+  final TextEditingController timeC;
 
-  const TodosPage({super.key, required this.titleC, required this.descC});
+  const TodosPage({
+    super.key,
+    required this.titleC,
+    required this.descC,
+    required this.timeC,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +46,7 @@ class TodosPage extends StatelessWidget {
                         return CardTask(
                           isDisabled: false,
                           data: viewModel.todos[index],
+                          timeC: timeC,
                           index: index,
                           titleC: titleC,
                           descC: descC,

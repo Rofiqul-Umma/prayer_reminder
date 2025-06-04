@@ -12,6 +12,7 @@ class CardTask extends StatelessWidget {
   final TaskModel data;
   final TextEditingController titleC;
   final TextEditingController descC;
+  final TextEditingController timeC;
   final bool isDisabled;
   const CardTask({
     super.key,
@@ -19,6 +20,7 @@ class CardTask extends StatelessWidget {
     required this.index,
     required this.titleC,
     required this.descC,
+    required this.timeC,
     required this.isDisabled,
   });
 
@@ -47,6 +49,7 @@ class CardTask extends StatelessWidget {
                       description: "Edit your task details",
                       titleController: titleC,
                       descriptionController: descC,
+                      timeController: timeC,
                       confirmText: 'Update Task',
                       onConfirm: (title, description) async {
                         await getIt<TaskManagerViewModel>().updateTask(
@@ -159,15 +162,69 @@ class CardTask extends StatelessWidget {
               ),
               maxLines: 1,
             ),
-            subtitle: Text(
-              data.taskDesc,
-              style: theme.textTheme.bodySmall?.copyWith(
-                fontSize: size.width * 0.03,
-                fontWeight: FontWeight.w300,
-                color: theme.colorScheme.onSurfaceVariant,
-              ),
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
+            subtitle: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              spacing: size.width * 0.02,
+              children: [
+                Flexible(
+                  child: Text(
+                    data.taskDesc,
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      fontSize: size.width * 0.03,
+                      fontWeight: FontWeight.w300,
+                      color: theme.colorScheme.onSurfaceVariant,
+                    ),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                Row(
+                  spacing: size.width * 0.03,
+                  children: [
+                    Row(
+                      spacing: size.width * 0.01,
+                      children: [
+                        Icon(
+                          HugeIcons.strokeRoundedCalendar01,
+                          color: theme.colorScheme.onSurfaceVariant,
+                          size: size.width * 0.04,
+                        ),
+                      ],
+                    ),
+                    Text(
+                      '${data.dueDate.toLocal().toIso8601String().substring(0, 10)}',
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        fontSize: size.width * 0.03,
+                        fontWeight: FontWeight.w300,
+                        color: theme.colorScheme.onSurfaceVariant,
+                      ),
+                    ),
+                    Row(
+                      spacing: size.width * 0.01,
+                      children: [
+                        Row(
+                          children: [
+                            Icon(
+                              HugeIcons.strokeRoundedAlarmClock,
+                              color: theme.colorScheme.onSurfaceVariant,
+                              size: size.width * 0.04,
+                            ),
+                          ],
+                        ),
+                        Text(
+                          ' ${data.dueDate.toLocal().toIso8601String().substring(11, 16)}',
+                          style: theme.textTheme.bodySmall?.copyWith(
+                            fontSize: size.width * 0.03,
+                            fontWeight: FontWeight.w300,
+                            color: theme.colorScheme.onSurfaceVariant,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
             ),
             trailing: IconButton(
               icon: Icon(

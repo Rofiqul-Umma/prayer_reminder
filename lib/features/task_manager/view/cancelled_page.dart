@@ -11,8 +11,14 @@ import 'package:prayer_reminder/features/task_manager/view_model/task_manager_vi
 class CancelledPage extends StatelessWidget {
   final TextEditingController titleC;
   final TextEditingController descC;
+  final TextEditingController timeC;
 
-  const CancelledPage({super.key, required this.titleC, required this.descC});
+  const CancelledPage({
+    super.key,
+    required this.titleC,
+    required this.descC,
+    required this.timeC,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +49,7 @@ class CancelledPage extends StatelessWidget {
                           index: index,
                           titleC: titleC,
                           descC: descC,
+                          timeC: timeC,
                         );
                       },
                     );

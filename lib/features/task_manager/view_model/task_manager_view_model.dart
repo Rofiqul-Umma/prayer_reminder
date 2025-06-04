@@ -91,20 +91,32 @@ class TaskManagerViewModel extends Cubit<TaskManagerState> {
     }
   }
 
-  Future<void> addTask(String taskTitle, String taskDesc) async {
+  Future<void> addTask(
+    String taskTitle,
+    String taskDesc,
+    DateTime dueDate,
+  ) async {
     try {
       emit(TaskManagerLoadingAddTaskState());
       if (taskTitle.trim().isEmpty || taskDesc.trim().isEmpty) {
         throw Exception('Task title and description cannot be empty');
       }
+      if (dueDate.isBefore(DateTime.now())) {
+        throw Exception('Due date cannot be in the past');
+      }
+      if (dueDate.isAfter(DateTime.now().add(const Duration(days: 365)))) {
+        throw Exception('Due date cannot be more than a year in the future');
+      }
 
-      final task = TaskModel(taskTitle: taskTitle, taskDesc: taskDesc);
+      final task = TaskModel(
+        taskTitle: taskTitle,
+        taskDesc: taskDesc,
+        dueDate: dueDate,
+      );
       await _service.addTask(task);
       emit(TaskManagaerTaskAddedState(task));
     } catch (e) {
       emit(TaskManagerErrorAddTaskState('$e'));
-    } finally {
-      getTasks();
     }
   }
 

@@ -8,10 +8,12 @@ class CustomTextField extends StatelessWidget {
   final IconData? prefixIcon;
   final double? fontSize;
   final FontWeight? fontWeight;
+  final bool? enabled;
   final ThemeData theme;
   final int? maxLines;
   final Size size;
   final String? initialValue;
+  final Widget? suffix;
   final int? hintMaxLines;
   final TextInputType? keyboardType;
   final List<TextInputFormatter>? inputFormatters;
@@ -24,7 +26,9 @@ class CustomTextField extends StatelessWidget {
     required this.size,
     this.inputFormatters,
     this.keyboardType,
+    this.enabled,
     this.maxLength,
+    this.suffix,
     this.initialValue,
     this.maxLines,
     this.prefixIcon,
@@ -37,6 +41,7 @@ class CustomTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
+      enabled: enabled,
       autocorrect: false,
       initialValue: initialValue,
       inputFormatters: inputFormatters,
@@ -44,6 +49,7 @@ class CustomTextField extends StatelessWidget {
       keyboardType: keyboardType ?? TextInputType.text,
       decoration: InputDecoration(
         hintText: hintText,
+        suffix: suffix,
         hintMaxLines: hintMaxLines ?? 1,
         prefixIcon: prefixIcon != null ? Icon(prefixIcon) : null,
         border: OutlineInputBorder(

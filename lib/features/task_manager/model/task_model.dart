@@ -2,6 +2,7 @@ class TaskModel {
   String id;
   String taskTitle;
   String taskDesc;
+  DateTime dueDate;
   DateTime createdAt;
   bool isCompleted;
   bool isCancelled;
@@ -11,6 +12,7 @@ class TaskModel {
     String? id,
     required this.taskTitle,
     required this.taskDesc,
+    required this.dueDate,
     DateTime? createdAt,
     this.isCompleted = false,
     this.isCancelled = false,
@@ -22,6 +24,7 @@ class TaskModel {
     return {
       'id': id,
       'taskTitle': taskTitle,
+      'dueDate': dueDate.toIso8601String(),
       'taskDesc': taskDesc,
       'createdAt': createdAt.toIso8601String(),
       'isCompleted': isCompleted,
@@ -35,6 +38,7 @@ class TaskModel {
       id: json['id'],
       taskTitle: json['taskTitle'],
       taskDesc: json['taskDesc'],
+      dueDate: DateTime.parse(json['dueDate']),
       createdAt: DateTime.parse(json['createdAt']),
       isCompleted: json['isCompleted'] ?? false,
       isCancelled: json['isCancelled'] ?? false,
@@ -48,6 +52,7 @@ class TaskModel {
     String? taskTitle,
     String? taskDesc,
     DateTime? createdAt,
+    DateTime? dueDate,
     bool? isCompleted,
     bool? isCancelled,
     bool? isDeleted,
@@ -55,6 +60,7 @@ class TaskModel {
     return TaskModel(
       id: id ?? this.id,
       taskTitle: taskTitle ?? this.taskTitle,
+      dueDate: dueDate ?? this.dueDate,
       taskDesc: taskDesc ?? this.taskDesc,
       createdAt: createdAt ?? this.createdAt,
       isCompleted: isCompleted ?? this.isCompleted,

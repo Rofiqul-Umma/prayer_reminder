@@ -11,7 +11,13 @@ import 'package:prayer_reminder/features/task_manager/view/todos_page.dart';
 class GridTaskStatus extends StatelessWidget {
   final TextEditingController titleC;
   final TextEditingController descC;
-  const GridTaskStatus({super.key, required this.titleC, required this.descC});
+  final TextEditingController timeC;
+  const GridTaskStatus({
+    super.key,
+    required this.titleC,
+    required this.descC,
+    required this.timeC,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +39,9 @@ class GridTaskStatus extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => TodosPage(titleC: titleC, descC: descC),
+                  builder:
+                      (context) =>
+                          TodosPage(titleC: titleC, descC: descC, timeC: timeC),
                 ),
               );
             },
@@ -45,7 +53,11 @@ class GridTaskStatus extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder:
-                      (context) => CompletedPage(titleC: titleC, descC: descC),
+                      (context) => CompletedPage(
+                        titleC: titleC,
+                        descC: descC,
+                        timeC: timeC,
+                      ),
                 ),
               );
             },
@@ -57,7 +69,11 @@ class GridTaskStatus extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder:
-                      (context) => AllTaskPage(titleC: titleC, descC: descC),
+                      (context) => AllTaskPage(
+                        titleC: titleC,
+                        descC: descC,
+                        timeC: timeC,
+                      ),
                 ),
               );
             },
@@ -69,7 +85,11 @@ class GridTaskStatus extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder:
-                      (context) => CancelledPage(titleC: titleC, descC: descC),
+                      (context) => CancelledPage(
+                        titleC: titleC,
+                        descC: descC,
+                        timeC: timeC,
+                      ),
                 ),
               );
             },

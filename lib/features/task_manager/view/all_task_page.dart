@@ -11,8 +11,14 @@ import 'package:prayer_reminder/features/task_manager/view_model/task_manager_vi
 class AllTaskPage extends StatelessWidget {
   final TextEditingController titleC;
   final TextEditingController descC;
+  final TextEditingController timeC;
 
-  const AllTaskPage({super.key, required this.titleC, required this.descC});
+  const AllTaskPage({
+    super.key,
+    required this.titleC,
+    required this.descC,
+    required this.timeC,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +51,7 @@ class AllTaskPage extends StatelessWidget {
                           index: index,
                           titleC: titleC,
                           descC: descC,
+                          timeC: timeC,
                         );
                       },
                     );

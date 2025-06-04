@@ -4,7 +4,6 @@ import 'package:lottie/lottie.dart';
 import 'package:prayer_reminder/core/get_it_config.dart';
 import 'package:prayer_reminder/features/get_current_loc/view_model/get_current_loc_view_model.dart';
 import 'package:prayer_reminder/features/get_current_loc/view_model/get_current_location_state.dart';
-import 'package:prayer_reminder/features/get_prayer/view_model/get_prayer_state.dart';
 import 'package:prayer_reminder/features/get_prayer/view_model/get_prayer_view_model.dart';
 import 'package:prayer_reminder/features/prayer_time/view/components/clock.dart';
 import 'package:prayer_reminder/features/prayer_time/view/components/list_prayers.dart';
@@ -30,61 +29,49 @@ class PrayerTimeTabletPage extends StatelessWidget {
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  BlocListener<GetPrayerViewModel, GetPrayerState>(
-                    bloc: getIt<GetPrayerViewModel>(),
+                  BlocConsumer<
+                    GetCurrentLocationViewModel,
+                    GetCurrentLocationState
+                  >(
+                    bloc: getIt<GetCurrentLocationViewModel>(),
                     listener: (context, state) {
-                      if (state is GetPrayerSuccessState) {
-                        Future.microtask(
-                          () =>
-                              getIt<GetPrayerViewModel>()
-                                  .startPrayerTimeChecker(),
+                      if (state is GetCurrentLocationSuccessState) {
+                        getIt<GetPrayerViewModel>().getPrayers(
+                          "${state.data.subLocality}, ${state.data.locality}, ${state.data.country}",
                         );
                       }
                     },
-                    child: BlocConsumer<
-                      GetCurrentLocationViewModel,
-                      GetCurrentLocationState
-                    >(
-                      bloc: getIt<GetCurrentLocationViewModel>(),
-                      listener: (context, state) {
-                        if (state is GetCurrentLocationSuccessState) {
-                          getIt<GetPrayerViewModel>().getPrayers(
-                            "${state.data.subLocality}, ${state.data.locality}, ${state.data.country}",
-                          );
-                        }
-                      },
-                      builder: (context, state) {
-                        if (state is GetCurrentLocationLoadingState) {
-                          return Loading();
-                        } else if (state is GetCurrentLocationSuccessState) {
-                          return Location(state: state);
-                        } else if (state is GetCurrentLocationErrorState) {
-                          return Text(
-                            state.error,
-                            style: Theme.of(
-                              context,
-                            ).textTheme.bodySmall?.copyWith(
-                              fontSize: size.width * 0.015,
-                              fontWeight: FontWeight.w500,
-                              color: Theme.of(context).colorScheme.error,
-                            ),
-                            textAlign: TextAlign.center,
-                          );
-                        } else {
-                          return Text(
-                            "Something went wrong",
-                            style: Theme.of(
-                              context,
-                            ).textTheme.bodySmall?.copyWith(
-                              fontSize: size.width * 0.015,
-                              fontWeight: FontWeight.w500,
-                              color: Theme.of(context).colorScheme.error,
-                            ),
-                            textAlign: TextAlign.center,
-                          );
-                        }
-                      },
-                    ),
+                    builder: (context, state) {
+                      if (state is GetCurrentLocationLoadingState) {
+                        return Loading();
+                      } else if (state is GetCurrentLocationSuccessState) {
+                        return Location(state: state);
+                      } else if (state is GetCurrentLocationErrorState) {
+                        return Text(
+                          state.error,
+                          style: Theme.of(
+                            context,
+                          ).textTheme.bodySmall?.copyWith(
+                            fontSize: size.width * 0.015,
+                            fontWeight: FontWeight.w500,
+                            color: Theme.of(context).colorScheme.error,
+                          ),
+                          textAlign: TextAlign.center,
+                        );
+                      } else {
+                        return Text(
+                          "Something went wrong",
+                          style: Theme.of(
+                            context,
+                          ).textTheme.bodySmall?.copyWith(
+                            fontSize: size.width * 0.015,
+                            fontWeight: FontWeight.w500,
+                            color: Theme.of(context).colorScheme.error,
+                          ),
+                          textAlign: TextAlign.center,
+                        );
+                      }
+                    },
                   ),
                   SizedBox(height: size.height * 0.01),
                   Clock(),

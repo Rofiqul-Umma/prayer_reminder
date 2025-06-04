@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:prayer_reminder/core/custom_text_filed.dart';
+import 'package:prayer_reminder/features/date_time_picker/view/date_time_picker.dart';
 
 class CustomTaskDialog extends StatelessWidget {
   final String title;
@@ -10,6 +11,7 @@ class CustomTaskDialog extends StatelessWidget {
   final String? initialDescription;
   final TextEditingController titleController;
   final TextEditingController descriptionController;
+  final TextEditingController timeController;
   final String titleHint;
   final String descriptionHint;
   final int titleMaxLines;
@@ -24,6 +26,7 @@ class CustomTaskDialog extends StatelessWidget {
     required this.description,
     required this.titleController,
     required this.descriptionController,
+    required this.timeController,
     this.cancelText = 'Cancel',
     this.initialTitle,
     this.initialDescription,
@@ -64,6 +67,8 @@ class CustomTaskDialog extends StatelessWidget {
           size: size,
         ),
         SizedBox(height: size.height * 0.02),
+        DateTimePicker(timeController: timeController),
+        SizedBox(height: size.height * 0.02),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -95,6 +100,7 @@ class CustomTaskDialog extends StatelessWidget {
                 }
                 titleController.clear();
                 descriptionController.clear();
+                timeController.clear();
               },
               child: Text(
                 confirmText,

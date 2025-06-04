@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:prayer_reminder/core/get_it_config.dart';
 import 'package:prayer_reminder/core/custom_task_dialog.dart';
+import 'package:prayer_reminder/features/date_time_picker/view_model/date_time_picker_VM.dart';
 import 'package:prayer_reminder/features/task_manager/view/components/grid_task_status.dart';
-import 'package:prayer_reminder/features/task_manager/view/components/list_tasks.dart';
+import 'package:prayer_reminder/features/task_manager/view/components/tasks.dart';
 import 'package:prayer_reminder/features/task_manager/view_model/task_manager_view_model.dart';
 
 class TaskManagerTabletPage extends StatefulWidget {
@@ -13,13 +14,15 @@ class TaskManagerTabletPage extends StatefulWidget {
 }
 
 class _TaskManagerPageState extends State<TaskManagerTabletPage> {
-  final TextEditingController fieldTaskC = TextEditingController();
-  final TextEditingController fieldDescriptionC = TextEditingController();
+  final fieldTaskC = TextEditingController();
+  final fieldDescriptionC = TextEditingController();
+  final timeC = TextEditingController();
 
   @override
   void dispose() {
     fieldTaskC.dispose();
     fieldDescriptionC.dispose();
+    timeC.dispose();
     super.dispose();
   }
 
@@ -37,7 +40,11 @@ class _TaskManagerPageState extends State<TaskManagerTabletPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: size.height * 0.02),
-                GridTaskStatus(titleC: fieldTaskC, descC: fieldDescriptionC),
+                GridTaskStatus(
+                  titleC: fieldTaskC,
+                  descC: fieldDescriptionC,
+                  timeC: timeC,
+                ),
                 SizedBox(height: size.height * 0.045),
                 Text(
                   'All Tasks',
@@ -48,7 +55,11 @@ class _TaskManagerPageState extends State<TaskManagerTabletPage> {
                   ),
                 ),
                 SizedBox(height: size.height * 0.02),
-                ListTasks(titleC: fieldTaskC, descC: fieldDescriptionC),
+                Tasks(
+                  titleC: fieldTaskC,
+                  descC: fieldDescriptionC,
+                  timeC: timeC,
+                ),
                 SizedBox(height: size.height * 0.02),
               ],
             ),
@@ -65,11 +76,13 @@ class _TaskManagerPageState extends State<TaskManagerTabletPage> {
                 description: 'Add new task to your list',
                 titleController: fieldTaskC,
                 descriptionController: fieldDescriptionC,
+                timeController: timeC,
                 onConfirm:
                     (title, description) async =>
                         await getIt<TaskManagerViewModel>().addTask(
                           title,
                           description,
+                          getIt.get<DateTimePickerVM>().state,
                         ),
               );
             },
