@@ -2,6 +2,7 @@ import 'package:get_it/get_it.dart';
 import 'package:prayer_reminder/core/dio_helper.dart';
 import 'package:prayer_reminder/features/bottom_nav/view_model/bottom_nav_view_model.dart';
 import 'package:prayer_reminder/features/date_time_picker/view_model/date_time_picker_VM.dart';
+import 'package:prayer_reminder/features/encryption/service/encryption_service.dart';
 import 'package:prayer_reminder/features/finance/service/finance_service.dart';
 import 'package:prayer_reminder/features/finance/view_model/finance_view_model.dart';
 import 'package:prayer_reminder/features/get_current_loc/view_model/get_current_loc_view_model.dart';
@@ -17,6 +18,8 @@ final getIt = GetIt.instance;
 
 class GetItConfig {
   static Future<void> init() async {
+    // Register Encryptor
+    getIt.registerLazySingleton(() => EncryptionService());
     // Register DioHelper
     getIt.registerLazySingleton<DioHelper>(() => DioHelper());
 
@@ -36,7 +39,9 @@ class GetItConfig {
     getIt.registerSingleton<BottomNavViewModel>(BottomNavViewModel());
 
     // register task manager service
-    getIt.registerLazySingleton<HiveConfig>(() => HiveConfig());
+    getIt.registerLazySingleton<HiveConfig>(
+      () => HiveConfig(getIt.get<EncryptionService>()),
+    );
 
     getIt.registerLazySingleton<TaskManagerService>(
       () => TaskManagerService(getIt.get<HiveConfig>()),
