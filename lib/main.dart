@@ -17,12 +17,12 @@ void main() async {
   await NotificationService().init();
   // intitialize get it
   await GetItConfig.init();
+  //iiitalize easy loading
+  await EasyLoadingConfig.init();
   // initialize dio
   DioHelper.init();
   // initialize the app
   runApp(const MyApp());
-  //iiitalize easy loading
-  EasyLoadingConfig.init;
 }
 
 class MyApp extends StatelessWidget {
