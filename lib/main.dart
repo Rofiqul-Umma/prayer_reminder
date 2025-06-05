@@ -36,6 +36,7 @@ class MyApp extends StatelessWidget {
       builder: (context, state) {
         return MaterialApp(
           title: 'Rubick',
+          builder: EasyLoading.init(),
           themeMode:
               getIt<SettingsViewModel>().state
                   ? ThemeMode.dark
@@ -44,7 +45,6 @@ class MyApp extends StatelessWidget {
           theme: LightModeTheme.theme,
           debugShowCheckedModeBanner: false,
           home: size.width > 600 ? SiderBarMenu() : BottomNavBar(),
-          builder: EasyLoading.init(),
         );
       },
     );
