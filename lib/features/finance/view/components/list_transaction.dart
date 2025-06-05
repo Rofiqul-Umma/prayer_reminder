@@ -13,10 +13,13 @@ class ListTransaction extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
+    final viewModel = getIt<FinanceViewModel>();
     return BlocBuilder<FinanceViewModel, FinanceState>(
       bloc: getIt.get<FinanceViewModel>(),
       builder: (context, state) {
-        if (state is GetExpansesEmpty) {
+        if (state is GetExpansesLoading) {
+          return Loading();
+        } else if (state is GetExpansesEmpty) {
           return EmptyTransaction();
         } else if (state is GetExpansesSuccess) {
           return Expanded(
@@ -43,7 +46,20 @@ class ListTransaction extends StatelessWidget {
             ),
           );
         } else {
-          return Loading();
+          return Expanded(
+            child: ListView.separated(
+              separatorBuilder: (context, index) {
+                return SizedBox(height: size.height * 0.01);
+              },
+              itemCount: viewModel.expanses.length, // Example item count
+              itemBuilder: (context, index) {
+                return CardTransaction(
+                  index: index,
+                  data: viewModel.expanses[index],
+                );
+              },
+            ),
+          );
         }
       },
     );

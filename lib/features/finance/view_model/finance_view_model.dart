@@ -21,6 +21,21 @@ class FinanceViewModel extends Cubit<FinanceState> {
   int _totalExpanses = 0;
   int get totalExpanses => _totalExpanses;
 
+  List<ExpansesModel> _expanses = [];
+  List<ExpansesModel> get expanses => _expanses;
+
+  @override
+  void onError(Object error, StackTrace stackTrace) {
+    super.onError(error, stackTrace);
+    print('FinanceViewModel error: $error');
+  }
+
+  @override
+  void onChange(Change<FinanceState> change) {
+    super.onChange(change);
+    print('FinanceViewModel state changed: ${change.currentState}');
+  }
+
   void setSelectedCategory(String? category) {
     if (category != null) {
       selectedCategory = category;
@@ -67,6 +82,7 @@ class FinanceViewModel extends Cubit<FinanceState> {
           (sum, item) => sum + item.amount,
         );
         currentMonthData.sort((a, b) => b.date.compareTo(a.date));
+        _expanses = currentMonthData;
         emit(GetExpansesSuccess(currentMonthData));
       }
     } catch (e) {

@@ -97,7 +97,7 @@ class AlertAddExpanses extends StatelessWidget {
               onPressed: () async {
                 await getIt.get<FinanceViewModel>().saveFinanceData(
                   descC.text,
-                  int.parse(amountC.text),
+                  int.parse(amountC.text.isEmpty ? '0' : amountC.text),
                 );
                 descC.clear();
                 amountC.clear();

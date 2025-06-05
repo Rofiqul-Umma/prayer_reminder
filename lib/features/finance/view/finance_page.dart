@@ -36,8 +36,8 @@ class _FinancePageState extends State<FinancePage> {
         if (state is AddExpanseLoading) {
           EasyLoading.show(status: 'Adding Expanse...');
         } else if (state is AddExpanseSuccess) {
-          getIt<FinanceViewModel>().getFinanceData();
           EasyLoading.dismiss();
+          getIt<FinanceViewModel>().getFinanceData();
           EasyLoading.showToast(
             'Expanse Added Successfully',
             duration: const Duration(seconds: 2),
