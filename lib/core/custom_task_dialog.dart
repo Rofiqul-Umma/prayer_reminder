@@ -9,6 +9,7 @@ class CustomTaskDialog extends StatelessWidget {
   final String confirmText;
   final String? initialTitle;
   final String? initialDescription;
+  final bool? isDisabled;
   final TextEditingController titleController;
   final TextEditingController descriptionController;
   final TextEditingController timeController;
@@ -28,6 +29,7 @@ class CustomTaskDialog extends StatelessWidget {
     required this.descriptionController,
     required this.timeController,
     this.cancelText = 'Cancel',
+    this.isDisabled = false,
     this.initialTitle,
     this.initialDescription,
     this.confirmText = 'Add Task',
@@ -66,8 +68,10 @@ class CustomTaskDialog extends StatelessWidget {
           maxLength: descriptionMaxLength,
           size: size,
         ),
-        SizedBox(height: size.height * 0.02),
-        DateTimePicker(timeController: timeController),
+        if (isDisabled == false) ...[
+          SizedBox(height: size.height * 0.02),
+          DateTimePicker(timeController: timeController),
+        ],
         SizedBox(height: size.height * 0.02),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

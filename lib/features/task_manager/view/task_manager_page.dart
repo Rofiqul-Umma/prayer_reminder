@@ -86,7 +86,7 @@ class _TaskManagerPageState extends State<TaskManagerPage> {
                   descC: fieldDescriptionC,
                   timeC: timeC,
                 ),
-                SizedBox(height: size.height * 0.045),
+                SizedBox(height: size.height * 0.015),
                 Text(
                   'Todos',
                   style: theme.textTheme.headlineMedium?.copyWith(

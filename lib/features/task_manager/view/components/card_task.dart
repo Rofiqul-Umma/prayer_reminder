@@ -50,6 +50,7 @@ class CardTask extends StatelessWidget {
                       titleController: titleC,
                       descriptionController: descC,
                       timeController: timeC,
+                      isDisabled: true,
                       confirmText: 'Update Task',
                       onConfirm: (title, description) async {
                         await getIt<TaskManagerViewModel>().updateTask(

@@ -38,7 +38,7 @@ class DateTimePicker extends StatelessWidget {
                 }
               }),
           icon: Icon(
-            HugeIcons.strokeRoundedStopWatch,
+            HugeIcons.strokeRoundedClock02,
             color: Theme.of(context).colorScheme.onSurface,
           ),
         ),
