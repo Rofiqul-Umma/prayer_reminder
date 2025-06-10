@@ -1,9 +1,10 @@
 import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
 import 'package:prayer_reminder/constant/endpoint.dart';
 import 'package:prayer_reminder/core/dio_helper.dart';
 
-class GetPrayerApi {
-  Future<Either<String, Map<String, dynamic>>> getPrayerTimes(
+class GetPrayerService {
+  Future<Either<String, Response>> getPrayerTimes(
     String date,
     String address,
   ) async {
@@ -18,7 +19,7 @@ class GetPrayerApi {
         },
       );
       if (response.statusCode == 200) {
-        return Right(response.data);
+        return Right(response);
       } else {
         return Left('Error: ${response}');
       }

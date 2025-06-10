@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
-import 'package:prayer_reminder/features/get_prayer/view_model/get_prayer_state.dart';
+import 'package:prayer_reminder/features/get_prayer/model/prayer_model.dart';
 
 class CardPrayer extends StatelessWidget {
-  final int index;
-  final GetPrayerSuccessState state;
-  const CardPrayer({super.key, required this.index, required this.state});
+  final PrayerModel data;
+  final String hadith;
+  const CardPrayer({super.key, required this.data, required this.hadith});
 
   @override
   Widget build(BuildContext context) {
@@ -22,28 +22,61 @@ class CardPrayer extends StatelessWidget {
             isMobile ? size.width * 0.02 : size.width * 0.01,
           ),
         ),
-        child: ListTile(
-          leading: Icon(
-            HugeIcons.strokeRoundedAlarmClock,
-            size: isMobile ? size.width * 0.05 : size.width * 0.02,
-            color: Theme.of(context).colorScheme.onSurface,
-          ),
-          title: Text(
-            state.data[index].name,
-            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-              fontSize: isMobile ? size.width * 0.04 : size.width * 0.015,
+        padding: EdgeInsets.symmetric(
+          vertical: isMobile ? size.width * 0.03 : size.width * 0.015,
+          horizontal: isMobile ? size.width * 0.03 : size.width * 0.015,
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Icon(
+              HugeIcons.strokeRoundedAlarmClock,
+              size: isMobile ? size.width * 0.05 : size.width * 0.02,
               color: Theme.of(context).colorScheme.onSurface,
-              fontWeight: FontWeight.w500,
             ),
-          ),
-          trailing: Text(
-            state.data[index].time,
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              fontSize: isMobile ? size.width * 0.03 : size.width * 0.012,
-              color: Theme.of(context).colorScheme.onSurfaceVariant,
-              fontWeight: FontWeight.w500,
+            SizedBox(width: isMobile ? size.width * 0.03 : size.width * 0.015),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    data.name,
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      fontSize:
+                          isMobile ? size.width * 0.04 : size.width * 0.015,
+                      color: Theme.of(context).colorScheme.onSurface,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  SizedBox(
+                    height: isMobile ? size.width * 0.01 : size.width * 0.005,
+                  ),
+                  Text(
+                    hadith,
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      fontSize:
+                          isMobile ? size.width * 0.035 : size.width * 0.013,
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
+                      fontWeight: FontWeight.w400,
+                    ),
+                    textAlign: TextAlign.start,
+                  ),
+                ],
+              ),
             ),
-          ),
+            SizedBox(width: isMobile ? size.width * 0.02 : size.width * 0.01),
+            Align(
+              alignment: Alignment.topRight,
+              child: Text(
+                data.time,
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  fontSize: isMobile ? size.width * 0.03 : size.width * 0.012,
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

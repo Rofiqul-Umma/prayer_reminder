@@ -4,11 +4,13 @@ import 'package:prayer_reminder/core/dio_logger.dart';
 
 class DioHelper {
   static late Dio _dio;
+  static String _baseUrl = Endpoint.BASE_URL;
 
-  static void init() {
+  static void init({String? baseUrl}) {
+    _baseUrl = baseUrl ?? Endpoint.BASE_URL;
     _dio = Dio(
       BaseOptions(
-        baseUrl: Endpoint.BASE_URL, // Replace with your base URL
+        baseUrl: _baseUrl,
         connectTimeout: const Duration(seconds: 10),
         receiveTimeout: const Duration(seconds: 10),
         headers: {'Content-Type': 'application/json'},

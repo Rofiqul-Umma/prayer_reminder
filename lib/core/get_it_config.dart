@@ -6,7 +6,9 @@ import 'package:prayer_reminder/features/encryption/service/encryption_service.d
 import 'package:prayer_reminder/features/finance/service/finance_service.dart';
 import 'package:prayer_reminder/features/finance/view_model/finance_view_model.dart';
 import 'package:prayer_reminder/features/get_current_loc/view_model/get_current_loc_view_model.dart';
-import 'package:prayer_reminder/features/get_prayer/api/get_prayer_api.dart';
+import 'package:prayer_reminder/features/get_hadits/service/get_hadits_service.dart';
+import 'package:prayer_reminder/features/get_hadits/view_model/get_hadits_view_model.dart';
+import 'package:prayer_reminder/features/get_prayer/service/get_prayer_service.dart';
 import 'package:prayer_reminder/features/get_prayer/view_model/get_prayer_view_model.dart';
 import 'package:prayer_reminder/core/hive_config.dart';
 import 'package:prayer_reminder/features/settings/service/settings_service.dart';
@@ -24,11 +26,11 @@ class GetItConfig {
     getIt.registerLazySingleton<DioHelper>(() => DioHelper());
 
     // Register GetPrayerApi
-    getIt.registerLazySingleton<GetPrayerApi>(() => GetPrayerApi());
+    getIt.registerLazySingleton<GetPrayerService>(() => GetPrayerService());
 
     // Register GetPrayerViewModel
     getIt.registerSingleton<GetPrayerViewModel>(
-      GetPrayerViewModel(getIt.get<GetPrayerApi>()),
+      GetPrayerViewModel(getIt.get<GetPrayerService>()),
     );
     // Register GetCurrentLocationViewModel
     getIt.registerSingleton<GetCurrentLocationViewModel>(
@@ -68,5 +70,11 @@ class GetItConfig {
     );
 
     getIt.registerSingleton<DateTimePickerVM>(DateTimePickerVM());
+
+    getIt.registerLazySingleton<GetHaditsService>(() => GetHaditsService());
+
+    getIt.registerSingleton<GetHaditsViewModel>(
+      GetHaditsViewModel(getIt<GetHaditsService>()),
+    );
   }
 }
