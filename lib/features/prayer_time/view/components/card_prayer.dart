@@ -30,7 +30,7 @@ class CardPrayer extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Icon(
-              HugeIcons.strokeRoundedAlarmClock,
+              HugeIcons.strokeRoundedSalahTime,
               size: isMobile ? size.width * 0.05 : size.width * 0.02,
               color: Theme.of(context).colorScheme.onSurface,
             ),
