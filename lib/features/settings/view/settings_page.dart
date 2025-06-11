@@ -16,10 +16,11 @@ class SettingsPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
+        backgroundColor: theme.scaffoldBackgroundColor,
         title: Text(
           'Theme Mode',
           style: theme.textTheme.headlineMedium?.copyWith(
-            color: theme.appBarTheme.titleTextStyle?.color,
+            color: theme.colorScheme.onSurface,
             fontSize: size.width * 0.06,
             fontWeight: theme.appBarTheme.titleTextStyle?.fontWeight,
           ),
@@ -32,12 +33,12 @@ class SettingsPage extends StatelessWidget {
               left: size.width * 0.045,
               bottom: size.height * 0.01,
             ),
-            color: theme.appBarTheme.backgroundColor,
+            color: theme.scaffoldBackgroundColor,
             child: Text(
               'Change the theme mode of the app',
               style: theme.textTheme.bodySmall?.copyWith(
                 fontSize: size.width * 0.035,
-                color: theme.appBarTheme.titleTextStyle?.color,
+                color: theme.colorScheme.onSurface,
               ),
             ),
           ),

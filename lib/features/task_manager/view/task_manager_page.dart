@@ -19,12 +19,13 @@ class TaskManagerPage extends StatelessWidget {
     ThemeData theme = Theme.of(context);
     final controller = getIt<TaskManagerController>();
     return Scaffold(
+      backgroundColor: theme.scaffoldBackgroundColor,
       appBar: AppBar(
-        backgroundColor: theme.appBarTheme.backgroundColor,
+        backgroundColor: theme.scaffoldBackgroundColor,
         title: Text(
           'Task Manager',
           style: theme.textTheme.headlineMedium?.copyWith(
-            color: theme.appBarTheme.titleTextStyle?.color,
+            color: theme.colorScheme.onSurface,
             fontSize: size.width * 0.06,
             fontWeight: theme.appBarTheme.titleTextStyle?.fontWeight,
           ),
@@ -53,7 +54,10 @@ class TaskManagerPage extends StatelessWidget {
                 },
               );
             },
-            icon: const Icon(HugeIcons.strokeRoundedNoteAdd),
+            icon: Icon(
+              HugeIcons.strokeRoundedNoteAdd,
+              color: theme.colorScheme.onSurface,
+            ),
           ),
         ],
         centerTitle: false,

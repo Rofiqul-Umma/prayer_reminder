@@ -7,11 +7,11 @@ AppBar appBarFinance(BuildContext context) {
   final size = MediaQuery.sizeOf(context);
   return AppBar(
     centerTitle: false,
-    backgroundColor: theme.appBarTheme.backgroundColor,
+    backgroundColor: theme.scaffoldBackgroundColor,
     title: Text(
       'Finance',
       style: theme.textTheme.headlineMedium?.copyWith(
-        color: theme.appBarTheme.titleTextStyle?.color,
+        color: theme.colorScheme.onSurface,
         fontSize: size.width * 0.06,
         fontWeight: theme.appBarTheme.titleTextStyle?.fontWeight,
       ),
@@ -24,12 +24,12 @@ AppBar appBarFinance(BuildContext context) {
           left: size.width * 0.045,
           bottom: size.height * 0.01,
         ),
-        color: theme.appBarTheme.backgroundColor,
+        color: theme.scaffoldBackgroundColor,
         child: Text(
           'Record your expenses',
           style: theme.textTheme.bodySmall?.copyWith(
             fontSize: size.width * 0.035,
-            color: theme.appBarTheme.titleTextStyle?.color,
+            color: theme.colorScheme.onSurface,
           ),
         ),
       ),
@@ -42,11 +42,17 @@ AppBar appBarFinance(BuildContext context) {
             builder: (_) => AlertAddExpanses(),
           );
         },
-        icon: const Icon(HugeIcons.strokeRoundedAddCircle),
+        icon: Icon(
+          HugeIcons.strokeRoundedAddCircle,
+          color: theme.colorScheme.onSurface,
+        ),
       ),
       IconButton(
         onPressed: () {},
-        icon: const Icon(HugeIcons.strokeRoundedTransactionHistory),
+        icon: Icon(
+          HugeIcons.strokeRoundedTransactionHistory,
+          color: theme.colorScheme.onSurface,
+        ),
       ),
     ],
   );

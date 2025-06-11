@@ -20,7 +20,7 @@ PreferredSize taskManagerAppBar(final Size size, final ThemeData theme) {
           Text(
             'Manage your tasks efficiently',
             style: theme.textTheme.bodyMedium?.copyWith(
-              color: theme.appBarTheme.titleTextStyle?.color,
+              color: theme.colorScheme.onSurface,
               fontSize: size.width * 0.035,
             ),
             textAlign: TextAlign.start,
