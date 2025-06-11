@@ -28,7 +28,7 @@ PreferredSize taskManagerAppBar(final Size size, final ThemeData theme) {
           Text(
             '$dateFormat',
             style: theme.textTheme.bodySmall?.copyWith(
-              color: theme.appBarTheme.titleTextStyle?.color,
+              color: theme.colorScheme.onSurface,
               fontSize: size.width * 0.03,
             ),
             textAlign: TextAlign.start,
