@@ -42,7 +42,7 @@ dependencies:
   hugeicons: ^0.0.11
   lottie: ^3.3.1
   geolocator: ^14.0.0
-  geocoding: ^3.0.0
+  geocoding: ^4.0.0
   flutter_local_notifications: ^19.2.0
   permission_handler: ^12.0.0+1
   flutter_slidable: ^4.0.0
@@ -53,7 +53,7 @@ dependencies:
   equatable: ^2.0.7
   loading_animation_widget: ^1.3.0
   platform: ^3.1.6
-  easy_sidemenu: ^0.6.1
+  easy_sidemenu: ^0.7.0
   date_format: ^2.0.9
   intl: ^0.20.2
   encrypt: ^5.0.3
