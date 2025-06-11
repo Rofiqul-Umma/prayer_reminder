@@ -30,6 +30,7 @@ class BottomNavBar extends StatelessWidget {
             type: BottomNavigationBarType.fixed,
             showSelectedLabels: true,
             showUnselectedLabels: true,
+            iconSize: size.width * 0.05,
             selectedFontSize: size.width * 0.03,
             unselectedFontSize: size.width * 0.03,
             backgroundColor: theme.bottomNavigationBarTheme.backgroundColor,

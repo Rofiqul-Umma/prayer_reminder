@@ -4,6 +4,7 @@ import 'package:prayer_reminder/core/get_it_config.dart';
 import 'package:prayer_reminder/core/custom_task_dialog.dart';
 import 'package:prayer_reminder/features/date_time_picker/view_model/date_time_picker_VM.dart';
 import 'package:prayer_reminder/features/task_manager/view/components/grid_task_status.dart';
+import 'package:prayer_reminder/features/task_manager/view/components/task_statistic.dart';
 import 'package:prayer_reminder/features/task_manager/view/components/tasks.dart';
 import 'package:prayer_reminder/features/task_manager/view/components/task_manager_app_bar.dart';
 import 'package:prayer_reminder/features/task_manager/view_model/task_manager_view_model.dart';
@@ -77,32 +78,46 @@ class _TaskManagerPageState extends State<TaskManagerPage> {
         child: Center(
           child: Padding(
             padding: EdgeInsets.all(size.width * 0.03),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: size.height * 0.02),
-                GridTaskStatus(
-                  titleC: fieldTaskC,
-                  descC: fieldDescriptionC,
-                  timeC: timeC,
-                ),
-                SizedBox(height: size.height * 0.015),
-                Text(
-                  'Todos',
-                  style: theme.textTheme.headlineMedium?.copyWith(
-                    color: theme.colorScheme.onSurface,
-                    fontSize: size.width * 0.04,
-                    fontWeight: theme.appBarTheme.titleTextStyle?.fontWeight,
+            child: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: size.height * 0.02),
+                  GridTaskStatus(
+                    titleC: fieldTaskC,
+                    descC: fieldDescriptionC,
+                    timeC: timeC,
                   ),
-                ),
-                SizedBox(height: size.height * 0.02),
-                Tasks(
-                  titleC: fieldTaskC,
-                  descC: fieldDescriptionC,
-                  timeC: timeC,
-                ),
-                SizedBox(height: size.height * 0.02),
-              ],
+                  SizedBox(height: size.height * 0.015),
+                  Text(
+                    'Task Statistics',
+                    style: theme.textTheme.headlineMedium?.copyWith(
+                      color: theme.colorScheme.onSurface,
+                      fontSize: size.width * 0.04,
+                      fontWeight: theme.appBarTheme.titleTextStyle?.fontWeight,
+                    ),
+                  ),
+                  SizedBox(height: size.height * 0.03),
+                  TaskStatistic(),
+                  SizedBox(height: size.height * 0.02),
+                  Text(
+                    'Todos',
+                    style: theme.textTheme.headlineMedium?.copyWith(
+                      color: theme.colorScheme.onSurface,
+                      fontSize: size.width * 0.04,
+                      fontWeight: theme.appBarTheme.titleTextStyle?.fontWeight,
+                    ),
+                  ),
+                  SizedBox(height: size.height * 0.02),
+                  Tasks(
+                    titleC: fieldTaskC,
+                    descC: fieldDescriptionC,
+                    timeC: timeC,
+                  ),
+                  SizedBox(height: size.height * 0.02),
+                ],
+              ),
             ),
           ),
         ),

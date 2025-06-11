@@ -17,24 +17,23 @@ class ListTasks extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.sizeOf(context);
-    return Expanded(
-      child: ListView.separated(
-        separatorBuilder: (context, index) {
-          return SizedBox(height: size.height * 0.01);
-        },
-        itemBuilder: (context, index) {
-          return CardTask(
-            isDisabled: false,
-            titleC: titleC,
-            descC: descC,
-            timeC: timeC,
-            index: index,
-            data: getIt.get<TaskManagerViewModel>().todos[index],
-          );
-        },
-        itemCount: getIt.get<TaskManagerViewModel>().todos.length,
-        shrinkWrap: true,
-      ),
+    return ListView.separated(
+      physics: NeverScrollableScrollPhysics(),
+      separatorBuilder: (context, index) {
+        return SizedBox(height: size.height * 0.01);
+      },
+      itemBuilder: (context, index) {
+        return CardTask(
+          isDisabled: false,
+          titleC: titleC,
+          descC: descC,
+          timeC: timeC,
+          index: index,
+          data: getIt.get<TaskManagerViewModel>().todos[index],
+        );
+      },
+      itemCount: getIt.get<TaskManagerViewModel>().todos.length,
+      shrinkWrap: true,
     );
   }
 }

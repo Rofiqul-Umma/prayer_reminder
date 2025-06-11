@@ -1,6 +1,7 @@
 import 'dart:isolate';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:prayer_reminder/features/task_manager/model/task_model.dart';
 import 'package:prayer_reminder/features/task_manager/service/task_manager_service.dart';
 import 'package:prayer_reminder/features/task_manager/view_model/task_manager_state.dart';
@@ -176,5 +177,28 @@ class TaskManagerViewModel extends Cubit<TaskManagerState> {
     } finally {
       getTasks();
     }
+  }
+
+  List<double> getDailyTaskCounts({int days = 7}) {
+    final now = DateTime.now();
+    // Create a map for date string -> count
+    final Map<String, int> counts = {};
+    final dateFormat = DateFormat('yyyy-MM-dd');
+
+    // Initialize counts for each day
+    for (int i = 0; i < days; i++) {
+      final day = now.subtract(Duration(days: days - i - 1));
+      counts[dateFormat.format(day)] = 0;
+    }
+
+    for (final task in _allTask) {
+      final dateStr = dateFormat.format(task.dueDate);
+      if (counts.containsKey(dateStr)) {
+        counts[dateStr] = counts[dateStr]! + 1;
+      }
+    }
+
+    // Return as a list of doubles (for chart)
+    return counts.values.map((e) => e.toDouble()).toList();
   }
 }
