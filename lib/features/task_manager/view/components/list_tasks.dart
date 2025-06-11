@@ -4,15 +4,7 @@ import 'package:prayer_reminder/features/task_manager/view/components/card_task.
 import 'package:prayer_reminder/features/task_manager/view_model/task_manager_view_model.dart';
 
 class ListTasks extends StatelessWidget {
-  final TextEditingController titleC;
-  final TextEditingController descC;
-  final TextEditingController timeC;
-  const ListTasks({
-    super.key,
-    required this.titleC,
-    required this.descC,
-    required this.timeC,
-  });
+  const ListTasks({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,9 +17,6 @@ class ListTasks extends StatelessWidget {
       itemBuilder: (context, index) {
         return CardTask(
           isDisabled: false,
-          titleC: titleC,
-          descC: descC,
-          timeC: timeC,
           index: index,
           data: getIt.get<TaskManagerViewModel>().todos[index],
         );

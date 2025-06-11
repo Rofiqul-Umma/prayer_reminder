@@ -9,15 +9,7 @@ import 'package:prayer_reminder/features/task_manager/view/components/card_todo.
 import 'package:prayer_reminder/features/task_manager/view/todos_page.dart';
 
 class GridTaskStatus extends StatelessWidget {
-  final TextEditingController titleC;
-  final TextEditingController descC;
-  final TextEditingController timeC;
-  const GridTaskStatus({
-    super.key,
-    required this.titleC,
-    required this.descC,
-    required this.timeC,
-  });
+  const GridTaskStatus({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -38,11 +30,7 @@ class GridTaskStatus extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                  builder:
-                      (context) =>
-                          TodosPage(titleC: titleC, descC: descC, timeC: timeC),
-                ),
+                MaterialPageRoute(builder: (context) => TodosPage()),
               );
             },
             child: CardTodo(),
@@ -51,14 +39,7 @@ class GridTaskStatus extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                  builder:
-                      (context) => CompletedPage(
-                        titleC: titleC,
-                        descC: descC,
-                        timeC: timeC,
-                      ),
-                ),
+                MaterialPageRoute(builder: (context) => CompletedPage()),
               );
             },
             child: CardCompleted(),
@@ -67,14 +48,7 @@ class GridTaskStatus extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                  builder:
-                      (context) => AllTaskPage(
-                        titleC: titleC,
-                        descC: descC,
-                        timeC: timeC,
-                      ),
-                ),
+                MaterialPageRoute(builder: (context) => AllTaskPage()),
               );
             },
             child: CardTotal(),
@@ -83,14 +57,7 @@ class GridTaskStatus extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                  builder:
-                      (context) => CancelledPage(
-                        titleC: titleC,
-                        descC: descC,
-                        timeC: timeC,
-                      ),
-                ),
+                MaterialPageRoute(builder: (context) => CancelledPage()),
               );
             },
             child: CardCanceled(),

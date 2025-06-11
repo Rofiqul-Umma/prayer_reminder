@@ -5,22 +5,17 @@ import 'package:prayer_reminder/core/get_it_config.dart';
 import 'package:prayer_reminder/core/custom_task_dialog.dart';
 import 'package:prayer_reminder/core/pop_up_helper.dart';
 import 'package:prayer_reminder/features/task_manager/model/task_model.dart';
+import 'package:prayer_reminder/features/task_manager/view_model/task_manager_controller.dart';
 import 'package:prayer_reminder/features/task_manager/view_model/task_manager_view_model.dart';
 
 class CardTask extends StatelessWidget {
   final int index;
   final TaskModel data;
-  final TextEditingController titleC;
-  final TextEditingController descC;
-  final TextEditingController timeC;
   final bool isDisabled;
   const CardTask({
     super.key,
     required this.data,
     required this.index,
-    required this.titleC,
-    required this.descC,
-    required this.timeC,
     required this.isDisabled,
   });
 
@@ -28,7 +23,7 @@ class CardTask extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
     final theme = Theme.of(context);
-
+    final controller = getIt<TaskManagerController>();
     return IgnorePointer(
       ignoring: isDisabled,
       child: Slidable(
@@ -39,17 +34,17 @@ class CardTask extends StatelessWidget {
             SlidableAction(
               borderRadius: BorderRadius.circular(size.width * 0.02),
               onPressed: (context) {
-                titleC.text = data.taskTitle;
-                descC.text = data.taskDesc;
+                controller.taskTitleC.text = data.taskTitle;
+                controller.taskDescC.text = data.taskDesc;
                 showAdaptiveDialog(
                   context: context,
                   builder: (_) {
                     return CustomTaskDialog(
                       title: "Edit Task",
                       description: "Edit your task details",
-                      titleController: titleC,
-                      descriptionController: descC,
-                      timeController: timeC,
+                      titleController: controller.taskTitleC,
+                      descriptionController: controller.taskDescC,
+                      timeController: controller.taskTimeC,
                       isDisabled: true,
                       confirmText: 'Update Task',
                       onConfirm: (title, description) async {
@@ -60,8 +55,9 @@ class CardTask extends StatelessWidget {
                             taskDesc: description,
                           ),
                         );
-                        titleC.clear();
-                        descC.clear();
+                        controller.taskTitleC.clear();
+                        controller.taskDescC.clear();
+                        controller.taskTimeC.clear();
                         Navigator.of(context).pop();
                       },
                     );

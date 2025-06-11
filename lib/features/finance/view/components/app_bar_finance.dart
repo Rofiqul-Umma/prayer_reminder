@@ -2,11 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:prayer_reminder/features/finance/view/components/alert_add_expanses.dart';
 
-AppBar appBarFinance(
-  BuildContext context,
-  TextEditingController descC,
-  TextEditingController amountC,
-) {
+AppBar appBarFinance(BuildContext context) {
   final theme = Theme.of(context);
   final size = MediaQuery.sizeOf(context);
   return AppBar(
@@ -43,7 +39,7 @@ AppBar appBarFinance(
         onPressed: () {
           showAdaptiveDialog(
             context: context,
-            builder: (_) => AlertAddExpanses(descC: descC, amountC: amountC),
+            builder: (_) => AlertAddExpanses(),
           );
         },
         icon: const Icon(HugeIcons.strokeRoundedAddCircle),

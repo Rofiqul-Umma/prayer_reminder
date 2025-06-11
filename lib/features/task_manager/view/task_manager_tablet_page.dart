@@ -40,11 +40,7 @@ class _TaskManagerPageState extends State<TaskManagerTabletPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: size.height * 0.02),
-                GridTaskStatus(
-                  titleC: fieldTaskC,
-                  descC: fieldDescriptionC,
-                  timeC: timeC,
-                ),
+                GridTaskStatus(),
                 SizedBox(height: size.height * 0.045),
                 Text(
                   'All Tasks',
@@ -55,11 +51,7 @@ class _TaskManagerPageState extends State<TaskManagerTabletPage> {
                   ),
                 ),
                 SizedBox(height: size.height * 0.02),
-                Tasks(
-                  titleC: fieldTaskC,
-                  descC: fieldDescriptionC,
-                  timeC: timeC,
-                ),
+                Tasks(),
                 SizedBox(height: size.height * 0.02),
               ],
             ),

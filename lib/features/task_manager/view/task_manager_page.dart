@@ -7,32 +7,17 @@ import 'package:prayer_reminder/features/task_manager/view/components/grid_task_
 import 'package:prayer_reminder/features/task_manager/view/components/task_statistic.dart';
 import 'package:prayer_reminder/features/task_manager/view/components/tasks.dart';
 import 'package:prayer_reminder/features/task_manager/view/components/task_manager_app_bar.dart';
+import 'package:prayer_reminder/features/task_manager/view_model/task_manager_controller.dart';
 import 'package:prayer_reminder/features/task_manager/view_model/task_manager_view_model.dart';
 
-class TaskManagerPage extends StatefulWidget {
+class TaskManagerPage extends StatelessWidget {
   const TaskManagerPage({super.key});
-
-  @override
-  State<TaskManagerPage> createState() => _TaskManagerPageState();
-}
-
-class _TaskManagerPageState extends State<TaskManagerPage> {
-  final fieldTaskC = TextEditingController();
-  final fieldDescriptionC = TextEditingController();
-  final timeC = TextEditingController();
-
-  @override
-  void dispose() {
-    fieldTaskC.dispose();
-    fieldDescriptionC.dispose();
-    timeC.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.sizeOf(context);
     ThemeData theme = Theme.of(context);
+    final controller = getIt<TaskManagerController>();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: theme.appBarTheme.backgroundColor,
@@ -54,9 +39,9 @@ class _TaskManagerPageState extends State<TaskManagerPage> {
                   return CustomTaskDialog(
                     title: 'Create New Task',
                     description: 'Add new task to your list',
-                    titleController: fieldTaskC,
-                    timeController: timeC,
-                    descriptionController: fieldDescriptionC,
+                    titleController: controller.taskTitleC,
+                    timeController: controller.taskTimeC,
+                    descriptionController: controller.taskDescC,
                     onConfirm:
                         (title, description) async =>
                             await getIt<TaskManagerViewModel>().addTask(
@@ -84,11 +69,7 @@ class _TaskManagerPageState extends State<TaskManagerPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(height: size.height * 0.02),
-                  GridTaskStatus(
-                    titleC: fieldTaskC,
-                    descC: fieldDescriptionC,
-                    timeC: timeC,
-                  ),
+                  GridTaskStatus(),
                   SizedBox(height: size.height * 0.015),
                   Text(
                     'Task Statistics',
@@ -110,11 +91,7 @@ class _TaskManagerPageState extends State<TaskManagerPage> {
                     ),
                   ),
                   SizedBox(height: size.height * 0.02),
-                  Tasks(
-                    titleC: fieldTaskC,
-                    descC: fieldDescriptionC,
-                    timeC: timeC,
-                  ),
+                  Tasks(),
                   SizedBox(height: size.height * 0.02),
                 ],
               ),

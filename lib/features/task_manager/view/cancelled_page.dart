@@ -9,16 +9,7 @@ import 'package:prayer_reminder/features/task_manager/view_model/task_manager_st
 import 'package:prayer_reminder/features/task_manager/view_model/task_manager_view_model.dart';
 
 class CancelledPage extends StatelessWidget {
-  final TextEditingController titleC;
-  final TextEditingController descC;
-  final TextEditingController timeC;
-
-  const CancelledPage({
-    super.key,
-    required this.titleC,
-    required this.descC,
-    required this.timeC,
-  });
+  const CancelledPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -47,9 +38,6 @@ class CancelledPage extends StatelessWidget {
                           isDisabled: true,
                           data: viewModel.cancelledTask[index],
                           index: index,
-                          titleC: titleC,
-                          descC: descC,
-                          timeC: timeC,
                         );
                       },
                     );

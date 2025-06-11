@@ -3,21 +3,15 @@ import 'package:flutter/services.dart';
 import 'package:prayer_reminder/core/custom_text_filed.dart';
 import 'package:prayer_reminder/core/get_it_config.dart';
 import 'package:prayer_reminder/features/finance/model/expanses_category_model.dart';
+import 'package:prayer_reminder/features/finance/view_model/finance_controller.dart';
 import 'package:prayer_reminder/features/finance/view_model/finance_view_model.dart';
 
 class AlertAddExpanses extends StatelessWidget {
-  final TextEditingController descC;
-  final TextEditingController amountC;
-  const AlertAddExpanses({
-    super.key,
-    required this.descC,
-    required this.amountC,
-  });
-
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final size = MediaQuery.sizeOf(context);
+    final controller = getIt<FinanceController>();
     return AlertDialog.adaptive(
       title: Text('Add New Expanses'),
       content: Text(
@@ -58,7 +52,7 @@ class AlertAddExpanses extends StatelessWidget {
         ),
         SizedBox(height: size.height * 0.02),
         CustomTextField(
-          controller: descC,
+          controller: controller.descC,
           hintText: 'Description',
           theme: theme,
           size: size,
@@ -67,7 +61,7 @@ class AlertAddExpanses extends StatelessWidget {
         ),
         SizedBox(height: size.height * 0.02),
         CustomTextField(
-          controller: amountC,
+          controller: controller.amountC,
           hintText: 'Amount',
           theme: theme,
           inputFormatters: [
@@ -96,11 +90,14 @@ class AlertAddExpanses extends StatelessWidget {
             TextButton(
               onPressed: () async {
                 await getIt.get<FinanceViewModel>().saveFinanceData(
-                  descC.text,
-                  int.parse(amountC.text.isEmpty ? '0' : amountC.text),
+                  controller.descC.text,
+                  int.parse(
+                    controller.amountC.text.isEmpty
+                        ? '0'
+                        : controller.amountC.text,
+                  ),
                 );
-                descC.clear();
-                amountC.clear();
+                controller.clearFields();
                 Navigator.of(context).pop();
               },
               child: Text(

@@ -58,6 +58,7 @@ dependencies:
   intl: ^0.20.2
   encrypt: ^5.0.3
   fl_chart: ^1.0.0
+  provider: ^6.1.5
   
 dev_dependencies:
   flutter_test:

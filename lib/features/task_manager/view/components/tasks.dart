@@ -9,15 +9,7 @@ import 'package:prayer_reminder/features/task_manager/view_model/task_manager_st
 import 'package:prayer_reminder/features/task_manager/view_model/task_manager_view_model.dart';
 
 class Tasks extends StatelessWidget {
-  final TextEditingController titleC;
-  final TextEditingController descC;
-  final TextEditingController timeC;
-  const Tasks({
-    super.key,
-    required this.titleC,
-    required this.descC,
-    required this.timeC,
-  });
+  const Tasks({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +62,7 @@ class Tasks extends StatelessWidget {
         if (state is TaskManagerLoadingState) {
           return const Loading();
         } else if (state is TaskManagerSuccessState) {
-          return ListTasks(titleC: titleC, descC: descC, timeC: timeC);
+          return ListTasks();
         } else if (state is TaskManagerErrorState) {
           return Text(
             state.error,
@@ -83,7 +75,7 @@ class Tasks extends StatelessWidget {
         } else if (state is taskManagerEmptyState) {
           return const EmptyList();
         } else {
-          return ListTasks(titleC: titleC, descC: descC, timeC: timeC);
+          return ListTasks();
         }
       },
     );

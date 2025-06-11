@@ -8,23 +8,8 @@ import 'package:prayer_reminder/features/finance/view/components/list_transactio
 import 'package:prayer_reminder/features/finance/view_model/finance_state.dart';
 import 'package:prayer_reminder/features/finance/view_model/finance_view_model.dart';
 
-class FinancePage extends StatefulWidget {
+class FinancePage extends StatelessWidget {
   const FinancePage({super.key});
-
-  @override
-  State<FinancePage> createState() => _FinancePageState();
-}
-
-class _FinancePageState extends State<FinancePage> {
-  final descC = TextEditingController();
-  final amountC = TextEditingController();
-
-  @override
-  void dispose() {
-    descC.dispose();
-    amountC.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +41,7 @@ class _FinancePageState extends State<FinancePage> {
       },
       child: Scaffold(
         backgroundColor: theme.scaffoldBackgroundColor,
-        appBar: appBarFinance(context, descC, amountC),
+        appBar: appBarFinance(context),
         body: Padding(
           padding: EdgeInsets.all(size.width * 0.03),
           child: Column(

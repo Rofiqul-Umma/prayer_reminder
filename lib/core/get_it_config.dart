@@ -4,6 +4,7 @@ import 'package:prayer_reminder/features/bottom_nav/view_model/bottom_nav_view_m
 import 'package:prayer_reminder/features/date_time_picker/view_model/date_time_picker_VM.dart';
 import 'package:prayer_reminder/features/encryption/service/encryption_service.dart';
 import 'package:prayer_reminder/features/finance/service/finance_service.dart';
+import 'package:prayer_reminder/features/finance/view_model/finance_controller.dart';
 import 'package:prayer_reminder/features/finance/view_model/finance_view_model.dart';
 import 'package:prayer_reminder/features/get_current_loc/view_model/get_current_loc_view_model.dart';
 import 'package:prayer_reminder/features/get_hadits/service/get_hadits_service.dart';
@@ -14,6 +15,7 @@ import 'package:prayer_reminder/core/hive_config.dart';
 import 'package:prayer_reminder/features/settings/service/settings_service.dart';
 import 'package:prayer_reminder/features/settings/view_model/settings_view_model.dart';
 import 'package:prayer_reminder/features/task_manager/service/task_manager_service.dart';
+import 'package:prayer_reminder/features/task_manager/view_model/task_manager_controller.dart';
 import 'package:prayer_reminder/features/task_manager/view_model/task_manager_view_model.dart';
 
 final getIt = GetIt.instance;
@@ -76,5 +78,9 @@ class GetItConfig {
     getIt.registerSingleton<GetHaditsViewModel>(
       GetHaditsViewModel(getIt<GetHaditsService>()),
     );
+
+    getIt.registerSingleton<TaskManagerController>(TaskManagerController());
+
+    getIt.registerSingleton<FinanceController>(FinanceController());
   }
 }
