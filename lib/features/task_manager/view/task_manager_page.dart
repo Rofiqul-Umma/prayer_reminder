@@ -62,44 +62,39 @@ class TaskManagerPage extends StatelessWidget {
         ],
         centerTitle: false,
       ),
-      body: SafeArea(
-        bottom: false,
-        child: Center(
-          child: Padding(
-            padding: EdgeInsets.all(size.width * 0.03),
-            child: SingleChildScrollView(
-              physics: const BouncingScrollPhysics(),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: size.height * 0.02),
-                  GridTaskStatus(),
-                  SizedBox(height: size.height * 0.015),
-                  Text(
-                    'Task Statistics',
-                    style: theme.textTheme.headlineMedium?.copyWith(
-                      color: theme.colorScheme.onSurface,
-                      fontSize: size.width * 0.04,
-                      fontWeight: theme.appBarTheme.titleTextStyle?.fontWeight,
-                    ),
-                  ),
-                  SizedBox(height: size.height * 0.03),
-                  TaskStatistic(),
-                  SizedBox(height: size.height * 0.02),
-                  Text(
-                    'Todos',
-                    style: theme.textTheme.headlineMedium?.copyWith(
-                      color: theme.colorScheme.onSurface,
-                      fontSize: size.width * 0.04,
-                      fontWeight: theme.appBarTheme.titleTextStyle?.fontWeight,
-                    ),
-                  ),
-                  SizedBox(height: size.height * 0.02),
-                  Tasks(),
-                  SizedBox(height: size.height * 0.02),
-                ],
+      body: Padding(
+        padding: EdgeInsets.all(size.width * 0.03),
+        child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: size.height * 0.02),
+              GridTaskStatus(),
+              SizedBox(height: size.height * 0.015),
+              Text(
+                'Task Statistics',
+                style: theme.textTheme.headlineMedium?.copyWith(
+                  color: theme.colorScheme.onSurface,
+                  fontSize: size.width * 0.04,
+                  fontWeight: theme.appBarTheme.titleTextStyle?.fontWeight,
+                ),
               ),
-            ),
+              SizedBox(height: size.height * 0.03),
+              TaskStatistic(),
+              SizedBox(height: size.height * 0.02),
+              Text(
+                'Todos',
+                style: theme.textTheme.headlineMedium?.copyWith(
+                  color: theme.colorScheme.onSurface,
+                  fontSize: size.width * 0.04,
+                  fontWeight: theme.appBarTheme.titleTextStyle?.fontWeight,
+                ),
+              ),
+              SizedBox(height: size.height * 0.02),
+              Tasks(),
+              SizedBox(height: size.height * 0.02),
+            ],
           ),
         ),
       ),

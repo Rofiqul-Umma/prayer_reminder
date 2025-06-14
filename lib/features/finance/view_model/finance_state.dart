@@ -96,3 +96,30 @@ class UpdateExpanseError extends FinanceState {
   @override
   List<Object?> get props => [error];
 }
+
+class FilterExpansesByMonthYearLoading extends FinanceState {
+  const FilterExpansesByMonthYearLoading();
+}
+
+class FilterExpansesByMonthYearSuccess extends FinanceState {
+  final List<ExpansesModel> filteredExpanses;
+
+  const FilterExpansesByMonthYearSuccess(this.filteredExpanses);
+
+  @override
+  List<Object?> get props => [filteredExpanses];
+}
+
+class FilterExpansesByMonthYearError extends FinanceState {
+  final String error;
+
+  const FilterExpansesByMonthYearError(this.error);
+
+  @override
+  List<Object?> get props => [error];
+}
+
+// empty
+class FilterExpansesByMonthYearEmpty extends FinanceState {
+  const FilterExpansesByMonthYearEmpty();
+}

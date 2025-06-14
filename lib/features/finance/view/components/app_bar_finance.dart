@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:prayer_reminder/features/finance/view/components/alert_add_expanses.dart';
+import 'package:prayer_reminder/features/finance/view/transaction_history_page.dart';
 
 AppBar appBarFinance(BuildContext context) {
   final theme = Theme.of(context);
@@ -48,7 +49,12 @@ AppBar appBarFinance(BuildContext context) {
         ),
       ),
       IconButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => TransactionHistoryPage()),
+          );
+        },
         icon: Icon(
           HugeIcons.strokeRoundedTransactionHistory,
           color: theme.colorScheme.onSurface,

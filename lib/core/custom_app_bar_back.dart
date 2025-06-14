@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
 
-AppBar customAppBarBack(String appbarTitle, BuildContext context) {
+AppBar customAppBarBack(
+  String appbarTitle,
+  BuildContext context, [
+  List<Widget>? actions,
+]) {
   final size = MediaQuery.sizeOf(context);
   final theme = Theme.of(context);
   return AppBar(
@@ -18,5 +22,6 @@ AppBar customAppBarBack(String appbarTitle, BuildContext context) {
         fontWeight: theme.appBarTheme.titleTextStyle?.fontWeight,
       ),
     ),
+    actions: actions,
   );
 }

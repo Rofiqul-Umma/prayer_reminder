@@ -1,6 +1,7 @@
 import 'dart:isolate';
 
 import 'package:bloc/bloc.dart';
+import 'package:date_format/date_format.dart';
 import 'package:prayer_reminder/features/finance/model/expanses_model.dart';
 import 'package:prayer_reminder/features/finance/service/finance_service.dart';
 import 'package:prayer_reminder/features/finance/view_model/finance_state.dart';
@@ -14,6 +15,8 @@ class FinanceViewModel extends Cubit<FinanceState> {
   Future<void> init() async {
     await _financeService.init();
     await getFinanceData();
+    await getFinanceDataByMonthAndYear(_selectedMonth, _selectedYear);
+    await getTotalExpansesPerMonthInYear();
   }
 
   String? selectedCategory;
@@ -23,6 +26,30 @@ class FinanceViewModel extends Cubit<FinanceState> {
 
   List<ExpansesModel> _expanses = [];
   List<ExpansesModel> get expanses => _expanses;
+
+  List<String> monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  String _selectedMonth = formatDate(DateTime.now(), [MM]);
+  String get selectedMonth => _selectedMonth;
+
+  String _selectedYear = DateTime.now().year.toString();
+  String get selectedYear => _selectedYear;
+
+  List<int> _monthlyTotal = [];
+  List<int> get monthlyTotals => _monthlyTotal;
 
   @override
   void onError(Object error, StackTrace stackTrace) {
@@ -120,5 +147,74 @@ class FinanceViewModel extends Cubit<FinanceState> {
     } catch (e) {
       emit(UpdateExpanseError('$e'));
     }
+  }
+
+  Future<List<ExpansesModel>> filterFinanceDataByMonthYear(
+    String month,
+    String year,
+  ) async => await _financeService.getFinanceData().then(
+    (value) async => await Isolate.run(
+      () =>
+          value
+              .where(
+                (expanse) =>
+                    expanse.date.month == int.parse(month) &&
+                    expanse.date.year == int.parse(year),
+              )
+              .toList(),
+    ),
+  );
+
+  Future<void> getFinanceDataByMonthAndYear(String month, String year) async {
+    final _currentMonth =
+        monthNames.contains(month)
+            ? monthNames.indexOf(month) + 1
+            : DateTime.now().month;
+    emit(FilterExpansesByMonthYearLoading());
+    try {
+      final expanses = await filterFinanceDataByMonthYear(
+        _currentMonth.toString(),
+        year,
+      );
+      if (expanses.isEmpty) {
+        emit(FilterExpansesByMonthYearEmpty());
+      } else {
+        _totalExpanses = expanses.fold(0, (sum, item) => sum + item.amount);
+        expanses.sort((a, b) => b.date.compareTo(a.date));
+        _expanses = expanses;
+        emit(FilterExpansesByMonthYearSuccess(expanses));
+      }
+    } catch (e) {
+      emit(FilterExpansesByMonthYearError('$e'));
+    }
+  }
+
+  // get total expanses per month in a year
+  Future<List<int>> getTotalExpansesPerMonthInYear() async {
+    final allExpanses = await _financeService.getFinanceData();
+    for (var month = 1; month <= 12; month++) {
+      final total = await Isolate.run(
+        () => allExpanses
+            .where(
+              (expanse) =>
+                  expanse.date.year == DateTime.now().year &&
+                  expanse.date.month == month,
+            )
+            .fold(0, (sum, item) => sum + item.amount),
+      );
+      monthlyTotals.add(total);
+    }
+
+    return monthlyTotals;
+  }
+
+  void setSelectedMonth(String month) {
+    _selectedMonth = month;
+    emit(FinanceInitialState());
+  }
+
+  void setSelectedYear(String year) {
+    _selectedYear = year;
+    emit(FinanceInitialState());
   }
 }
