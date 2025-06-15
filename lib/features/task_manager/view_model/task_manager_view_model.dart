@@ -15,6 +15,7 @@ class TaskManagerViewModel extends Cubit<TaskManagerState> {
   Future<void> init() async {
     await _service.init();
     await getTasks();
+    await getDailyTaskCounts();
   }
 
   @override
@@ -30,20 +31,19 @@ class TaskManagerViewModel extends Cubit<TaskManagerState> {
   }
 
   List<TaskModel> _completedTask = [];
-
-  List<TaskModel> _cancelledTask = [];
-
-  List<TaskModel> _allTask = [];
-
-  List<TaskModel> _todos = [];
-
-  List<TaskModel> get todos => _todos;
-
-  List<TaskModel> get allTasks => _allTask;
-
   List<TaskModel> get completedTask => _completedTask;
 
+  List<TaskModel> _cancelledTask = [];
   List<TaskModel> get cancelledTask => _cancelledTask;
+
+  List<TaskModel> _allTask = [];
+  List<TaskModel> get allTasks => _allTask;
+
+  List<TaskModel> _todos = [];
+  List<TaskModel> get todos => _todos;
+
+  List<double> _dailyTaskCount = [];
+  List<double> get dailyTaskCounts => _dailyTaskCount;
 
   Future<void> setCompleteTask(List<TaskModel> value) async {
     _completedTask = await Isolate.run(
@@ -179,26 +179,24 @@ class TaskManagerViewModel extends Cubit<TaskManagerState> {
     }
   }
 
-  List<double> getDailyTaskCounts({int days = 7}) {
-    final now = DateTime.now();
-    // Create a map for date string -> count
-    final Map<String, int> counts = {};
-    final dateFormat = DateFormat('yyyy-MM-dd');
-
-    // Initialize counts for each day
-    for (int i = 0; i < days; i++) {
-      final day = now.subtract(Duration(days: days - i - 1));
-      counts[dateFormat.format(day)] = 0;
-    }
-
-    for (final task in _allTask) {
-      final dateStr = dateFormat.format(task.dueDate);
-      if (counts.containsKey(dateStr)) {
-        counts[dateStr] = counts[dateStr]! + 1;
+  Future<void> getDailyTaskCounts({int days = 7}) async {
+    try {
+      final now = DateTime.now();
+      final Map<String, int> counts = {};
+      final dateFormat = DateFormat('yyyy-MM-dd');
+      for (int i = 0; i < days; i++) {
+        final day = now.subtract(Duration(days: days - i - 1));
+        counts[dateFormat.format(day)] = 0;
       }
+      for (final task in _allTask) {
+        final dateStr = dateFormat.format(task.dueDate);
+        if (counts.containsKey(dateStr)) {
+          counts[dateStr] = counts[dateStr]! + 1;
+        }
+      }
+      _dailyTaskCount = counts.values.map((e) => e.toDouble()).toList();
+    } catch (e) {
+      emit(TaskManagerErrorState('Failed to get daily task counts: $e'));
     }
-
-    // Return as a list of doubles (for chart)
-    return counts.values.map((e) => e.toDouble()).toList();
   }
 }

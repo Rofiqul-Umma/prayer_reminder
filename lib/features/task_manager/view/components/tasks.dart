@@ -21,6 +21,7 @@ class Tasks extends StatelessWidget {
         if (state is TaskManagaerTaskAddedState) {
           EasyLoading.dismiss();
           taskManagerVM.getTasks();
+          taskManagerVM.getDailyTaskCounts();
           EasyLoading.showToast(
             "Task added successfully",
             toastPosition: EasyLoadingToastPosition.bottom,

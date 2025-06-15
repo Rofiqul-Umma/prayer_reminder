@@ -15,55 +15,54 @@ class GridTaskStatus extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.sizeOf(context);
     final isMobile = size.width < 600;
-    return SizedBox(
-      height: isMobile ? size.height * 0.3 : size.height * 0.2,
-      child: GridView(
-        physics: const NeverScrollableScrollPhysics(),
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: isMobile ? 2 : 4,
-          childAspectRatio: 1.5,
-          crossAxisSpacing: 10,
-          mainAxisSpacing: 10,
-        ),
-        children: [
-          InkWell(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => TodosPage()),
-              );
-            },
-            child: CardTodo(),
-          ),
-          InkWell(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => CompletedPage()),
-              );
-            },
-            child: CardCompleted(),
-          ),
-          InkWell(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => AllTaskPage()),
-              );
-            },
-            child: CardTotal(),
-          ),
-          InkWell(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => CancelledPage()),
-              );
-            },
-            child: CardCanceled(),
-          ),
-        ],
+    return GridView(
+      shrinkWrap: true,
+      padding: EdgeInsets.zero,
+      physics: const NeverScrollableScrollPhysics(),
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: isMobile ? 2 : 4,
+        childAspectRatio: 1.5,
+        crossAxisSpacing: size.width * 0.025,
+        mainAxisSpacing: size.width * 0.025,
       ),
+      children: [
+        InkWell(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => TodosPage()),
+            );
+          },
+          child: CardTodo(),
+        ),
+        InkWell(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => CompletedPage()),
+            );
+          },
+          child: CardCompleted(),
+        ),
+        InkWell(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => AllTaskPage()),
+            );
+          },
+          child: CardTotal(),
+        ),
+        InkWell(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => CancelledPage()),
+            );
+          },
+          child: CardCanceled(),
+        ),
+      ],
     );
   }
 }

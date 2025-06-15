@@ -17,50 +17,56 @@ class CustomCardStatus extends StatelessWidget {
     final size = MediaQuery.sizeOf(context);
     final isMobile = size.width < 600;
     return Container(
-      padding: EdgeInsets.all(size.width * 0.02),
+      width: size.width * 0.45,
+      height: size.height * 0.2,
       decoration: BoxDecoration(
         color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(
           isMobile ? size.width * 0.02 : size.width * 0.01,
         ),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Expanded(
-            child: Icon(
-              icon,
-              size: isMobile ? size.width * 0.08 : size.width * 0.01,
-              color: Theme.of(context).colorScheme.onSurface,
+      child: Padding(
+        padding: EdgeInsets.all(size.width * 0.02),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(
+              child: Icon(
+                icon,
+                size: isMobile ? size.width * 0.08 : size.width * 0.01,
+                color: Theme.of(context).colorScheme.onSurface,
+              ),
             ),
-          ),
-          Flexible(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title ?? 'Your Projects',
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    fontSize: isMobile ? size.width * 0.05 : size.width * 0.015,
-                    fontWeight: FontWeight.w600,
-                    color: Theme.of(context).colorScheme.onSurface,
-                    overflow: TextOverflow.ellipsis,
+            Flexible(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title ?? 'Your Projects',
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      fontSize:
+                          isMobile ? size.width * 0.05 : size.width * 0.015,
+                      fontWeight: FontWeight.w600,
+                      color: Theme.of(context).colorScheme.onSurface,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
-                ),
-                SizedBox(height: size.height * 0.005),
-                Text(
-                  subtitle ?? 'Todo',
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    fontSize: isMobile ? size.width * 0.03 : size.width * 0.012,
-                    color: Theme.of(context).colorScheme.onSurfaceVariant,
-                    fontWeight: FontWeight.w300,
+                  SizedBox(height: size.height * 0.005),
+                  Text(
+                    subtitle ?? 'Todo',
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      fontSize:
+                          isMobile ? size.width * 0.03 : size.width * 0.012,
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
+                      fontWeight: FontWeight.w300,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

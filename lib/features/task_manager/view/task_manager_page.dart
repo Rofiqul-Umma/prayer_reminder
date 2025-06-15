@@ -71,7 +71,7 @@ class TaskManagerPage extends StatelessWidget {
             children: [
               SizedBox(height: size.height * 0.02),
               GridTaskStatus(),
-              SizedBox(height: size.height * 0.015),
+              SizedBox(height: size.height * 0.03),
               Text(
                 'Task Statistics',
                 style: theme.textTheme.headlineMedium?.copyWith(
