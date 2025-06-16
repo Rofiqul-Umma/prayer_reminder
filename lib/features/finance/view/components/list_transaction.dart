@@ -21,21 +21,6 @@ class ListTransaction extends StatelessWidget {
           return Loading();
         } else if (state is GetExpansesEmpty) {
           return EmptyTransaction();
-        } else if (state is GetExpansesSuccess) {
-          return Expanded(
-            child: ListView.separated(
-              separatorBuilder: (context, index) {
-                return SizedBox(height: size.height * 0.01);
-              },
-              itemCount: state.expanses.length, // Example item count
-              itemBuilder: (context, index) {
-                return CardTransaction(
-                  index: index,
-                  data: state.expanses[index],
-                );
-              },
-            ),
-          );
         } else if (state is GetExpansesError) {
           return Text(
             state.error,
@@ -48,6 +33,7 @@ class ListTransaction extends StatelessWidget {
         } else {
           return Expanded(
             child: ListView.separated(
+              physics: const BouncingScrollPhysics(),
               separatorBuilder: (context, index) {
                 return SizedBox(height: size.height * 0.01);
               },

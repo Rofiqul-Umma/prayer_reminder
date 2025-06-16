@@ -66,6 +66,7 @@ class TransactionHistoryPage extends StatelessWidget {
                 } else if (state is FilterExpansesByMonthYearSuccess) {
                   return Expanded(
                     child: ListView.separated(
+                      physics: const BouncingScrollPhysics(),
                       separatorBuilder: (context, index) {
                         return SizedBox(height: size.height * 0.01);
                       },
