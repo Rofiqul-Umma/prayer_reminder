@@ -46,7 +46,6 @@ dependencies:
   flutter_local_notifications: ^19.2.0
   permission_handler: ^12.0.0+1
   flutter_slidable: ^4.0.0
-  hive: ^2.2.3
   flutter_easyloading: ^3.0.5
   path: ^1.9.1
   path_provider: ^2.1.5
@@ -58,6 +57,10 @@ dependencies:
   intl: ^0.20.2
   encrypt: ^5.0.3
   fl_chart: ^1.0.0
+  hive: ^2.2.3
+  freezed_annotation: ^2.4.4
+  json_annotation: ^4.9.0
+
 
   
 dev_dependencies:
@@ -65,8 +68,11 @@ dev_dependencies:
     sdk: flutter
   flutter_launcher_icons: ^0.14.3
   package_rename: ^1.10.0
-  hive_generator: ^2.0.1
-  build_runner: ^2.4.15
+  build_runner: ^2.4.12
+  freezed: ^2.5.7
+  json_serializable: ^6.8.0
+  analyzer: ^6.2.0
+  
 
   
 

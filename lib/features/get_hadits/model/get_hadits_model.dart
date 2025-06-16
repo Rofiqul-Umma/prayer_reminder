@@ -1,69 +1,41 @@
-class GetHaditsModel {
-  GetHaditsModel({
-    required this.code,
-    required this.message,
-    required this.data,
-    required this.error,
-  });
+import 'package:freezed_annotation/freezed_annotation.dart';
+part 'get_hadits_model.freezed.dart';
+part 'get_hadits_model.g.dart';
 
-  final int code;
-  final String message;
-  final DataHadits data;
-  final bool error;
+@freezed
+class GetHaditsModel with _$GetHaditsModel {
+  const factory GetHaditsModel({
+    required int code,
+    required String message,
+    required DataHadits data,
+    required bool error,
+  }) = _GetHaditsModel;
 
-  factory GetHaditsModel.fromJson(Map<String, dynamic> json) {
-    return GetHaditsModel(
-      code: json["code"] ?? 0,
-      message: json["message"] ?? "",
-      data: DataHadits.fromJson(json["data"]),
-      error: json["error"] ?? false,
-    );
-  }
+  factory GetHaditsModel.fromJson(Map<String, dynamic> json) =>
+      _$GetHaditsModelFromJson(json);
 }
 
-class DataHadits {
-  DataHadits({
-    required this.name,
-    required this.id,
-    required this.available,
-    required this.requested,
-    required this.hadiths,
-  });
+@freezed
+class DataHadits with _$DataHadits {
+  const factory DataHadits({
+    required String name,
+    required String id,
+    required int available,
+    required int requested,
+    required List<Hadith> hadiths,
+  }) = _DataHadits;
 
-  final String name;
-  final String id;
-  final int available;
-  final int requested;
-  final List<Hadith> hadiths;
-
-  factory DataHadits.fromJson(Map<String, dynamic> json) {
-    return DataHadits(
-      name: json["name"] ?? "",
-      id: json["id"] ?? "",
-      available: json["available"] ?? 0,
-      requested: json["requested"] ?? 0,
-      hadiths:
-          json["hadiths"] == null
-              ? []
-              : List<Hadith>.from(
-                json["hadiths"]!.map((x) => Hadith.fromJson(x)),
-              ),
-    );
-  }
+  factory DataHadits.fromJson(Map<String, dynamic> json) =>
+      _$DataHaditsFromJson(json);
 }
 
-class Hadith {
-  Hadith({required this.number, required this.arab, required this.id});
+@freezed
+class Hadith with _$Hadith {
+  const factory Hadith({
+    required int number,
+    required String arab,
+    required String id,
+  }) = _Hadith;
 
-  final int number;
-  final String arab;
-  final String id;
-
-  factory Hadith.fromJson(Map<String, dynamic> json) {
-    return Hadith(
-      number: json["number"] ?? 0,
-      arab: json["arab"] ?? "",
-      id: json["id"] ?? "",
-    );
-  }
+  factory Hadith.fromJson(Map<String, dynamic> json) => _$HadithFromJson(json);
 }

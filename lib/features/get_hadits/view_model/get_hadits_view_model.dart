@@ -9,7 +9,7 @@ import 'package:prayer_reminder/features/get_hadits/view_model/get_hadits_state.
 
 class GetHaditsViewModel extends Cubit<GetHaditsState> {
   final GetHaditsService service;
-  GetHaditsViewModel(this.service) : super(GetHaditsInitialState()) {
+  GetHaditsViewModel(this.service) : super(GetHaditsState.initial()) {
     init();
   }
 
@@ -35,15 +35,15 @@ class GetHaditsViewModel extends Cubit<GetHaditsState> {
   }
 
   Future<void> getHadits() async {
-    emit(GetHaditsLoadingState());
+    emit(GetHaditsState.loading());
     try {
       final result = await service.getHadits();
-      result.fold((error) => emit(GetHaditsErrorState(error)), (data) {
+      result.fold((error) => emit(GetHaditsState.error(error)), (data) {
         final converted = GetHaditsModel.fromJson(jsonDecode(data.data));
-        emit(GetHaditsSuccessState(converted.data.hadiths));
+        emit(GetHaditsState.success(converted.data.hadiths));
       });
     } catch (e) {
-      emit(GetHaditsErrorState('$e'));
+      emit(GetHaditsState.error('$e'));
     }
   }
 

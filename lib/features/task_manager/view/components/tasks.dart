@@ -18,66 +18,90 @@ class Tasks extends StatelessWidget {
     return BlocConsumer<TaskManagerViewModel, TaskManagerState>(
       bloc: getIt<TaskManagerViewModel>(),
       listener: (context, state) {
-        if (state is TaskManagaerTaskAddedState) {
-          EasyLoading.dismiss();
-          taskManagerVM.getTasks();
-          taskManagerVM.getDailyTaskCounts();
-          EasyLoading.showToast(
-            "Task added successfully",
-            toastPosition: EasyLoadingToastPosition.bottom,
-          );
-        } else if (state is TaskManagerSuccessDeleteState) {
-          EasyLoading.dismiss();
-          Navigator.of(context).pop();
-          EasyLoading.showToast(
-            "Task deleted successfully",
-            toastPosition: EasyLoadingToastPosition.bottom,
-          );
-        } else if (state is TaskManagerErrorAddTaskState) {
-          EasyLoading.dismiss();
-          EasyLoading.showToast(
-            state.error,
-            toastPosition: EasyLoadingToastPosition.bottom,
-          );
-        } else if (state is TaskManagerTaskCompleted) {
-          EasyLoading.dismiss();
-          Navigator.of(context).pop();
-          EasyLoading.showToast(
-            "Task completed successfully",
-            toastPosition: EasyLoadingToastPosition.bottom,
-          );
-        } else if (state is TaskManagerTaskCancelled) {
-          EasyLoading.dismiss();
-          Navigator.of(context).pop();
-          EasyLoading.showToast(
-            "Task cancelled successfully",
-            toastPosition: EasyLoadingToastPosition.bottom,
-          );
-        } else if (state is TaskManagerLoadingState) {
-          EasyLoading.show(status: "Loading tasks...");
-        } else {
-          EasyLoading.dismiss();
-        }
+        state.maybeWhen(
+          taskAdded: (data) {
+            EasyLoading.dismiss();
+            taskManagerVM.getTasks();
+            taskManagerVM.getDailyTaskCounts();
+            EasyLoading.showToast(
+              "Task added successfully",
+              toastPosition: EasyLoadingToastPosition.bottom,
+            );
+          },
+          successDelete: () {
+            EasyLoading.dismiss();
+            Navigator.of(context).pop();
+            EasyLoading.showToast(
+              "Task deleted successfully",
+              toastPosition: EasyLoadingToastPosition.bottom,
+            );
+          },
+          errorAddTask: (error) {
+            EasyLoading.dismiss();
+            EasyLoading.showToast(
+              error,
+              toastPosition: EasyLoadingToastPosition.bottom,
+            );
+          },
+          taskCompleted: () {
+            EasyLoading.dismiss();
+            Navigator.of(context).pop();
+            EasyLoading.showToast(
+              "Task completed successfully",
+              toastPosition: EasyLoadingToastPosition.bottom,
+            );
+          },
+          taskCancelled: () {
+            EasyLoading.dismiss();
+            Navigator.of(context).pop();
+            EasyLoading.showToast(
+              "Task cancelled successfully",
+              toastPosition: EasyLoadingToastPosition.bottom,
+            );
+          },
+          loadingAddTask: () {
+            EasyLoading.show(status: 'Adding Task...');
+          },
+          loadingUpdateTask: () {
+            EasyLoading.show(status: 'Updating Task...');
+          },
+          loadingCompleteTask: () {
+            EasyLoading.show(status: 'Completing Task...');
+          },
+          loadingCancelTask: () {
+            EasyLoading.show(status: 'Cancelling Task...');
+          },
+          loadingDeleteTask: () {
+            EasyLoading.show(status: 'Deleting Task...');
+          },
+          error: (error) {
+            EasyLoading.dismiss();
+            EasyLoading.showToast(
+              error,
+              toastPosition: EasyLoadingToastPosition.bottom,
+            );
+          },
+          orElse: () {
+            EasyLoading.dismiss();
+          },
+        );
       },
       builder: (context, state) {
-        if (state is TaskManagerLoadingState) {
-          return const Loading();
-        } else if (state is TaskManagerSuccessState) {
-          return ListTasks();
-        } else if (state is TaskManagerErrorState) {
-          return Text(
-            state.error,
-            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-              fontSize: size.width * 0.035,
-              fontWeight: FontWeight.w500,
-              color: Theme.of(context).colorScheme.error,
-            ),
-          );
-        } else if (state is taskManagerEmptyState) {
-          return const EmptyList();
-        } else {
-          return ListTasks();
-        }
+        return state.maybeWhen(
+          loading: () => const Loading(),
+          success: (data) => ListTasks(),
+          error:
+              (error) => Text(
+                error,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  fontSize: size.width * 0.035,
+                  fontWeight: FontWeight.w500,
+                  color: Theme.of(context).colorScheme.error,
+                ),
+              ),
+          empty: () => const EmptyList(),
+          orElse: () => ListTasks(),
+        );
       },
     );
   }

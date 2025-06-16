@@ -61,10 +61,10 @@ class TaskManagerViewModel extends Cubit<TaskManagerState> {
 
   Future<void> getTasks() async {
     try {
-      emit(TaskManagerLoadingState());
+      emit(TaskManagerState.loading());
       final tasks = await _service.getTasks();
       if (tasks.isEmpty) {
-        emit(taskManagerEmptyState());
+        emit(TaskManagerState.empty());
         return;
       }
 
@@ -80,15 +80,15 @@ class TaskManagerViewModel extends Cubit<TaskManagerState> {
               .toList();
 
       if (todos.isEmpty) {
-        emit(taskManagerEmptyState());
+        emit(TaskManagerState.empty());
         return;
       }
 
       _todos = todos;
 
-      emit(TaskManagerSuccessState(todos));
+      emit(TaskManagerState.success(todos));
     } catch (e) {
-      emit(TaskManagerErrorState('$e'));
+      emit(TaskManagerState.error('$e'));
     }
   }
 
@@ -98,7 +98,7 @@ class TaskManagerViewModel extends Cubit<TaskManagerState> {
     DateTime dueDate,
   ) async {
     try {
-      emit(TaskManagerLoadingAddTaskState());
+      emit(TaskManagerState.loadingAddTask());
       if (taskTitle.trim().isEmpty || taskDesc.trim().isEmpty) {
         throw Exception('Task title and description cannot be empty');
       }
@@ -110,24 +110,26 @@ class TaskManagerViewModel extends Cubit<TaskManagerState> {
       }
 
       final task = TaskModel(
+        id: DateTime.now().millisecondsSinceEpoch.toString(),
+        createdAt: DateTime.now(),
         taskTitle: taskTitle,
         taskDesc: taskDesc,
         dueDate: dueDate,
       );
       await _service.addTask(task);
-      emit(TaskManagaerTaskAddedState(task));
+      emit(TaskManagerState.taskAdded(task));
     } catch (e) {
-      emit(TaskManagerErrorAddTaskState('$e'));
+      emit(TaskManagerState.errorAddTask('$e'));
     }
   }
 
   Future<void> deleteTask(String id) async {
     try {
-      emit(TaskManagerLoadingState());
+      emit(TaskManagerState.loadingDeleteTask());
       await _service.deleteTask(id);
-      emit(TaskManagerSuccessDeleteState());
+      emit(TaskManagerState.successDelete());
     } catch (e) {
-      emit(TaskManagerErrorState('$e'));
+      emit(TaskManagerState.error('$e'));
     } finally {
       getTasks();
     }
@@ -135,19 +137,19 @@ class TaskManagerViewModel extends Cubit<TaskManagerState> {
 
   Future<void> updateTask(String id, TaskModel task) async {
     try {
-      emit(TaskManagerLoadingState());
+      emit(TaskManagerState.loadingUpdateTask());
       if (task.taskTitle.trim().isEmpty || task.taskDesc.trim().isEmpty) {
         emit(
-          TaskManagerErrorAddTaskState(
+          TaskManagerState.errorAddTask(
             'Task title and description cannot be empty',
           ),
         );
         return;
       }
       await _service.updateTask(id, task);
-      emit(TaskManagerTaskUpdated());
+      emit(TaskManagerState.taskUpdated());
     } catch (e) {
-      emit(TaskManagerErrorState('$e'));
+      emit(TaskManagerState.errorAddTask('$e'));
     } finally {
       getTasks();
     }
@@ -155,12 +157,12 @@ class TaskManagerViewModel extends Cubit<TaskManagerState> {
 
   Future<void> completeTask(String id, TaskModel task) async {
     try {
-      emit(TaskManagerLoadingState());
+      emit(TaskManagerState.loadingCompleteTask());
       final updatedTask = task.copyWith(isCompleted: true);
       await _service.updateTask(id, updatedTask);
-      emit(TaskManagerTaskCompleted());
+      emit(TaskManagerState.taskCompleted());
     } catch (e) {
-      emit(TaskManagerErrorState('$e'));
+      emit(TaskManagerState.error('$e'));
     } finally {
       getTasks();
     }
@@ -168,12 +170,12 @@ class TaskManagerViewModel extends Cubit<TaskManagerState> {
 
   Future<void> cancelTask(String id, TaskModel task) async {
     try {
-      emit(TaskManagerLoadingState());
+      emit(TaskManagerState.loadingCancelTask());
       final updatedTask = task.copyWith(isCancelled: true);
       await _service.updateTask(id, updatedTask);
-      emit(TaskManagerTaskCancelled());
+      emit(TaskManagerState.taskCancelled());
     } catch (e) {
-      emit(TaskManagerErrorState('$e'));
+      emit(TaskManagerState.error('$e'));
     } finally {
       getTasks();
     }
@@ -196,7 +198,7 @@ class TaskManagerViewModel extends Cubit<TaskManagerState> {
       }
       _dailyTaskCount = counts.values.map((e) => e.toDouble()).toList();
     } catch (e) {
-      emit(TaskManagerErrorState('Failed to get daily task counts: $e'));
+      emit(TaskManagerState.error('Failed to get daily task counts: $e'));
     }
   }
 }

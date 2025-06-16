@@ -20,35 +20,36 @@ class HadithsPage extends StatelessWidget {
         child: BlocBuilder<GetHaditsViewModel, GetHaditsState>(
           bloc: getIt<GetHaditsViewModel>(),
           builder: (context, state) {
-            if (state is GetHaditsLoadingState) {
-              return Loading();
-            } else if (state is GetHaditsErrorState) {
-              return Text(
-                state.error,
-                style: theme.textTheme.bodySmall?.copyWith(
-                  fontSize: size.width * 0.035,
-                  fontWeight: FontWeight.w500,
-                  color: theme.colorScheme.error,
-                ),
-              );
-            } else if (state is GetHaditsSuccessState) {
-              return ListView.separated(
-                separatorBuilder: (context, index) => Divider(),
-                itemCount: state.hadits.length,
-                itemBuilder: (context, index) {
-                  return Container(
-                    padding: EdgeInsets.all(size.width * 0.005),
-                    decoration: BoxDecoration(color: theme.colorScheme.surface),
-                    child: ListTile(
-                      title: Text(state.hadits[index].arab),
-                      subtitle: Text(state.hadits[index].id),
+            return state.maybeWhen(
+              loading: () => Loading(),
+              success:
+                  (hadits) => ListView.separated(
+                    separatorBuilder: (context, index) => Divider(),
+                    itemCount: hadits.length,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        padding: EdgeInsets.all(size.width * 0.005),
+                        decoration: BoxDecoration(
+                          color: theme.colorScheme.surface,
+                        ),
+                        child: ListTile(
+                          title: Text(hadits[index].arab),
+                          subtitle: Text(hadits[index].id),
+                        ),
+                      );
+                    },
+                  ),
+              error:
+                  (error) => Text(
+                    error,
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      fontSize: size.width * 0.035,
+                      fontWeight: FontWeight.w500,
+                      color: theme.colorScheme.error,
                     ),
-                  );
-                },
-              );
-            } else {
-              return Loading();
-            }
+                  ),
+              orElse: () => Loading(),
+            );
           },
         ),
       ),
