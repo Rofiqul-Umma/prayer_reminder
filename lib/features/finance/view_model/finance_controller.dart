@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class FinanceController with ChangeNotifier {
   final descC = TextEditingController();
   final amountC = TextEditingController();
+  final formKey = GlobalKey<FormState>();
 
   @override
   void dispose() {

@@ -42,6 +42,7 @@ class TaskManagerPage extends StatelessWidget {
                     description: 'Add new task to your list',
                     titleController: controller.taskTitleC,
                     timeController: controller.taskTimeC,
+                    formKey: controller.formKey,
                     descriptionController: controller.taskDescC,
                     onConfirm:
                         (title, description) async =>

@@ -47,6 +47,12 @@ class CustomTextField extends StatelessWidget {
       inputFormatters: inputFormatters,
       maxLines: maxLines,
       keyboardType: keyboardType ?? TextInputType.text,
+      validator: (value) {
+        if (value == null || value.trim().isEmpty) {
+          return 'This field cannot be empty';
+        }
+        return null;
+      },
       decoration: InputDecoration(
         hintText: hintText,
         suffix: suffix,

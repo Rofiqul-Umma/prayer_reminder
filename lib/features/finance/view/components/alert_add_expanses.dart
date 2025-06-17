@@ -12,106 +12,130 @@ class AlertAddExpanses extends StatelessWidget {
     final theme = Theme.of(context);
     final size = MediaQuery.sizeOf(context);
     final controller = getIt<FinanceController>();
-    return AlertDialog.adaptive(
-      title: Text('Add New Expanses'),
-      content: Text(
-        'Enter the details of your new expense.',
-        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-          color: Theme.of(context).colorScheme.onSurface,
-          fontSize: MediaQuery.sizeOf(context).width * 0.035,
-        ),
-      ),
-      actions: [
-        DropdownButtonFormField<String>(
-          hint: Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              'Select Category',
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                color: Theme.of(context).colorScheme.onSurface,
-                fontSize: MediaQuery.sizeOf(context).width * 0.035,
-              ),
+    return StatefulBuilder(
+      builder: (context, setState) {
+        return AlertDialog.adaptive(
+          title: Text('Add New Expanses'),
+          content: Text(
+            'Enter the details of your new expense.',
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+              color: Theme.of(context).colorScheme.onSurface,
+              fontSize: MediaQuery.sizeOf(context).width * 0.035,
             ),
           ),
-          items:
-              expansesData.map((data) {
-                return DropdownMenuItem<String>(
-                  value: data.name,
+          actions: [
+            Form(
+              key: controller.formKey,
+              child: Column(
+                children: [
+                  DropdownButtonFormField<String>(
+                    validator: (value) {
+                      if (value == null || value.trim().isEmpty) {
+                        return 'Please select a category';
+                      }
+                      return null;
+                    },
+                    hint: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Select Category',
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: Theme.of(context).colorScheme.onSurface,
+                          fontSize: MediaQuery.sizeOf(context).width * 0.035,
+                        ),
+                      ),
+                    ),
+                    items:
+                        expansesData.map((data) {
+                          return DropdownMenuItem<String>(
+                            value: data.name,
+                            child: Text(
+                              data.name,
+                              style: Theme.of(
+                                context,
+                              ).textTheme.bodyMedium?.copyWith(
+                                color: Theme.of(context).colorScheme.onSurface,
+                                fontSize:
+                                    MediaQuery.sizeOf(context).width * 0.035,
+                              ),
+                            ),
+                          );
+                        }).toList(),
+                    onChanged: (value) {
+                      getIt.get<FinanceViewModel>().setSelectedCategory(value);
+                    },
+                  ),
+                  SizedBox(height: size.height * 0.02),
+                  CustomTextField(
+                    controller: controller.descC,
+                    hintText: 'Description',
+                    theme: theme,
+                    size: size,
+                    maxLength: 50,
+                    maxLines: 5,
+                  ),
+                  SizedBox(height: size.height * 0.02),
+                  CustomTextField(
+                    controller: controller.amountC,
+                    hintText: 'Amount',
+                    theme: theme,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                      FilteringTextInputFormatter.allow(
+                        RegExp(r'^\d+\.?\d{0,2}'),
+                      ),
+                      FilteringTextInputFormatter.singleLineFormatter,
+                      FilteringTextInputFormatter.deny(RegExp(r'^0\d')),
+                    ],
+                    keyboardType: TextInputType.number,
+                    size: size,
+                  ),
+                ],
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                TextButton(
+                  onPressed: () => Navigator.of(context).pop(),
                   child: Text(
-                    data.name,
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: Theme.of(context).colorScheme.onSurface,
-                      fontSize: MediaQuery.sizeOf(context).width * 0.035,
+                    'Cancel',
+                    style: theme.textTheme.labelMedium?.copyWith(
+                      color: theme.colorScheme.onSurface,
+                      fontSize: size.width * 0.035,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
-                );
-              }).toList(),
-          onChanged: (value) {
-            getIt.get<FinanceViewModel>().setSelectedCategory(value);
-          },
-        ),
-        SizedBox(height: size.height * 0.02),
-        CustomTextField(
-          controller: controller.descC,
-          hintText: 'Description',
-          theme: theme,
-          size: size,
-          maxLength: 50,
-          maxLines: 5,
-        ),
-        SizedBox(height: size.height * 0.02),
-        CustomTextField(
-          controller: controller.amountC,
-          hintText: 'Amount',
-          theme: theme,
-          inputFormatters: [
-            FilteringTextInputFormatter.digitsOnly,
-            FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
-            FilteringTextInputFormatter.singleLineFormatter,
-            FilteringTextInputFormatter.deny(RegExp(r'^0\d')),
-          ],
-          keyboardType: TextInputType.number,
-          size: size,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: Text(
-                'Cancel',
-                style: theme.textTheme.labelMedium?.copyWith(
-                  color: theme.colorScheme.onSurface,
-                  fontSize: size.width * 0.035,
-                  fontWeight: FontWeight.w500,
                 ),
-              ),
-            ),
-            TextButton(
-              onPressed: () async {
-                await getIt.get<FinanceViewModel>().saveFinanceData(
-                  controller.descC.text,
-                  int.parse(
-                    controller.amountC.text.isEmpty
-                        ? '0'
-                        : controller.amountC.text,
+                TextButton(
+                  onPressed: () async {
+                    if (controller.formKey.currentState?.validate() == true) {
+                      await getIt.get<FinanceViewModel>().saveFinanceData(
+                        controller.descC.text,
+                        int.parse(
+                          controller.amountC.text.isEmpty
+                              ? '0'
+                              : controller.amountC.text,
+                        ),
+                      );
+                      controller.clearFields();
+                      Navigator.of(context).pop();
+                    }
+                  },
+                  child: Text(
+                    'Add',
+                    style: theme.textTheme.labelMedium?.copyWith(
+                      color: theme.colorScheme.onSurface,
+                      fontSize: size.width * 0.035,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
-                );
-                controller.clearFields();
-                Navigator.of(context).pop();
-              },
-              child: Text(
-                'Add',
-                style: theme.textTheme.labelMedium?.copyWith(
-                  color: theme.colorScheme.onSurface,
-                  fontSize: size.width * 0.035,
-                  fontWeight: FontWeight.w500,
                 ),
-              ),
+              ],
             ),
           ],
-        ),
-      ],
+        );
+      },
     );
   }
 }

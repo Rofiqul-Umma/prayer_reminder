@@ -4,6 +4,7 @@ class TaskManagerController with ChangeNotifier {
   final taskTitleC = TextEditingController();
   final taskDescC = TextEditingController();
   final taskTimeC = TextEditingController();
+  final formKey = GlobalKey<FormState>();
 
   @override
   void dispose() {

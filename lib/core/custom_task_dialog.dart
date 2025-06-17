@@ -17,6 +17,7 @@ class CustomTaskDialog extends StatelessWidget {
   final String descriptionHint;
   final int titleMaxLines;
   final int descriptionMaxLines;
+  final GlobalKey<FormState>? formKey;
   final int? descriptionMaxLength;
   final VoidCallback? onCancel;
   final Future<void> Function(String title, String description)? onConfirm;
@@ -30,6 +31,7 @@ class CustomTaskDialog extends StatelessWidget {
     required this.timeController,
     this.cancelText = 'Cancel',
     this.isDisabled = false,
+    this.formKey,
     this.initialTitle,
     this.initialDescription,
     this.confirmText = 'Add Task',
@@ -46,78 +48,92 @@ class CustomTaskDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final size = MediaQuery.sizeOf(context);
-    return AlertDialog.adaptive(
-      title: Text(title),
-      content: Text(description),
-      actions: [
-        CustomTextField(
-          initialValue: initialTitle,
-          controller: titleController,
-          hintText: titleHint,
-          theme: theme,
-          maxLines: titleMaxLines,
-          size: size,
-        ),
-        SizedBox(height: size.height * 0.02),
-        CustomTextField(
-          initialValue: initialDescription,
-          controller: descriptionController,
-          hintText: descriptionHint,
-          theme: theme,
-          maxLines: descriptionMaxLines,
-          maxLength: descriptionMaxLength,
-          size: size,
-        ),
-        if (isDisabled == false) ...[
-          SizedBox(height: size.height * 0.02),
-          DateTimePicker(timeController: timeController),
-        ],
-        SizedBox(height: size.height * 0.02),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            TextButton(
-              onPressed: () {
-                titleController.clear();
-                descriptionController.clear();
-                Navigator.of(context).pop();
-                if (onCancel != null) onCancel!();
-              },
-              child: Text(
-                cancelText,
-                style: theme.textTheme.labelMedium?.copyWith(
-                  color: theme.colorScheme.onSurface,
-                  fontSize: size.width * 0.035,
-                  fontWeight: FontWeight.w500,
-                ),
+    return StatefulBuilder(
+      builder: (context, setState) {
+        return AlertDialog.adaptive(
+          title: Text(title),
+          content: Text(description),
+          actions: [
+            Form(
+              key: formKey,
+              child: Column(
+                children: [
+                  CustomTextField(
+                    initialValue: initialTitle,
+                    controller: titleController,
+                    hintText: titleHint,
+                    theme: theme,
+                    maxLines: titleMaxLines,
+                    size: size,
+                  ),
+                  SizedBox(height: size.height * 0.02),
+                  CustomTextField(
+                    initialValue: initialDescription,
+                    controller: descriptionController,
+                    hintText: descriptionHint,
+                    theme: theme,
+                    maxLines: descriptionMaxLines,
+                    maxLength: descriptionMaxLength,
+                    size: size,
+                  ),
+                  if (isDisabled == false) ...[
+                    SizedBox(height: size.height * 0.02),
+                    DateTimePicker(timeController: timeController),
+                  ],
+                ],
               ),
             ),
-            SizedBox(width: size.width * 0.02),
-            TextButton(
-              onPressed: () async {
-                Navigator.of(context).pop();
-                if (onConfirm != null) {
-                  await onConfirm!(
-                    titleController.text,
-                    descriptionController.text,
-                  );
-                }
-                titleController.clear();
-                descriptionController.clear();
-                timeController.clear();
-              },
-              child: Text(
-                confirmText,
-                style: theme.textTheme.labelMedium?.copyWith(
-                  color: theme.colorScheme.onSurface,
-                  fontSize: size.width * 0.035,
-                  fontWeight: FontWeight.w500,
+
+            SizedBox(height: size.height * 0.02),
+            Row(
+              children: [
+                TextButton(
+                  onPressed: () {
+                    titleController.clear();
+                    descriptionController.clear();
+                    Navigator.of(context).pop();
+                    if (onCancel != null) onCancel!();
+                  },
+                  child: Text(
+                    cancelText,
+                    style: theme.textTheme.labelMedium?.copyWith(
+                      color: theme.colorScheme.onSurface,
+                      fontSize: size.width * 0.035,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
                 ),
-              ),
+                SizedBox(width: size.width * 0.02),
+                TextButton(
+                  onPressed: () async {
+                    if (formKey != null &&
+                        formKey!.currentState?.validate() == true) {
+                      Navigator.of(context).pop();
+                      if (onConfirm != null) {
+                        await onConfirm!(
+                          titleController.text,
+                          descriptionController.text,
+                        );
+                      }
+                      titleController.clear();
+                      descriptionController.clear();
+                      timeController.clear();
+                    }
+                  },
+                  child: Text(
+                    confirmText,
+                    style: theme.textTheme.labelMedium?.copyWith(
+                      color: theme.colorScheme.onSurface,
+                      fontSize: size.width * 0.035,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ],
-        ),
-      ],
+        );
+      },
     );
   }
 }
