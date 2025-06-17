@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:prayer_reminder/core/custom_app_bar_back.dart';
 import 'package:prayer_reminder/core/get_it_config.dart';
-import 'package:prayer_reminder/features/finance/model/expanses_model.dart';
 import 'package:prayer_reminder/features/finance/view/components/card_transaction.dart';
 import 'package:prayer_reminder/features/finance/view/components/drop_down_selector.dart';
 import 'package:prayer_reminder/features/finance/view/components/transaction_history_chart.dart';
@@ -52,44 +51,39 @@ class TransactionHistoryPage extends StatelessWidget {
             BlocBuilder<FinanceViewModel, FinanceState>(
               bloc: getIt.get<FinanceViewModel>(),
               builder: (context, state) {
-                if (state is FilterExpansesByMonthYearLoading) {
-                  return Loading();
-                } else if (state is FilterExpansesByMonthYearError) {
-                  return Text(
-                    state.error,
-                    style: theme.textTheme.bodySmall?.copyWith(
-                      fontSize: size.width * 0.035,
-                      fontWeight: FontWeight.w500,
-                      color: theme.colorScheme.error,
-                    ),
-                  );
-                } else if (state is FilterExpansesByMonthYearSuccess) {
-                  return Expanded(
-                    child: ListView.separated(
-                      physics: const BouncingScrollPhysics(),
-                      separatorBuilder: (context, index) {
-                        return SizedBox(height: size.height * 0.01);
-                      },
-                      itemCount:
-                          state.filteredExpanses.length, // Example item count
-                      itemBuilder: (context, index) {
-                        return CardTransaction(
-                          index: index,
-                          data: ExpansesModel(
-                            category: state.filteredExpanses[index].category,
-                            description:
-                                state.filteredExpanses[index].description,
-                            amount: state.filteredExpanses[index].amount,
-                          ),
-                        );
-                      },
-                    ),
-                  );
-                } else {
-                  return Expanded(
-                    child: Center(child: Text('No transactions found')),
-                  );
-                }
+                return state.maybeWhen(
+                  filterExpansesByMonthYearLoading: () => Loading(),
+                  filterExpansesByMonthYearError:
+                      (error) => Text(
+                        error,
+                        style: theme.textTheme.bodySmall?.copyWith(
+                          fontSize: size.width * 0.035,
+                          fontWeight: FontWeight.w500,
+                          color: theme.colorScheme.error,
+                        ),
+                      ),
+                  filterExpansesByMonthYearSuccess:
+                      (filteredExpanses) => Expanded(
+                        child: ListView.separated(
+                          physics: const BouncingScrollPhysics(),
+                          separatorBuilder: (context, index) {
+                            return SizedBox(height: size.height * 0.01);
+                          },
+                          itemCount:
+                              filteredExpanses.length, // Example item count
+                          itemBuilder: (context, index) {
+                            return CardTransaction(
+                              index: index,
+                              data: filteredExpanses[index],
+                            );
+                          },
+                        ),
+                      ),
+                  orElse:
+                      () => Expanded(
+                        child: Center(child: Text('No transactions found')),
+                      ),
+                );
               },
             ),
           ],

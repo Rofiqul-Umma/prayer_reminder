@@ -2,13 +2,14 @@ import 'dart:isolate';
 
 import 'package:bloc/bloc.dart';
 import 'package:date_format/date_format.dart';
+import 'package:flutter/material.dart';
 import 'package:prayer_reminder/features/finance/model/expanses_model.dart';
 import 'package:prayer_reminder/features/finance/service/finance_service.dart';
 import 'package:prayer_reminder/features/finance/view_model/finance_state.dart';
 
 class FinanceViewModel extends Cubit<FinanceState> {
   final FinanceService _financeService;
-  FinanceViewModel(this._financeService) : super(FinanceInitialState()) {
+  FinanceViewModel(this._financeService) : super(FinanceState.initial()) {
     init();
   }
 
@@ -66,12 +67,12 @@ class FinanceViewModel extends Cubit<FinanceState> {
   void setSelectedCategory(String? category) {
     if (category != null) {
       selectedCategory = category;
-      emit(FinanceInitialState());
+      emit(FinanceState.initial());
     }
   }
 
   Future<void> saveFinanceData(String description, int amount) async {
-    emit(AddExpanseLoading());
+    emit(FinanceState.addExpanseLoading());
     try {
       if (selectedCategory == null) {
         throw Exception('Category cannot be empty');
@@ -84,24 +85,26 @@ class FinanceViewModel extends Cubit<FinanceState> {
       }
 
       final data = ExpansesModel(
+        id: UniqueKey().toString(),
+        date: DateTime.now(),
         category: selectedCategory!,
         description: description,
         amount: amount,
       );
 
       await _financeService.saveFinanceData(data);
-      emit(AddExpanseSuccess());
+      emit(FinanceState.addExpanseSuccess());
     } catch (e) {
-      emit(AddExpanseError('$e'));
+      emit(FinanceState.addExpanseError('$e'));
     }
   }
 
   Future<void> getFinanceData() async {
-    emit(GetExpansesLoading());
+    emit(FinanceState.getExpansesLoading());
     try {
       final expanses = await _financeService.getFinanceData();
       if (expanses.isEmpty) {
-        emit(GetExpansesEmpty());
+        emit(FinanceState.getExpansesEmpty());
       } else {
         final currentMonthData = await _getCurrentMonthData(expanses);
         _totalExpanses = currentMonthData.fold(
@@ -110,10 +113,10 @@ class FinanceViewModel extends Cubit<FinanceState> {
         );
         currentMonthData.sort((a, b) => b.date.compareTo(a.date));
         _expanses = currentMonthData;
-        emit(GetExpansesSuccess(currentMonthData));
+        emit(FinanceState.getExpansesSuccess(currentMonthData));
       }
     } catch (e) {
-      emit(GetExpansesError('$e'));
+      emit(FinanceState.getExpansesError('$e'));
     }
   }
 
@@ -130,22 +133,22 @@ class FinanceViewModel extends Cubit<FinanceState> {
   }
 
   Future<void> deleteFinanceData(String id) async {
-    emit(DeleteExpanseLoading());
+    emit(FinanceState.deleteExpanseLoading());
     try {
       await _financeService.deleteFinanceData(id);
-      emit(DeleteExpanseSuccess(id));
+      emit(FinanceState.deleteExpanseSuccess(id));
     } catch (e) {
-      emit(DeleteExpanseError('$e'));
+      emit(FinanceState.deleteExpanseError('$e'));
     }
   }
 
   Future<void> updateFinanceData(String id, ExpansesModel data) async {
-    emit(UpdateExpanseLoading());
+    emit(FinanceState.updateExpanseLoading());
     try {
       await _financeService.updateFinanceData(id, data);
-      emit(UpdateExpanseSuccess(data));
+      emit(FinanceState.updateExpanseSuccess(data));
     } catch (e) {
-      emit(UpdateExpanseError('$e'));
+      emit(FinanceState.updateExpanseError('$e'));
     }
   }
 
@@ -170,22 +173,22 @@ class FinanceViewModel extends Cubit<FinanceState> {
         monthNames.contains(month)
             ? monthNames.indexOf(month) + 1
             : DateTime.now().month;
-    emit(FilterExpansesByMonthYearLoading());
+    emit(FinanceState.filterExpansesByMonthYearLoading());
     try {
       final expanses = await filterFinanceDataByMonthYear(
         _currentMonth.toString(),
         year,
       );
       if (expanses.isEmpty) {
-        emit(FilterExpansesByMonthYearEmpty());
+        emit(FinanceState.filterExpansesByMonthYearEmpty());
       } else {
         _totalExpanses = expanses.fold(0, (sum, item) => sum + item.amount);
         expanses.sort((a, b) => b.date.compareTo(a.date));
         _expanses = expanses;
-        emit(FilterExpansesByMonthYearSuccess(expanses));
+        emit(FinanceState.filterExpansesByMonthYearSuccess(expanses));
       }
     } catch (e) {
-      emit(FilterExpansesByMonthYearError('$e'));
+      emit(FinanceState.filterExpansesByMonthYearError('$e'));
     }
   }
 
@@ -210,11 +213,11 @@ class FinanceViewModel extends Cubit<FinanceState> {
 
   void setSelectedMonth(String month) {
     _selectedMonth = month;
-    emit(FinanceInitialState());
+    emit(FinanceState.initial());
   }
 
   void setSelectedYear(String year) {
     _selectedYear = year;
-    emit(FinanceInitialState());
+    emit(FinanceState.initial());
   }
 }

@@ -18,26 +18,31 @@ class FinancePage extends StatelessWidget {
     return BlocListener<FinanceViewModel, FinanceState>(
       bloc: getIt.get<FinanceViewModel>(),
       listener: (context, state) {
-        if (state is AddExpanseLoading) {
-          EasyLoading.show(status: 'Adding Expanse...');
-        } else if (state is AddExpanseSuccess) {
-          EasyLoading.dismiss();
-          getIt<FinanceViewModel>().getFinanceData();
-          EasyLoading.showToast(
-            'Expanse Added Successfully',
-            duration: const Duration(seconds: 2),
-            toastPosition: EasyLoadingToastPosition.bottom,
-          );
-        } else if (state is AddExpanseError) {
-          EasyLoading.dismiss();
-          EasyLoading.showToast(
-            state.error,
-            duration: const Duration(seconds: 2),
-            toastPosition: EasyLoadingToastPosition.bottom,
-          );
-        } else {
-          EasyLoading.dismiss();
-        }
+        state.maybeWhen(
+          orElse: () {
+            EasyLoading.dismiss();
+          },
+          addExpanseLoading: () {
+            EasyLoading.show(status: 'Adding Expanse...');
+          },
+          addExpanseSuccess: () {
+            EasyLoading.dismiss();
+            getIt<FinanceViewModel>().getFinanceData();
+            EasyLoading.showToast(
+              'Expanse Added Successfully',
+              duration: const Duration(seconds: 2),
+              toastPosition: EasyLoadingToastPosition.bottom,
+            );
+          },
+          addExpanseError: (error) {
+            EasyLoading.dismiss();
+            EasyLoading.showToast(
+              error,
+              duration: const Duration(seconds: 2),
+              toastPosition: EasyLoadingToastPosition.bottom,
+            );
+          },
+        );
       },
       child: Scaffold(
         backgroundColor: theme.scaffoldBackgroundColor,

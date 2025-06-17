@@ -1,125 +1,42 @@
-import 'package:equatable/equatable.dart';
 import 'package:prayer_reminder/features/finance/model/expanses_model.dart';
 
-sealed class FinanceState extends Equatable {
-  const FinanceState();
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  @override
-  List<Object?> get props => [];
-}
+part 'finance_state.freezed.dart';
 
-class FinanceInitialState extends FinanceState {
-  const FinanceInitialState();
-}
+@freezed
+class FinanceState with _$FinanceState {
+  const factory FinanceState.initial() = FinanceInitialState;
 
-class AddExpanseLoading extends FinanceState {
-  const AddExpanseLoading();
-}
+  const factory FinanceState.addExpanseLoading() = AddExpanseLoading;
+  const factory FinanceState.addExpanseSuccess() = AddExpanseSuccess;
+  const factory FinanceState.addExpanseError(String error) = AddExpanseError;
 
-class AddExpanseSuccess extends FinanceState {}
+  const factory FinanceState.getExpansesLoading() = GetExpansesLoading;
+  const factory FinanceState.getExpansesSuccess(List<ExpansesModel> expanses) =
+      GetExpansesSuccess;
+  const factory FinanceState.getExpansesEmpty() = GetExpansesEmpty;
+  const factory FinanceState.getExpansesError(String error) = GetExpansesError;
 
-class AddExpanseError extends FinanceState {
-  final String error;
+  const factory FinanceState.deleteExpanseLoading() = DeleteExpanseLoading;
+  const factory FinanceState.deleteExpanseSuccess(String id) =
+      DeleteExpanseSuccess;
+  const factory FinanceState.deleteExpanseError(String error) =
+      DeleteExpanseError;
 
-  const AddExpanseError(this.error);
+  const factory FinanceState.updateExpanseLoading() = UpdateExpanseLoading;
+  const factory FinanceState.updateExpanseSuccess(ExpansesModel data) =
+      UpdateExpanseSuccess;
+  const factory FinanceState.updateExpanseError(String error) =
+      UpdateExpanseError;
 
-  @override
-  List<Object?> get props => [error];
-}
-
-class GetExpansesLoading extends FinanceState {
-  const GetExpansesLoading();
-}
-
-class GetExpansesSuccess extends FinanceState {
-  final List<ExpansesModel> expanses;
-
-  const GetExpansesSuccess(this.expanses);
-
-  @override
-  List<Object?> get props => [expanses];
-}
-
-class GetExpansesEmpty extends FinanceState {
-  const GetExpansesEmpty();
-}
-
-class GetExpansesError extends FinanceState {
-  final String error;
-
-  const GetExpansesError(this.error);
-
-  @override
-  List<Object?> get props => [error];
-}
-
-class DeleteExpanseLoading extends FinanceState {
-  const DeleteExpanseLoading();
-}
-
-class DeleteExpanseSuccess extends FinanceState {
-  final String id;
-
-  const DeleteExpanseSuccess(this.id);
-
-  @override
-  List<Object?> get props => [id];
-}
-
-class DeleteExpanseError extends FinanceState {
-  final String error;
-
-  const DeleteExpanseError(this.error);
-
-  @override
-  List<Object?> get props => [error];
-}
-
-class UpdateExpanseLoading extends FinanceState {
-  const UpdateExpanseLoading();
-}
-
-class UpdateExpanseSuccess extends FinanceState {
-  final ExpansesModel data;
-
-  const UpdateExpanseSuccess(this.data);
-
-  @override
-  List<Object?> get props => [data];
-}
-
-class UpdateExpanseError extends FinanceState {
-  final String error;
-
-  const UpdateExpanseError(this.error);
-
-  @override
-  List<Object?> get props => [error];
-}
-
-class FilterExpansesByMonthYearLoading extends FinanceState {
-  const FilterExpansesByMonthYearLoading();
-}
-
-class FilterExpansesByMonthYearSuccess extends FinanceState {
-  final List<ExpansesModel> filteredExpanses;
-
-  const FilterExpansesByMonthYearSuccess(this.filteredExpanses);
-
-  @override
-  List<Object?> get props => [filteredExpanses];
-}
-
-class FilterExpansesByMonthYearError extends FinanceState {
-  final String error;
-
-  const FilterExpansesByMonthYearError(this.error);
-
-  @override
-  List<Object?> get props => [error];
-}
-
-// empty
-class FilterExpansesByMonthYearEmpty extends FinanceState {
-  const FilterExpansesByMonthYearEmpty();
+  const factory FinanceState.filterExpansesByMonthYearLoading() =
+      FilterExpansesByMonthYearLoading;
+  const factory FinanceState.filterExpansesByMonthYearSuccess(
+    List<ExpansesModel> filteredExpanses,
+  ) = FilterExpansesByMonthYearSuccess;
+  const factory FinanceState.filterExpansesByMonthYearError(String error) =
+      FilterExpansesByMonthYearError;
+  const factory FinanceState.filterExpansesByMonthYearEmpty() =
+      FilterExpansesByMonthYearEmpty;
 }
