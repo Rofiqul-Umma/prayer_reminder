@@ -3,7 +3,7 @@ import 'package:hugeicons/hugeicons.dart';
 import 'package:prayer_reminder/features/finance/view/finance_page.dart';
 // import 'package:prayer_reminder/features/hadiths/view/hadiths_page.dart';
 import 'package:prayer_reminder/features/prayer_time/view/prayer_time_page.dart';
-import 'package:prayer_reminder/features/settings/view/settings_page.dart';
+import 'package:prayer_reminder/features/utilities/view/utilities_page.dart';
 import 'package:prayer_reminder/features/task_manager/view/task_manager_page.dart';
 
 List<BottomNavigationBarItem> items = [
@@ -24,8 +24,8 @@ List<BottomNavigationBarItem> items = [
     label: 'Finance',
   ),
   BottomNavigationBarItem(
-    icon: Icon(HugeIcons.strokeRoundedSettings02),
-    label: 'Settings',
+    icon: Icon(HugeIcons.strokeRoundedSettings05),
+    label: 'Utilites',
   ),
 ];
 
@@ -34,5 +34,5 @@ List<Widget> screens = [
   // HadithsPage(),
   TaskManagerPage(),
   FinancePage(),
-  SettingsPage(),
+  UtilitiesPage(),
 ];

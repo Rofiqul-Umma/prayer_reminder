@@ -4,6 +4,7 @@ class LightModeTheme {
   static ThemeData get theme {
     return ThemeData(
       brightness: Brightness.light,
+      fontFamily: 'Roboto',
       primaryColor: Colors.grey[900], // dark grey
       useMaterial3: true,
       scaffoldBackgroundColor: Colors.grey[200], // very light grey

@@ -6,8 +6,7 @@ import 'package:prayer_reminder/core/dio_helper.dart';
 import 'package:prayer_reminder/core/easy_loading_config.dart';
 import 'package:prayer_reminder/features/bottom_nav/view/bottom_nav.dart';
 import 'package:prayer_reminder/features/notification/service/notification_service.dart';
-import 'package:prayer_reminder/features/settings/view_model/settings_view_model.dart';
-import 'package:prayer_reminder/features/side_bar_menu/view/side_bar_menu.dart';
+import 'package:prayer_reminder/features/utilities/view_model/utilities_view_model.dart';
 import 'package:prayer_reminder/themes/dark_mode.dart';
 import 'package:prayer_reminder/themes/light_mode.dart';
 
@@ -30,21 +29,20 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.sizeOf(context);
-    return BlocBuilder<SettingsViewModel, bool>(
-      bloc: getIt<SettingsViewModel>(),
+    return BlocBuilder<UtilitiesViewModel, bool>(
+      bloc: getIt<UtilitiesViewModel>(),
       builder: (context, state) {
         return MaterialApp(
           title: 'Rubick',
           builder: EasyLoading.init(),
           themeMode:
-              getIt<SettingsViewModel>().state
+              getIt<UtilitiesViewModel>().state
                   ? ThemeMode.dark
                   : ThemeMode.light,
           darkTheme: DarkModeTheme.theme,
           theme: LightModeTheme.theme,
           debugShowCheckedModeBanner: false,
-          home: size.width > 600 ? SiderBarMenu() : BottomNavBar(),
+          home: BottomNavBar(),
         );
       },
     );

@@ -6,6 +6,11 @@ class EasyLoadingConfig {
     EasyLoading.instance
       ..displayDuration = const Duration(milliseconds: 2000)
       ..indicatorType = EasyLoadingIndicatorType.circle
+      ..textStyle = const TextStyle(
+        fontSize: 12.0,
+        color: Colors.white,
+        fontWeight: FontWeight.w500,
+      )
       ..loadingStyle = EasyLoadingStyle.dark
       ..indicatorSize = 45.0
       ..radius = 10.0

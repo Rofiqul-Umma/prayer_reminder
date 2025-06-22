@@ -1,8 +1,8 @@
 import 'package:prayer_reminder/core/hive_config.dart';
 
-class SettingsService {
+class UtilitiesService {
   final HiveConfig _hiveConfig;
-  SettingsService(this._hiveConfig);
+  UtilitiesService(this._hiveConfig);
 
   final String _boxName = 'rubick_settings';
 

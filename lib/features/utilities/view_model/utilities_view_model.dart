@@ -1,10 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:prayer_reminder/features/settings/service/settings_service.dart';
+import 'package:prayer_reminder/features/utilities/service/utilites_service.dart';
 
-class SettingsViewModel extends Cubit<bool> {
-  final SettingsService _service;
-  SettingsViewModel(this._service) : super(false) {
+class UtilitiesViewModel extends Cubit<bool> {
+  final UtilitiesService _service;
+  UtilitiesViewModel(this._service) : super(false) {
     _init();
   }
 

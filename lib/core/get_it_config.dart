@@ -12,8 +12,11 @@ import 'package:prayer_reminder/features/get_hadits/view_model/get_hadits_view_m
 import 'package:prayer_reminder/features/get_prayer/service/get_prayer_service.dart';
 import 'package:prayer_reminder/features/get_prayer/view_model/get_prayer_view_model.dart';
 import 'package:prayer_reminder/core/hive_config.dart';
-import 'package:prayer_reminder/features/settings/service/settings_service.dart';
-import 'package:prayer_reminder/features/settings/view_model/settings_view_model.dart';
+import 'package:prayer_reminder/features/speech_to_text/service/speech_to_text_service.dart';
+import 'package:prayer_reminder/features/speech_to_text/view_model/speech_to_text_view_model.dart';
+import 'package:prayer_reminder/features/stopwatch/view_model/stopwatch_view_model.dart';
+import 'package:prayer_reminder/features/utilities/service/utilites_service.dart';
+import 'package:prayer_reminder/features/utilities/view_model/utilities_view_model.dart';
 import 'package:prayer_reminder/features/task_manager/service/task_manager_service.dart';
 import 'package:prayer_reminder/features/task_manager/view_model/task_manager_controller.dart';
 import 'package:prayer_reminder/features/task_manager/view_model/task_manager_view_model.dart';
@@ -55,12 +58,12 @@ class GetItConfig {
     getIt.registerSingleton<TaskManagerViewModel>(
       TaskManagerViewModel(getIt<TaskManagerService>()),
     );
-    getIt.registerLazySingleton<SettingsService>(
-      () => SettingsService(getIt.get<HiveConfig>()),
+    getIt.registerLazySingleton<UtilitiesService>(
+      () => UtilitiesService(getIt.get<HiveConfig>()),
     );
     // register settings view model
-    getIt.registerSingleton<SettingsViewModel>(
-      SettingsViewModel(getIt<SettingsService>()),
+    getIt.registerSingleton<UtilitiesViewModel>(
+      UtilitiesViewModel(getIt<UtilitiesService>()),
     );
 
     getIt.registerLazySingleton<FinanceService>(
@@ -82,5 +85,15 @@ class GetItConfig {
     getIt.registerSingleton<TaskManagerController>(TaskManagerController());
 
     getIt.registerSingleton<FinanceController>(FinanceController());
+
+    getIt.registerSingleton<StopwatchViewModel>(StopwatchViewModel());
+
+    getIt.registerLazySingleton<SpeechToTextService>(
+      () => SpeechToTextService(),
+    );
+
+    getIt.registerSingleton<SpeechToTextViewModel>(
+      SpeechToTextViewModel(getIt<SpeechToTextService>()),
+    );
   }
 }
