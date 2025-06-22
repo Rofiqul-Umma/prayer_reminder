@@ -37,7 +37,7 @@ class UtilitiesPage extends StatelessWidget {
             ),
             color: theme.scaffoldBackgroundColor,
             child: Text(
-              'Explore various utilities to enhance your experience',
+              'Quick Access to Utilities',
               style: theme.textTheme.bodySmall?.copyWith(
                 fontSize: size.width * 0.035,
                 color: theme.colorScheme.onSurface,
