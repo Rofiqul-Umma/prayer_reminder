@@ -6,6 +6,8 @@ import 'package:prayer_reminder/features/encryption/service/encryption_service.d
 import 'package:prayer_reminder/features/finance/service/finance_service.dart';
 import 'package:prayer_reminder/features/finance/view_model/finance_controller.dart';
 import 'package:prayer_reminder/features/finance/view_model/finance_view_model.dart';
+import 'package:prayer_reminder/features/flaslight/service/flashlight_service.dart';
+import 'package:prayer_reminder/features/flaslight/view_model/flashlight_view_model.dart';
 import 'package:prayer_reminder/features/get_current_loc/view_model/get_current_loc_view_model.dart';
 import 'package:prayer_reminder/features/get_hadits/service/get_hadits_service.dart';
 import 'package:prayer_reminder/features/get_hadits/view_model/get_hadits_view_model.dart';
@@ -94,6 +96,12 @@ class GetItConfig {
 
     getIt.registerSingleton<SpeechToTextViewModel>(
       SpeechToTextViewModel(getIt<SpeechToTextService>()),
+    );
+
+    getIt.registerLazySingleton<FlashlightService>(() => FlashlightService());
+
+    getIt.registerSingleton<FlashlightViewModel>(
+      FlashlightViewModel(getIt<FlashlightService>()),
     );
   }
 }
