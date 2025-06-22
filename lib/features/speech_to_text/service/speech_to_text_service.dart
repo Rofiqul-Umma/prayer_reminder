@@ -23,8 +23,10 @@ class SpeechToTextService {
     return status.isGranted;
   }
 
-  void startListening({required Function(String command) onResultCommand}) {
-    _speechToText.listen(
+  Future<void> startListening({
+    required Function(String command) onResultCommand,
+  }) async {
+    await _speechToText.listen(
       onResult: (result) {
         if (result.finalResult) {
           onResultCommand(result.recognizedWords.toLowerCase());

@@ -33,7 +33,7 @@ class SpeechToTextViewModel extends Cubit<SpeechToTextState> {
       if (await _service.checkPermissions() == false) {
         throw Exception('Microphone permission not granted');
       }
-      _service.startListening(
+      await _service.startListening(
         onResultCommand: (command) {
           emit(SpeechToTextState.listening(command));
         },

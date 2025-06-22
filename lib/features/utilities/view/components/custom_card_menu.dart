@@ -23,8 +23,7 @@ class CustomCardMenu extends StatelessWidget {
       ),
       color: theme.cardColor,
       elevation: 0,
-      child: InkWell(
-        borderRadius: BorderRadius.circular(size.width * 0.02),
+      child: GestureDetector(
         onTap: onTap,
         child: Center(
           child: Column(
