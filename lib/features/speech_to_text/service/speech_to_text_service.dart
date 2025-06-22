@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 
@@ -6,14 +7,11 @@ class SpeechToTextService {
 
   Future<void> initialize() async {
     await _speechToText.initialize(
-      onStatus: (status) {
-        // Handle status updates, e.g., print or update state
-        print('Speech recognition status: $status');
+      onStatus: (status) async {
+        debugPrint('SpeechToText status: $status');
       },
       onError: (error) {
-        // Handle errors, e.g., print or update state
-        print('Speech recognition error: $error');
-        // Handle errors
+        debugPrint('SpeechToText error: $error');
       },
     );
   }
@@ -28,16 +26,16 @@ class SpeechToTextService {
   }) async {
     await _speechToText.listen(
       onResult: (result) {
-        if (result.finalResult) {
-          onResultCommand(result.recognizedWords.toLowerCase());
-        }
+        onResultCommand(result.recognizedWords.toLowerCase());
       },
-      localeId: 'en_US', // Set the desired locale
-      listenFor: Duration(hours: 40), // Set the duration for listening
+      onSoundLevelChange: (level) {
+        debugPrint('Sound level: $level');
+      },
+      listenFor: Duration(seconds: 60), // Set the duration for listening
     );
   }
 
-  void stopListening() {
-    _speechToText.stop();
+  Future<void> stopListening() async {
+    await _speechToText.stop();
   }
 }

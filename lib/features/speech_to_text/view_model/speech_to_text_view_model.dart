@@ -7,7 +7,7 @@ class SpeechToTextViewModel extends Cubit<SpeechToTextState> {
   final SpeechToTextService _service;
   SpeechToTextViewModel(this._service)
     : super(const SpeechToTextState.initial()) {
-    _service.initialize();
+    init();
   }
 
   @override
@@ -26,8 +26,6 @@ class SpeechToTextViewModel extends Cubit<SpeechToTextState> {
     await _service.initialize();
   }
 
-  bool get isListening => state is SpeechToTextListeningState;
-
   Future<void> startListening() async {
     try {
       if (await _service.checkPermissions() == false) {
@@ -43,7 +41,7 @@ class SpeechToTextViewModel extends Cubit<SpeechToTextState> {
     }
   }
 
-  void stopListening() {
+  Future<void> stopListening() async {
     try {
       _service.stopListening();
       emit(const SpeechToTextState.stopped());

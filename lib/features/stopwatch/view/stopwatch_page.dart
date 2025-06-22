@@ -49,8 +49,7 @@ class StopwatchPage extends StatelessWidget {
                 ),
               ),
               onPressed: () async {
-                await sttVM.init();
-                sttVM.startListening();
+                await sttVM.startListening();
               },
             );
           },
